@@ -1,48 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Coming Soon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me — Abishek</title>
+
+  <!-- 1. Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- 2. Core Styles -->
+  <style>
+    :root {
+      --color-bg: #f9fafb;
+      --color-primary: #3b82f6;
+      --color-accent: #6366f1;
+      --color-text: #1f2937;
+      --color-subtext: #4b5563;
+      --font-sans: 'Inter', sans-serif;
+      --spacing: 20px;
+      --max-width: 900px;
+      --expert-bg: #ffffff;
+      --expert-accent: var(--color-accent);
+      --expert-radius: 8px;
+      /* New note colors */
+      --note-bg: #fbbf24;
+      --note-text: #1f2937;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+    }
+
+    /* Under‑Construction Banner */
+    .site-note {
+      background: var(--note-bg);
+      color: var(--note-text);
+      text-align: center;
+      padding: 0.75em;
+      border-radius: 4px;
+      margin: calc(var(--spacing) * 2) 0;
+      font-weight: 600;
+    }
+
+    .about-section {
+      padding: calc(var(--spacing) * 4) var(--spacing);
+      background: var(--color-bg);
+    }
+    .about-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing);
+      position: relative;
+      display: inline-block;
+      color: var(--color-text);
+    }
+    .section-title::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background-color: var(--color-primary);
+      display: block;
+      margin-top: 8px;
+    }
+    .about-text {
+      font-size: 1.125rem;
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    /* Core Expertise Grid */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--spacing);
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+    .expertise-card {
+      background: var(--expert-bg);
+      padding: calc(var(--spacing) * 1.2);
+      border-radius: var(--expert-radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .expertise-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .expertise-icon {
+      color: var(--expert-accent);
+      margin-bottom: 12px;
+    }
+    .expertise-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+    .expertise-card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 8px;
+      color: var(--color-text);
+    }
+    .expertise-card p {
+      font-size: 0.95rem;
+      color: var(--color-subtext);
+    }
+
+    /* LinkedIn Button */
+    .btn-container {
+      text-align: center;
+      margin-top: calc(var(--spacing) * 2);
+    }
+    .linkedin-button {
+      display: inline-block;
+      padding: 0.75em 2em;
+      background-color: var(--color-accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .linkedin-button:hover {
+      background-color: var(--color-primary);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .section-title {
+        font-size: 2rem;
+      }
+      .about-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Coming Soon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="poems.html">Poems</a>
-            </li>
-        </ul>
+  <!-- Under‑Construction Note -->
+  <div class="site-note">🚧 This website is under construction 🚧</div>
+
+  <section id="about" class="about-section">
+    <div class="about-container">
+
+      <!-- About Me -->
+      <h2 class="section-title">About Me</h2>
+      <p class="about-text">
+        Hi, I’m <strong>Abishek</strong>, a Software Engineer in India with 7+ years of experience
+        designing and delivering scalable software solutions. I architect robust AWS cloud
+        infrastructures, build high-performance Python applications, and lead cross-functional teams
+        to drive innovation.
+      </p>
+
+      <!-- Core Expertise -->
+      <h2 class="section-title" style="font-size:1.75rem; margin-top:40px;">Core Expertise</h2>
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <div class="expertise-icon">
+            <!-- AWS SVG placeholder -->
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>AWS Cloud Architecture</h3>
+          <p>EC2, S3, Lambda, ECS, CloudFormation, API Gateway…</p>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon">
+            <!-- Python SVG placeholder -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c5.523 0 10 4.477 10 10H2c0-5.523 4.477-10 10-10z"/></svg>
+          </div>
+          <h3>Python Development</h3>
+          <p>Flask, REST APIs, data‑processing pipelines</p>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon">
+            <!-- Database SVG placeholder -->
+            <svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="2"/><path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="currentColor" stroke-width="2"/><path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Database &amp; Data Management</h3>
+          <p>MySQL, Redshift, Cassandra, DynamoDB, Athena</p>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon">
+            <!-- Leadership SVG placeholder -->
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Leadership &amp; Collaboration</h3>
+          <p>Mentoring, code reviews, cross-team coordination</p>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="btn-container">
+        <a
+          href="https://linkedin.com/in/abishekmosesraj"
+          target="_blank"
+          rel="noopener"
+          class="linkedin-button"
+        >
+          Connect on LinkedIn
+        </a>
+      </div>
+
     </div>
-</nav>
-
-<div class="jumbotron text-center">
-    <h1>Website Is Coming Soon</h1>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <h3>Developers at work 💻 ..</h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>Still working 🚀... </h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>They will check and let you know 🏥..</h3>
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849l1GGGYVn8Z+8KJQg5I5/gaPfoj7aR8vbhE8Iv7DjAqz3x2Z5QlJp5Fh" crossorigin="anonymous"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0R6P6EBKG10eUm7Ff8WcLu64lXTw21g0CqG5U0C/rEwPPI" crossorigin="anonymous"></script> -->
+  </section>
 
 </body>
 </html>
