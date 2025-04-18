@@ -81,6 +81,29 @@
       margin-bottom: calc(var(--spacing) * 2);
     }
 
+    /* Navbar */
+    nav {
+      background: #fff;
+      padding: var(--spacing);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    nav .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: var(--spacing);
+    }
+    nav a.active {
+      color: var(--color-primary);
+    }
+
     /* Core Expertise Grid */
     .expertise-grid {
       display: grid;
@@ -152,6 +175,13 @@
 <body>
 
   <!-- Under‑Construction Note -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="active">About</a>
+      <a href="projects.html">Professional Projects</a>
+    </div>
+  </nav>
+
   <div class="site-note">🚧 This website is under construction 🚧</div>
 
   <section id="about" class="about-section">
