@@ -3,247 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Me — Abishek</title>
-
-  <!-- 1. Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- 2. Core Styles -->
-  <style>
-    :root {
-      --color-bg: #f9fafb;
-      --color-primary: #3b82f6;
-      --color-accent: #6366f1;
-      --color-text: #1f2937;
-      --color-subtext: #4b5563;
-      --font-sans: 'Inter', sans-serif;
-      --spacing: 20px;
-      --max-width: 900px;
-      --expert-bg: #ffffff;
-      --expert-accent: var(--color-accent);
-      --expert-radius: 8px;
-      /* New note colors */
-      --note-bg: #fbbf24;
-      --note-text: #1f2937;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: var(--font-sans);
-      color: var(--color-text);
-      background: var(--color-bg);
-      line-height: 1.6;
-    }
-
-    /* Under‑Construction Banner */
-    .site-note {
-      background: var(--note-bg);
-      color: var(--note-text);
-      text-align: center;
-      padding: 0.75em;
-      border-radius: 4px;
-      margin: calc(var(--spacing) * 2) 0;
-      font-weight: 600;
-    }
-
-    .about-section {
-      padding: calc(var(--spacing) * 4) var(--spacing);
-      background: var(--color-bg);
-    }
-    .about-container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing);
-      position: relative;
-      display: inline-block;
-      color: var(--color-text);
-    }
-    .section-title::after {
-      content: '';
-      width: 60px;
-      height: 4px;
-      background-color: var(--color-primary);
-      display: block;
-      margin-top: 8px;
-    }
-    .about-text {
-      font-size: 1.125rem;
-      margin-bottom: calc(var(--spacing) * 2);
-    }
-
-    /* Navbar */
-    nav {
-      background: #fff;
-      padding: var(--spacing);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    nav .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav a {
-      color: var(--color-text);
-      text-decoration: none;
-      font-weight: 600;
-      margin-left: var(--spacing);
-    }
-    nav a.active {
-      color: var(--color-primary);
-    }
-
-    /* Core Expertise Grid */
-    .expertise-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--spacing);
-      margin-bottom: calc(var(--spacing) * 2);
-    }
-    .expertise-card {
-      background: var(--expert-bg);
-      padding: calc(var(--spacing) * 1.2);
-      border-radius: var(--expert-radius);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .expertise-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    }
-    .expertise-icon {
-      color: var(--expert-accent);
-      margin-bottom: 12px;
-    }
-    .expertise-icon svg {
-      width: 48px;
-      height: 48px;
-    }
-    .expertise-card h3 {
-      font-size: 1.125rem;
-      margin-bottom: 8px;
-      color: var(--color-text);
-    }
-    .expertise-card p {
-      font-size: 0.95rem;
-      color: var(--color-subtext);
-    }
-
-    /* LinkedIn Button */
-    .btn-container {
-      text-align: center;
-      margin-top: calc(var(--spacing) * 2);
-    }
-    .linkedin-button {
-      display: inline-block;
-      padding: 0.75em 2em;
-      background-color: var(--color-accent);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      text-transform: uppercase;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-    .linkedin-button:hover {
-      background-color: var(--color-primary);
-    }
-
-    /* Mobile */
-    @media (max-width: 600px) {
-      .section-title {
-        font-size: 2rem;
-      }
-      .about-text {
-        font-size: 1rem;
-      }
-    }
-  </style>
+  <title>About Me — Abishek Mosesraj</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
 
   <!-- Under‑Construction Note -->
+  <div class="site-note">🚧 This website is under construction 🚧</div>
+
+  <!-- Navigation -->
   <nav>
     <div class="container">
       <a href="index.html" class="active">About</a>
-      <a href="projects.html">Professional Projects</a>
+      <a href="projects.html">Projects</a>
+      <a href="poems.html">Poems</a>
     </div>
   </nav>
 
-  <div class="site-note">🚧 This website is under construction 🚧</div>
-
+  <!-- About Section -->
   <section id="about" class="about-section">
     <div class="about-container">
-
-      <!-- About Me -->
       <h2 class="section-title">About Me</h2>
       <p class="about-text">
-        Hi, I’m <strong>Abishek</strong>, a Software Engineer in India with 7+ years of experience
+        Hi, I’m <strong>Abishek Mosesraj</strong>, a Tech Lead in Chennai with 7+ years of experience
         designing and delivering scalable software solutions. I architect robust AWS cloud
-        infrastructures, build high-performance Python applications, and lead cross-functional teams
+        infrastructures, build high‑performance Python applications, and lead cross‑functional teams
         to drive innovation.
       </p>
 
-      <!-- Core Expertise -->
       <h2 class="section-title" style="font-size:1.75rem; margin-top:40px;">Core Expertise</h2>
       <div class="expertise-grid">
         <div class="expertise-card">
           <div class="expertise-icon">
-            <!-- AWS SVG placeholder -->
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <!-- AWS SVG -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+              <path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
           </div>
           <h3>AWS Cloud Architecture</h3>
           <p>EC2, S3, Lambda, ECS, CloudFormation, API Gateway…</p>
         </div>
-
         <div class="expertise-card">
           <div class="expertise-icon">
-            <!-- Python SVG placeholder -->
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c5.523 0 10 4.477 10 10H2c0-5.523 4.477-10 10-10z"/></svg>
+            <!-- Python SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2c5.523 0 10 4.477 10 10H2c0-5.523 4.477-10 10-10z"/>
+            </svg>
           </div>
           <h3>Python Development</h3>
           <p>Flask, REST APIs, data‑processing pipelines</p>
         </div>
-
         <div class="expertise-card">
           <div class="expertise-icon">
-            <!-- Database SVG placeholder -->
-            <svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="2"/><path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="currentColor" stroke-width="2"/><path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="currentColor" stroke-width="2"/></svg>
+            <!-- Database SVG -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="currentColor" stroke-width="2"/>
+            </svg>
           </div>
           <h3>Database &amp; Data Management</h3>
           <p>MySQL, Redshift, Cassandra, DynamoDB, Athena</p>
         </div>
-
         <div class="expertise-card">
           <div class="expertise-icon">
-            <!-- Leadership SVG placeholder -->
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6" stroke="currentColor" stroke-width="2"/></svg>
+            <!-- Leadership SVG -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M5 20c0-4 3-6 7-6s7 2 7 6" stroke="currentColor" stroke-width="2"/>
+            </svg>
           </div>
           <h3>Leadership &amp; Collaboration</h3>
-          <p>Mentoring, code reviews, cross-team coordination</p>
+          <p>Mentoring, code reviews, cross‑team coordination</p>
         </div>
       </div>
 
-      <!-- CTA Button -->
       <div class="btn-container">
-        <a
-          href="https://linkedin.com/in/abishekmosesraj"
-          target="_blank"
-          rel="noopener"
-          class="linkedin-button"
-        >
+        <a href="https://linkedin.com/in/abishekmosesraj" target="_blank" rel="noopener" class="linkedin-button">
           Connect on LinkedIn
         </a>
       </div>

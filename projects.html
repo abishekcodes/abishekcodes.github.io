@@ -1,208 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Projects — Abishek Mosesraj</title>
-
-  <!-- Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Core Styles & Variables -->
-  <style>
-
-    /* Under‑Construction Banner */
-    .site-note {
-      background: var(--note-bg);
-      color: var(--note-text);
-      text-align: center;
-      padding: 0.75em;
-      border-radius: 4px;
-      margin: calc(var(--spacing) * 2) 0;
-      font-weight: 600;
-    }
-
-    :root {
-      --color-bg: #f9fafb;
-      --color-primary: #3b82f6;
-      --color-accent: #6366f1;
-      --color-text: #1f2937;
-      --color-subtext: #4b5563;
-      --font-sans: 'Inter', sans-serif;
-      --spacing: 20px;
-      --max-width: 900px;
-      --card-bg: #ffffff;
-      --card-radius: 8px;
-      --note-bg: #fbbf24;
-      --note-text: #1f2937;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-sans);
-      color: var(--color-text);
-      background: var(--color-bg);
-      line-height: 1.6;
-    }
-
-    /* Navbar */
-    nav {
-      background: #fff;
-      padding: var(--spacing);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    nav .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav a {
-      color: var(--color-text);
-      text-decoration: none;
-      font-weight: 600;
-      margin-left: var(--spacing);
-    }
-    nav a.active {
-      color: var(--color-primary);
-    }
-
-    /* Projects Section */
-    .projects-section {
-      padding: calc(var(--spacing)*4) var(--spacing);
-    }
-    .projects-container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
-
-    /* Section Title */
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing);
-      position: relative;
-      display: inline-block;
-      opacity: 0;
-      animation: fadeInUp 0.8s ease-out forwards;
-      animation-delay: 0.2s;
-    }
-    .section-title::after {
-      content: '';
-      width: 60px;
-      height: 4px;
-      background-color: var(--color-primary);
-      display: block;
-      margin-top: 8px;
-    }
-
-    /* Card Grid */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: var(--spacing);
-      margin-top: var(--spacing);
-    }
-    .project-card {
-      background: var(--card-bg);
-      padding: calc(var(--spacing)*1.2);
-      border-radius: var(--card-radius);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      text-align: left;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-
-    /* Staggered delays */
-    .projects-grid .project-card:nth-child(1) { animation-delay: 0.4s; }
-    .projects-grid .project-card:nth-child(2) { animation-delay: 0.6s; }
-    .projects-grid .project-card:nth-child(3) { animation-delay: 0.8s; }
-    .projects-grid .project-card:nth-child(4) { animation-delay: 1s; }
-
-    .project-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 8px;
-      color: var(--color-text);
-    }
-    .project-card p {
-      font-size: 0.95rem;
-      margin-bottom: var(--spacing);
-      color: var(--color-subtext);
-    }
-
-    /* Tech Badges */
-    .tech-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .tech-badge {
-      background: var(--color-accent);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-
-    /* Fade‑in animation */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      .section-title { font-size: 2rem; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- Navigation -->
   <nav>
     <div class="container">
       <a href="index.html">About</a>
-      <a href="projects.html" class="active">Professional Projects</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="poems.html">Poems</a>
     </div>
   </nav>
 
-  <div class="site-note">🚧 This website is under construction 🚧</div>
+  <div class="site-note">🚧 This section is under development 🚧</div>
 
 
   <!-- Projects Section -->
   <section class="projects-section">
     <div class="projects-container">
-      <h1 class="section-title">Professional Projects</h1>
+      <h1 class="section-title">Projects</h1>
       <div class="projects-grid">
 
-        <!-- Project 1 -->
         <div class="project-card">
           <h3>Real‑time Collaborative Editor</h3>
           <p>
-            Worked on a low‑latency platform for live sports data editing with sub‑second synchronization
+            Built a low‑latency platform for live sports data editing with sub‑second synchronization
             across teams using WebSockets and Python.
           </p>
           <div class="tech-badges">
             <span class="tech-badge">Python</span>
             <span class="tech-badge">WebSockets</span>
             <span class="tech-badge">Kafka</span>
-            <span class="tech-badge">DynamoDB</span>
-            <span class="tech-badge">Cassandra</span>
-            <span class="tech-badge">Redshift</span>
             <span class="tech-badge">RabbitMQ</span>
-            <span class="tech-badge">AWS EC2</span>
           </div>
         </div>
 
-        <!-- Project 2 -->
         <div class="project-card">
           <h3>Usage‑Based Billing System</h3>
           <p>
@@ -210,9 +48,6 @@
             integrated Stripe &amp; Razorpay for seamless payments.
           </p>
           <div class="tech-badges">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Flask</span>
-            <span class="tech-badge">DocumentDB</span>
             <span class="tech-badge">AWS Lambda</span>
             <span class="tech-badge">API Gateway</span>
             <span class="tech-badge">Stripe</span>
@@ -220,7 +55,6 @@
           </div>
         </div>
 
-        <!-- Project 3 -->
         <div class="project-card">
           <h3>Event‑Driven Data Pipeline</h3>
           <p>
@@ -229,13 +63,12 @@
           </p>
           <div class="tech-badges">
             <span class="tech-badge">AWS S3</span>
-            <span class="tech-badge">AWS Lambda</span>
-            <span class="tech-badge">AWS Athena</span>
+            <span class="tech-badge">Lambda</span>
+            <span class="tech-badge">Athena</span>
             <span class="tech-badge">Pyarrow</span>
           </div>
         </div>
 
-        <!-- Project 4 -->
         <div class="project-card">
           <h3>Microservices Orchestration Engine</h3>
           <p>
@@ -246,6 +79,7 @@
             <span class="tech-badge">AWS CDK</span>
             <span class="tech-badge">ECS</span>
             <span class="tech-badge">Docker</span>
+            <span class="tech-badge">Elasticsearch</span>
           </div>
         </div>
 
