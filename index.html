@@ -1,48 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Coming Soon</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Coming Soon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="poems.html">Poems</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-<div class="jumbotron text-center">
-    <h1>Website Is Coming Soon</h1>
-</div>
+    <!-- Viewport and Theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#00d4ff" />
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <h3>Developers at work 💻 ..</h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>Still working 🚀... </h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>They will check and let you know 🏥..</h3>
-        </div>
-    </div>
-</div>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Abishek Mosesraj - Sr. Software Engineer with 7+ years of experience in scalable systems, Python development, and team leadership" />
+    <meta name="keywords" content="Tech Lead, AWS Cloud Architect, Python Developer, Software Engineer, Chennai, India, Scalable Systems, DevOps" />
+    <meta name="author" content="Abishek Mosesraj" />
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849l1GGGYVn8Z+8KJQg5I5/gaPfoj7aR8vbhE8Iv7DjAqz3x2Z5QlJp5Fh" crossorigin="anonymous"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0R6P6EBKG10eUm7Ff8WcLu64lXTw21g0CqG5U0C/rEwPPI" crossorigin="anonymous"></script> -->
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Abishek Mosesraj - Tech Lead & AWS Cloud Architect" />
+    <meta property="og:description" content="7+ years of experience designing scalable systems, optimizing data workflows, and leading cross-functional teams" />
+    <meta property="og:url" content="https://abishekmosesraj.com" />
+    <meta property="og:site_name" content="Abishek Mosesraj Portfolio" />
+    <meta property="og:image" content="https://abishekmosesraj.com/apple-touch-icon.png" />
 
-</body>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Abishek Mosesraj - Tech Lead & AWS Cloud Architect" />
+    <meta name="twitter:description" content="7+ years of experience in scalable systems and cloud architecture" />
+    <meta name="twitter:image" content="https://abishekmosesraj.com/apple-touch-icon.png" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Title -->
+    <title>Abishek Mosesraj - Tech Lead & AWS Cloud Architect</title>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abishek Mosesraj",
+      "jobTitle": "Tech Lead",
+      "description": "AWS Cloud Architect with 7+ years of experience",
+      "url": "https://abishekmosesraj.com",
+      "sameAs": [
+        "https://linkedin.com/in/abishekmosesraj"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ROANUZ"
+      },
+      "knowsAbout": [
+        "AWS Cloud Architecture",
+        "Python Development",
+        "Software Engineering",
+        "Team Leadership",
+        "DevOps",
+        "Scalable Systems"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Chennai",
+        "addressCountry": "India"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

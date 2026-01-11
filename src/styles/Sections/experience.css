@@ -1,0 +1,283 @@
+/* ============================================================================ */
+/* EXPERIENCE SECTION - BLUE/BLACK THEME */
+/* ============================================================================ */
+
+.experience {
+    min-height: 100vh;
+    padding: 8rem 2rem;
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle gradient overlay */
+.experience::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.experience-container {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Section Header */
+.experience-header {
+    text-align: center;
+    margin-bottom: 6rem;
+}
+
+.experience-eyebrow {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.experience-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+.experience-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.4;
+}
+
+/* Timeline Container */
+.timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Timeline vertical line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(59, 130, 246, 0.3) 10%,
+        rgba(59, 130, 246, 0.3) 90%,
+        transparent
+    );
+}
+
+/* Timeline Item - Hidden by default */
+.timeline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-left: 60px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Revealed state */
+.timeline-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Timeline Dot */
+.timeline-dot {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--bg-dark);
+    border: 2px solid rgba(59, 130, 246, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.timeline-item.revealed .timeline-dot {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.dot-year {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.02em;
+}
+
+/* Experience Card */
+.timeline-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.timeline-item.revealed .timeline-card {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.timeline-card:hover {
+    background: rgba(59, 130, 246, 0.05);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateY(-4px);
+}
+
+/* Card Content */
+.company-name {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+}
+
+.job-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.job-duration {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.job-location {
+    display: none;
+}
+
+/* Achievements */
+.timeline-achievements {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.timeline-achievements li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.timeline-achievements li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 50%;
+}
+
+.timeline-achievements li:hover {
+    color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .experience {
+        padding: 5rem 1.5rem;
+    }
+
+    .experience-header {
+        margin-bottom: 4rem;
+    }
+
+    .experience-eyebrow {
+        font-size: 0.9rem;
+    }
+
+    .experience-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .timeline::before {
+        left: 15px;
+    }
+
+    .timeline-item {
+        padding-left: 45px;
+        gap: 1.5rem;
+    }
+
+    .timeline-dot {
+        width: 32px;
+        height: 32px;
+    }
+
+    .dot-year {
+        font-size: 0.65rem;
+    }
+
+    .timeline-card {
+        padding: 1.75rem;
+        border-radius: 20px;
+    }
+
+    .job-title {
+        font-size: 1.35rem;
+    }
+
+    .timeline-achievements li {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .experience {
+        padding: 4rem 1rem;
+    }
+
+    .timeline-card {
+        padding: 1.5rem;
+    }
+}
