@@ -7,6 +7,57 @@ const Poetry = () => {
   const [error, setError] = useState(null);
   const [selectedPoemIndex, setSelectedPoemIndex] = useState(null);
 
+  // Generate URL-friendly slug from Medium URL
+  // Takes the path after medium.com and replaces / with __
+  const generateSlug = (link) => {
+    try {
+      const url = new URL(link);
+      // Get pathname and remove leading slash, then replace remaining slashes with __
+      const path = url.pathname.substring(1).replace(/\//g, '__');
+      return path;
+    } catch {
+      // Fallback: extract path from link string
+      const match = link.match(/medium\.com\/(.+)/);
+      if (match) {
+        return match[1].replace(/\//g, '__');
+      }
+      return '';
+    }
+  };
+
+  // Update URL with poem parameter
+  const updatePoemUrl = (index, poemsList = poems) => {
+    const url = new URL(window.location);
+    if (index !== null && poemsList[index]) {
+      const slug = generateSlug(poemsList[index].link);
+      url.searchParams.set('poem', slug);
+    } else {
+      url.searchParams.delete('poem');
+    }
+    window.history.replaceState({}, '', url);
+  };
+
+  // Find poem index by slug
+  const findPoemBySlug = (slug, poemsList) => {
+    if (!slug || !poemsList.length) return null;
+    const index = poemsList.findIndex(poem => generateSlug(poem.link) === slug);
+    return index >= 0 ? index : null;
+  };
+
+  // Check URL for poem param on load
+  useEffect(() => {
+    if (poems.length > 0) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const poemSlug = urlParams.get('poem');
+      if (poemSlug) {
+        const index = findPoemBySlug(poemSlug, poems);
+        if (index !== null) {
+          setSelectedPoemIndex(index);
+        }
+      }
+    }
+  }, [poems]);
+
   useEffect(() => {
     const fetchPoetry = async () => {
       try {
@@ -27,7 +78,8 @@ const Poetry = () => {
               fullContent: extractFullContent(content),
               pubDate: formatDate(item.pubDate),
               link: cleanLink,
-              thumbnail: item.thumbnail || extractImage(content)
+              thumbnail: item.thumbnail || extractImage(content),
+              imageCaption: extractFigcaption(content)
             };
           });
           setPoems(formattedPoems);
@@ -56,6 +108,17 @@ const Poetry = () => {
       return cdnMatch[1];
     }
 
+    return null;
+  };
+
+  const extractFigcaption = (html) => {
+    const figcaptionMatch = html.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
+    if (figcaptionMatch && figcaptionMatch[1]) {
+      // Clean up the caption - remove HTML tags and decode entities
+      const temp = document.createElement('div');
+      temp.innerHTML = figcaptionMatch[1];
+      return temp.textContent?.trim() || null;
+    }
     return null;
   };
 
@@ -184,7 +247,10 @@ const Poetry = () => {
                 key={poem.id}
                 poem={poem}
                 index={index}
-                onReadMore={() => setSelectedPoemIndex(index)}
+                onReadMore={() => {
+                  setSelectedPoemIndex(index);
+                  updatePoemUrl(index);
+                }}
               />
             ))}
           </div>
@@ -205,9 +271,20 @@ const Poetry = () => {
       {selectedPoemIndex !== null && (
         <PoemModal
           poem={poems[selectedPoemIndex]}
-          onClose={() => setSelectedPoemIndex(null)}
-          onPrev={selectedPoemIndex > 0 ? () => setSelectedPoemIndex(selectedPoemIndex - 1) : null}
-          onNext={selectedPoemIndex < poems.length - 1 ? () => setSelectedPoemIndex(selectedPoemIndex + 1) : null}
+          onClose={() => {
+            setSelectedPoemIndex(null);
+            updatePoemUrl(null);
+          }}
+          onPrev={selectedPoemIndex > 0 ? () => {
+            const newIndex = selectedPoemIndex - 1;
+            setSelectedPoemIndex(newIndex);
+            updatePoemUrl(newIndex);
+          } : null}
+          onNext={selectedPoemIndex < poems.length - 1 ? () => {
+            const newIndex = selectedPoemIndex + 1;
+            setSelectedPoemIndex(newIndex);
+            updatePoemUrl(newIndex);
+          } : null}
           currentIndex={selectedPoemIndex}
           totalCount={poems.length}
         />
@@ -262,6 +339,11 @@ const PoemCard = ({ poem, index, onReadMore }) => {
 
 const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) => {
   const modalContentRef = useRef(null);
+  const [displayPoem, setDisplayPoem] = useState(poem);
+
+  // Touch swipe support
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -279,12 +361,45 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
     };
   }, [onClose, onPrev, onNext]);
 
-  // Scroll to top when poem changes
-  useEffect(() => {
-    if (modalContentRef.current) {
-      modalContentRef.current.scrollTop = 0;
+  // Touch handlers for swipe
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX.current;
+    const deltaY = touchEndY - touchStartY.current;
+
+    // Only trigger if horizontal swipe is greater than vertical (not scrolling)
+    // and swipe distance is significant (> 50px)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0 && onPrev) {
+        // Swiped right -> go to previous
+        onPrev();
+      } else if (deltaX < 0 && onNext) {
+        // Swiped left -> go to next
+        onNext();
+      }
     }
-  }, [poem]);
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
+  // Update displayed poem and scroll to top
+  useEffect(() => {
+    if (poem !== displayPoem) {
+      setDisplayPoem(poem);
+      if (modalContentRef.current) {
+        modalContentRef.current.scrollTop = 0;
+      }
+    }
+  }, [poem, displayPoem]);
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) onClose();
@@ -293,29 +408,43 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
   return (
     <div className="poem-modal-overlay" onClick={handleBackdropClick}>
       {onPrev && (
-        <button className="poem-modal-nav poem-modal-prev" onClick={onPrev} aria-label="Previous poem">
-          <span>&#8249;</span>
+        <button
+          className="poem-modal-nav poem-modal-prev"
+          onClick={onPrev}
+          aria-label="Previous poem"
+        >
+          <span className="nav-icon">&#8249;</span>
+          <span className="nav-pulse"></span>
         </button>
       )}
 
-      <div className="poem-modal">
+      <div
+        className="poem-modal"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <button className="poem-modal-close" onClick={onClose} aria-label="Close">
           <span>&times;</span>
         </button>
         <div className="poem-modal-content" ref={modalContentRef}>
-          {poem.thumbnail && (
-            <div className="poem-modal-image">
-              <img src={poem.thumbnail} alt={poem.title} />
-            </div>
+          {displayPoem.thumbnail && (
+            <figure className="poem-modal-figure">
+              <div className="poem-modal-image">
+                <img src={displayPoem.thumbnail} alt={displayPoem.title} />
+              </div>
+              {displayPoem.imageCaption && (
+                <figcaption className="poem-modal-caption">{displayPoem.imageCaption}</figcaption>
+              )}
+            </figure>
           )}
-          <time className="poem-modal-date">{poem.pubDate}</time>
-          <h2 className="poem-modal-title">{poem.title}</h2>
+          <time className="poem-modal-date">{displayPoem.pubDate}</time>
+          <h2 className="poem-modal-title">{displayPoem.title}</h2>
           <div className="poem-modal-text">
             {(() => {
-              const isPainfulFarewell = poem.title.toLowerCase().includes('painful farewell');
+              const isPainfulFarewell = displayPoem.title.toLowerCase().includes('painful farewell');
 
               if (isPainfulFarewell) {
-                const allLines = poem.fullContent.split('\n').filter(line => line.trim());
+                const allLines = displayPoem.fullContent.split('\n').filter(line => line.trim());
                 const stanzas = [];
                 for (let i = 0; i < allLines.length; i += 4) {
                   stanzas.push(allLines.slice(i, i + 4));
@@ -329,7 +458,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
                 ));
               }
 
-              return poem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
+              return displayPoem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
                 <div key={stanzaIdx} className="poem-stanza">
                   {stanza.split('\n').map((line, lineIdx) => (
                     <span key={lineIdx} className="poem-line">{line}</span>
@@ -341,7 +470,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
           <div className="poem-modal-footer">
             <span className="poem-modal-counter">{currentIndex + 1} / {totalCount}</span>
             <a
-              href={poem.link}
+              href={displayPoem.link}
               target="_blank"
               rel="noopener noreferrer"
               className="poem-modal-link"
@@ -353,8 +482,13 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
       </div>
 
       {onNext && (
-        <button className="poem-modal-nav poem-modal-next" onClick={onNext} aria-label="Next poem">
-          <span>&#8250;</span>
+        <button
+          className="poem-modal-nav poem-modal-next"
+          onClick={onNext}
+          aria-label="Next poem"
+        >
+          <span className="nav-icon">&#8250;</span>
+          <span className="nav-pulse"></span>
         </button>
       )}
     </div>
