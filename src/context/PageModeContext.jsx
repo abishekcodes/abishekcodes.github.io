@@ -1,9 +1,18 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const PageModeContext = createContext();
 
+const STORAGE_KEY = 'pageMode';
+
 export const PageModeProvider = ({ children }) => {
-  const [mode, setMode] = useState('professional');
+  const [mode, setMode] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved === 'personal' ? 'personal' : 'professional';
+  });
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, mode);
+  }, [mode]);
 
   const toggleMode = () => {
     setMode(prev => prev === 'professional' ? 'personal' : 'professional');
