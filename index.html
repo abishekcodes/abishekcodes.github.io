@@ -1,93 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Me — Abishek Mosesraj</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="index.css"/>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
 
-  <!-- Under‑Construction Note -->
-  <div class="site-note">🚧 This website is under construction 🚧</div>
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Navigation -->
-  <nav>
-    <div class="container">
-      <a href="index.html" class="active">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="poems.html">Poems</a>
-    </div>
-  </nav>
+    <!-- Viewport and Theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#00d4ff" />
 
-  <!-- About Section -->
-  <section id="about" class="about-section">
-    <div class="about-container">
-      <h2 class="section-title">About Me</h2>
-      <p class="about-text">
-        Hi, I’m <strong>Abishek Mosesraj</strong>, a Tech Lead in Chennai with 7+ years of experience
-        designing and delivering scalable software solutions. I architect robust AWS cloud
-        infrastructures, build high‑performance Python applications, and lead cross‑functional teams
-        to drive innovation.
-      </p>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Abishek Mosesraj - Sr. Software Engineer with 7+ years of experience in scalable systems, Python development, and team leadership" />
+    <meta name="keywords" content="Tech Lead, AWS Cloud Architect, Python Developer, Software Engineer, Chennai, India, Scalable Systems, DevOps" />
+    <meta name="author" content="Abishek Mosesraj" />
 
-      <h2 class="section-title" style="font-size:1.75rem; margin-top:40px;">Core Expertise</h2>
-      <div class="expertise-grid">
-        <div class="expertise-card">
-          <div class="expertise-icon">
-            <!-- AWS SVG -->
-            <svg viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-              <path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>AWS Cloud Architecture</h3>
-          <p>EC2, S3, Lambda, ECS, CloudFormation, API Gateway…</p>
-        </div>
-        <div class="expertise-card">
-          <div class="expertise-icon">
-            <!-- Python SVG -->
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2c5.523 0 10 4.477 10 10H2c0-5.523 4.477-10 10-10z"/>
-            </svg>
-          </div>
-          <h3>Python Development</h3>
-          <p>Flask, REST APIs, data‑processing pipelines</p>
-        </div>
-        <div class="expertise-card">
-          <div class="expertise-icon">
-            <!-- Database SVG -->
-            <svg viewBox="0 0 24 24" fill="none">
-              <ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="2"/>
-              <path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="currentColor" stroke-width="2"/>
-              <path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3>Database &amp; Data Management</h3>
-          <p>MySQL, Redshift, Cassandra, DynamoDB, Athena</p>
-        </div>
-        <div class="expertise-card">
-          <div class="expertise-icon">
-            <!-- Leadership SVG -->
-            <svg viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
-              <path d="M5 20c0-4 3-6 7-6s7 2 7 6" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3>Leadership &amp; Collaboration</h3>
-          <p>Mentoring, code reviews, cross‑team coordination</p>
-        </div>
-      </div>
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Abishek Mosesraj - Tech Lead & AWS Cloud Architect" />
+    <meta property="og:description" content="7+ years of experience designing scalable systems, optimizing data workflows, and leading cross-functional teams" />
+    <meta property="og:url" content="https://abishekmosesraj.com" />
+    <meta property="og:site_name" content="Abishek Mosesraj Portfolio" />
+    <meta property="og:image" content="https://abishekmosesraj.com/apple-touch-icon.png" />
 
-      <div class="btn-container">
-        <a href="https://linkedin.com/in/abishekmosesraj" target="_blank" rel="noopener" class="linkedin-button">
-          Connect on LinkedIn
-        </a>
-      </div>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Abishek Mosesraj - Tech Lead & AWS Cloud Architect" />
+    <meta name="twitter:description" content="7+ years of experience in scalable systems and cloud architecture" />
+    <meta name="twitter:image" content="https://abishekmosesraj.com/apple-touch-icon.png" />
 
-    </div>
-  </section>
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
 
-</body>
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Title -->
+    <title>Abishek Mosesraj - Tech Lead & AWS Cloud Architect</title>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abishek Mosesraj",
+      "jobTitle": "Tech Lead",
+      "description": "AWS Cloud Architect with 7+ years of experience",
+      "url": "https://abishekmosesraj.com",
+      "sameAs": [
+        "https://linkedin.com/in/abishekmosesraj"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ROANUZ"
+      },
+      "knowsAbout": [
+        "AWS Cloud Architecture",
+        "Python Development",
+        "Software Engineering",
+        "Team Leadership",
+        "DevOps",
+        "Scalable Systems"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Chennai",
+        "addressCountry": "India"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

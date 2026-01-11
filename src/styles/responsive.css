@@ -1,0 +1,431 @@
+/* ============================================================================ */
+/* RESPONSIVE STYLES - src/styles/responsive.css */
+/* ============================================================================ */
+
+/* ============================================================================ */
+/* GLOBAL LAYOUT & CONTAINER STYLES */
+/* ============================================================================ */
+
+/* Tablet Styles - 1024px */
+@media (min-width: 1024px) {
+    .container {
+      padding: 0 1.5rem;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+    }
+    
+    .skills-grid,
+    .projects-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .timeline-item {
+      width: 55%;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      width: 55%;
+    }
+  }
+  
+  /* General Mobile Adjustments - 768px */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+  
+    .hero-title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+  
+    .hero-name {
+      flex-wrap: wrap;
+      white-space: normal;
+      justify-content: center;
+    }
+  
+    .hero-logo-letter {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  
+    .hero-subtitle {
+      font-size: 1.2rem;
+    }
+  
+    .hero-description {
+      font-size: 1rem;
+    }
+  
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .skills-grid,
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Mobile Portrait - 480px */
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+  
+    .logo {
+      font-size: 1.25rem;
+    }
+  
+    .hero {
+      padding: 0 1rem;
+      min-height: 90vh;
+    }
+  
+    .hero-title {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+  
+    .hero-subtitle {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .hero-description {
+      font-size: 0.9rem;
+    }
+  
+    .section-title {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
+  }
+  
+  /* Extra Small Devices - 320px */
+  @media (max-width: 320px) {
+    .hero-title {
+      font-size: 1.75rem;
+    }
+  
+    .hero-subtitle {
+      font-size: 0.9rem;
+    }
+  
+    .hero-description {
+      font-size: 0.85rem;
+    }
+  
+    .section-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+  /* ============================================================================ */
+  /* LANDSCAPE ORIENTATION SUPPORT */
+  /* ============================================================================ */
+  
+  /* Landscape Orientation on Mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+  
+    .hero-content {
+      max-width: 600px;
+    }
+  
+    .hero-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .hero-subtitle {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  
+    .hero-description {
+      font-size: 0.9rem;
+    }
+  
+    .cta-buttons {
+      flex-direction: row;
+      gap: 0.75rem;
+    }
+  }
+  
+  /* Very Short Landscape Screens */
+  @media (max-height: 400px) and (orientation: landscape) {
+    .hero-enhanced {
+      padding: 0.5rem 1rem;
+    }
+  
+    .hero-container {
+      gap: 1.5rem;
+    }
+  
+    .hero-name-large {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      margin-bottom: 0.5rem;
+    }
+  
+    .hero-role-container {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+  
+    .hero-greeting {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .description-line {
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+  
+    .stats-container {
+      gap: 0.6rem;
+    }
+  
+    .stat-card {
+      padding: 0.6rem;
+    }
+  
+    .stat-number {
+      font-size: 1.3rem;
+    }
+  
+    .achievement-badge {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.7rem;
+    }
+  
+    .tech-preview {
+      padding: 0.8rem;
+    }
+  
+    .cta-buttons-new {
+      gap: 0.8rem;
+    }
+  
+    .btn-primary-new, .btn-secondary-new {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  /* ============================================================================ */
+  /* HIGH DPI DISPLAY SUPPORT */
+  /* ============================================================================ */
+  
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .skill-icon,
+    .project-icon {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  
+    .floating-icon,
+    .tech-icon-item svg,
+    .achievement-badge svg {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  
+    .stat-number,
+    .hero-name-large {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+  
+  /* ============================================================================ */
+  /* BREAKPOINT HELPER CLASSES */
+  /* ============================================================================ */
+  
+  /* Show/Hide at different breakpoints */
+  .mobile-only {
+    display: block;
+  }
+  
+  .tablet-up {
+    display: none;
+  }
+  
+  .desktop-up {
+    display: none;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-only {
+      display: none;
+    }
+    
+    .tablet-up {
+      display: block;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .tablet-up {
+      display: block;
+    }
+    
+    .desktop-up {
+      display: block;
+    }
+  }
+  
+  /* Responsive Text Sizes */
+  .text-responsive {
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  }
+  
+  .heading-responsive {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  
+  .title-responsive {
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+  
+  /* ============================================================================ */
+  /* RESPONSIVE SPACING UTILITIES */
+  /* ============================================================================ */
+  
+  /* Responsive Margins */
+  .mt-responsive { margin-top: clamp(1rem, 3vw, 2rem); }
+  .mb-responsive { margin-bottom: clamp(1rem, 3vw, 2rem); }
+  .my-responsive { margin: clamp(1rem, 3vw, 2rem) 0; }
+  
+  /* Responsive Padding */
+  .p-responsive { padding: clamp(1rem, 4vw, 2rem); }
+  .px-responsive { padding-left: clamp(1rem, 4vw, 2rem); padding-right: clamp(1rem, 4vw, 2rem); }
+  .py-responsive { padding-top: clamp(1rem, 4vw, 2rem); padding-bottom: clamp(1rem, 4vw, 2rem); }
+  
+  /* Responsive Gaps */
+  .gap-responsive { gap: clamp(0.5rem, 2vw, 1.5rem); }
+  
+  /* ============================================================================ */
+  /* PRINT MEDIA QUERIES */
+  /* ============================================================================ */
+  
+  @media print {
+    * {
+      background: transparent !important;
+      color: black !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+  
+    .nav,
+    .floating-icons,
+    .scroll-indicator,
+    .cta-buttons,
+    .cta-buttons-new {
+      display: none !important;
+    }
+  
+    .hero-enhanced,
+    .hero {
+      background: white !important;
+      min-height: auto !important;
+      padding: 1rem 0 !important;
+    }
+  
+    .container {
+      max-width: none !important;
+      padding: 0 !important;
+    }
+  
+    .section-title {
+      font-size: 2rem !important;
+      color: black !important;
+      page-break-after: avoid;
+    }
+  
+    .skill-card,
+    .project-card,
+    .timeline-content {
+      page-break-inside: avoid;
+      border: 1px solid #ccc !important;
+      margin-bottom: 1rem !important;
+    }
+  
+    .hero-name-large,
+    .first-name,
+    .last-name {
+      color: black !important;
+      -webkit-text-fill-color: black !important;
+    }
+  
+    a {
+      text-decoration: underline !important;
+      color: black !important;
+    }
+  
+    .footer {
+      margin-top: 2rem !important;
+      padding-top: 1rem !important;
+      border-top: 1px solid #ccc !important;
+    }
+  }
+  
+  /* ============================================================================ */
+  /* ACCESSIBILITY RESPONSIVE FEATURES */
+  /* ============================================================================ */
+  
+  /* Reduce motion on mobile for better battery life */
+  @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .floating-icon {
+      animation-duration: 8s; /* Slower animations on mobile */
+    }
+    
+    .wave {
+      animation-duration: 3s;
+    }
+  }
+  
+  /* Larger touch targets on mobile */
+  @media (max-width: 768px) {
+    .btn,
+    .btn-primary-new,
+    .btn-secondary-new,
+    .nav-link {
+      min-height: 44px; /* Apple's recommended minimum touch target */
+      min-width: 44px;
+    }
+    
+    .footer-link {
+      padding: 0.75rem 1rem;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+  /* Increase font sizes on small screens for readability */
+  @media (max-width: 480px) {
+    body {
+      font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    input,
+    button,
+    select,
+    textarea {
+      font-size: 16px; /* Prevent zoom on form elements */
+    }
+  }
+  
+  /* ============================================================================ */
+  /* END OF RESPONSIVE STYLES */
+  /* ============================================================================ */
