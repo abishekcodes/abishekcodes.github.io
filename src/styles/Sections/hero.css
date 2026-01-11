@@ -97,18 +97,12 @@
   
   .first-name {
     display: block;
-    background: linear-gradient(135deg, #3B82F6, #06B6D4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-blue);
   }
-  
+
   .last-name {
     display: block;
-    background: linear-gradient(135deg, #06B6D4, #3B82F6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-blue-light);
     margin-left: 0;
   }
   
@@ -133,6 +127,19 @@
     font-weight: 700;
     margin-left: 0.5rem;
     position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .hero-role.role-leadership {
+    color: var(--color-red);
+  }
+
+  .hero-role.role-cloud {
+    color: var(--color-green);
+  }
+
+  .hero-role.role-development {
+    color: var(--color-blue);
   }
   
   .hero-role.typing {
@@ -147,6 +154,19 @@
     color: var(--primary-color);
     animation: blink 1s infinite;
     margin-left: 0.2rem;
+    transition: color 0.3s ease;
+  }
+
+  .cursor.cursor-leadership {
+    color: var(--color-red);
+  }
+
+  .cursor.cursor-cloud {
+    color: var(--color-green);
+  }
+
+  .cursor.cursor-development {
+    color: var(--color-blue);
   }
   
   @keyframes typewriter {
@@ -215,17 +235,19 @@
     max-width: 280px;
     position: relative;
     overflow: hidden;
+    text-decoration: none;
   }
   
   .btn-primary-new {
-    background: linear-gradient(135deg, #3B82F6, #06B6D4);
+    background: var(--color-blue);
     color: white;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 15px var(--glow-blue);
   }
-  
+
   .btn-primary-new:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+    background: var(--color-blue-light);
+    box-shadow: 0 8px 25px var(--glow-blue);
   }
   
   .btn-secondary-new {
@@ -236,8 +258,9 @@
   
   .btn-secondary-new:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: var(--primary-color);
+    border-color: var(--color-green);
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--glow-green);
   }
   
   /* Stats Section - Mobile */
@@ -268,7 +291,28 @@
   .stat-card:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.08);
-    border-color: var(--primary-color);
+    border-color: var(--color-green);
+    box-shadow: 0 4px 20px var(--glow-green);
+  }
+
+  .stat-card:nth-child(1):hover {
+    border-color: var(--color-red);
+    box-shadow: 0 4px 20px var(--glow-red);
+  }
+
+  .stat-card:nth-child(2):hover {
+    border-color: var(--color-green);
+    box-shadow: 0 4px 20px var(--glow-green);
+  }
+
+  .stat-card:nth-child(3):hover {
+    border-color: var(--color-blue);
+    box-shadow: 0 4px 20px var(--glow-blue);
+  }
+
+  .stat-card:nth-child(4):hover {
+    border-color: var(--color-red);
+    box-shadow: 0 4px 20px var(--glow-red);
   }
   
   .stat-number {
@@ -373,7 +417,7 @@
   .scroll-line {
     width: 2px;
     height: 30px;
-    background: var(--gradient-primary);
+    background: var(--color-blue);
     border-radius: 2px;
   }
   

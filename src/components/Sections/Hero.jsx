@@ -6,16 +6,20 @@ import {
   faDocker, 
   faGitAlt 
 } from '@fortawesome/free-brands-svg-icons';
-import { 
-  faCloud, 
-  faDatabase, 
-  faCode, 
+import {
+  faCloud,
+  faDatabase,
+  faCode,
   faRocket,
   faTerminal,
   faCogs,
   faChartLine,
   faUsers,
-  faMicrochip
+  faMicrochip,
+  faBolt,
+  faDiagramProject,
+  faRobot,
+  faDharmachakra
 } from '@fortawesome/free-solid-svg-icons';
 
 const Hero = () => {
@@ -23,20 +27,18 @@ const Hero = () => {
   const [isTyping, setIsTyping] = useState(true);
   
   const roles = [
-    "Tech Lead",
-    "AWS Cloud Architect", 
-    "Python Developer",
-    "DevOps Engineer",
-    "Mentor"
+    { title: "Tech Lead", category: "leadership" },
+    { title: "AWS Cloud Architect", category: "cloud" },
+    { title: "Python Developer", category: "development" },
+    { title: "DevOps Engineer", category: "development" },
+    { title: "Mentor", category: "leadership" }
   ];
 
   const techIcons = [
-    { icon: faAws, color: "#FF9900", name: "AWS" },
-    { icon: faPython, color: "#3776ab", name: "Python" },
-    { icon: faDocker, color: "#2496ED", name: "Docker" },
-    { icon: faDatabase, color: "#336791", name: "Databases" },
-    { icon: faCode, color: "#61DAFB", name: "APIs" },
-    { icon: faTerminal, color: "#4CAF50", name: "DevOps" }
+    { icon: faBolt, color: "#009688", name: "FastAPI" },
+    { icon: faDiagramProject, color: "#FF6F00", name: "LangGraph" },
+    { icon: faRobot, color: "#7C4DFF", name: "CrewAI" },
+    { icon: faDharmachakra, color: "#326CE5", name: "Kubernetes" }
   ];
 
   const achievements = [
@@ -88,10 +90,10 @@ const Hero = () => {
           
           <div className="hero-role-container">
             <span className="role-prefix">I'm a </span>
-            <span className={`hero-role ${isTyping ? 'typing' : 'deleting'}`}>
-              {roles[currentRole]}
+            <span className={`hero-role ${isTyping ? 'typing' : 'deleting'} role-${roles[currentRole].category}`}>
+              {roles[currentRole].title}
             </span>
-            <span className="cursor">|</span>
+            <span className={`cursor cursor-${roles[currentRole].category}`}>|</span>
           </div>
 
           <div className="hero-description-new">
@@ -110,14 +112,22 @@ const Hero = () => {
           </div>
 
           <div className="cta-buttons-new">
-            <button className="btn-primary-new">
+            <button
+              className="btn-primary-new"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <FontAwesomeIcon icon={faRocket} />
               Explore My Work
             </button>
-            <button className="btn-secondary-new">
+            <a
+              href="https://linkedin.com/in/abishekmosesraj"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary-new"
+            >
               <span>Let's Build Something</span>
               <FontAwesomeIcon icon={faCode} />
-            </button>
+            </a>
           </div>
         </div>
 
@@ -156,7 +166,7 @@ const Hero = () => {
           <div className="tech-preview">
             <div className="tech-preview-title">Currently Working With</div>
             <div className="tech-icons-grid">
-              {techIcons.slice(0, 4).map((tech, index) => (
+              {techIcons.map((tech, index) => (
                 <div 
                   key={tech.name}
                   className="tech-icon-item"

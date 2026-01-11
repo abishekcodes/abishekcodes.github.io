@@ -261,6 +261,8 @@ const PoemCard = ({ poem, index, onReadMore }) => {
 };
 
 const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) => {
+  const modalContentRef = useRef(null);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -276,6 +278,13 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose, onPrev, onNext]);
+
+  // Scroll to top when poem changes
+  useEffect(() => {
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTop = 0;
+    }
+  }, [poem]);
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) onClose();
@@ -293,7 +302,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
         <button className="poem-modal-close" onClick={onClose} aria-label="Close">
           <span>&times;</span>
         </button>
-        <div className="poem-modal-content">
+        <div className="poem-modal-content" ref={modalContentRef}>
           {poem.thumbnail && (
             <div className="poem-modal-image">
               <img src={poem.thumbnail} alt={poem.title} />

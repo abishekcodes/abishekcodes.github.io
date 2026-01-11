@@ -6,12 +6,29 @@ const STORAGE_KEY = 'pageMode';
 
 export const PageModeProvider = ({ children }) => {
   const [mode, setMode] = useState(() => {
+    // Check URL params first
+    const urlParams = new URLSearchParams(window.location.search);
+    const kindParam = urlParams.get('kind');
+
+    if (kindParam === 'poetry' || kindParam === 'personal') {
+      return 'personal';
+    }
+    if (kindParam === 'professional' || kindParam === 'pro') {
+      return 'professional';
+    }
+
+    // Fall back to localStorage
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved === 'personal' ? 'personal' : 'professional';
   });
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, mode);
+
+    // Update URL query param
+    const url = new URL(window.location);
+    url.searchParams.set('kind', mode === 'personal' ? 'poetry' : 'pro');
+    window.history.replaceState({}, '', url);
   }, [mode]);
 
   const toggleMode = () => {

@@ -90,13 +90,15 @@
 
 .project-card:hover {
     background: rgba(59, 130, 246, 0.05);
-    border-color: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
     transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 30px var(--glow-blue);
 }
 
 .project-header {
     height: 180px;
-    background: var(--gradient-primary);
+    background: var(--color-blue);
     display: flex;
     align-items: center;
     justify-content: center;

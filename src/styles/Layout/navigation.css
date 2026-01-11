@@ -40,7 +40,7 @@
   }
   
   .logo-svg:hover {
-    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+    filter: drop-shadow(0 0 10px var(--glow-blue));
   }
   
   .nav-links {
@@ -73,7 +73,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--gradient-primary);
+    background: var(--color-blue);
     transition: width 0.3s ease;
   }
   
@@ -123,7 +123,7 @@
     left: 3px;
     width: 18px;
     height: 18px;
-    background: var(--gradient-primary);
+    background: var(--color-blue);
     border-radius: 50%;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
