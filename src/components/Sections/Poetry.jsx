@@ -302,13 +302,32 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
           <time className="poem-modal-date">{poem.pubDate}</time>
           <h2 className="poem-modal-title">{poem.title}</h2>
           <div className="poem-modal-text">
-            {poem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
-              <div key={stanzaIdx} className="poem-stanza">
-                {stanza.split('\n').map((line, lineIdx) => (
-                  <span key={lineIdx} className="poem-line">{line}</span>
-                ))}
-              </div>
-            ))}
+            {(() => {
+              const isPainfulFarewell = poem.title.toLowerCase().includes('painful farewell');
+
+              if (isPainfulFarewell) {
+                const allLines = poem.fullContent.split('\n').filter(line => line.trim());
+                const stanzas = [];
+                for (let i = 0; i < allLines.length; i += 4) {
+                  stanzas.push(allLines.slice(i, i + 4));
+                }
+                return stanzas.map((stanza, stanzaIdx) => (
+                  <div key={stanzaIdx} className="poem-stanza">
+                    {stanza.map((line, lineIdx) => (
+                      <span key={lineIdx} className="poem-line">{line}</span>
+                    ))}
+                  </div>
+                ));
+              }
+
+              return poem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
+                <div key={stanzaIdx} className="poem-stanza">
+                  {stanza.split('\n').map((line, lineIdx) => (
+                    <span key={lineIdx} className="poem-line">{line}</span>
+                  ))}
+                </div>
+              ));
+            })()}
           </div>
           <div className="poem-modal-footer">
             <span className="poem-modal-counter">{currentIndex + 1} / {totalCount}</span>
