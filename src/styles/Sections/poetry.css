@@ -257,45 +257,161 @@
     box-shadow: 0 8px 25px var(--glow-blue);
 }
 
-/* Responsive */
+/* ============================================================================ */
+/* MOBILE-FIRST RESPONSIVE REDESIGN */
+/* ============================================================================ */
+
+/* Tablet - 768px and below */
 @media (max-width: 768px) {
-    .poetry {
-        padding: 5rem 1.5rem;
-    }
-
-    .poetry-header {
-        margin-bottom: 4rem;
-    }
-
-    .poetry-eyebrow {
-        font-size: 0.9rem;
-    }
-
-    .poetry-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .poetry-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .poem-content {
-        padding: 1.5rem;
-    }
-
-    .poem-title {
-        font-size: 1.25rem;
-    }
-}
-
-@media (max-width: 480px) {
     .poetry {
         padding: 4rem 1rem;
     }
 
+    .poetry-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .poetry-eyebrow {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .poetry-title {
+        margin-bottom: 1rem;
+    }
+
+    .poetry-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .poetry-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Horizontal card layout for mobile */
+    .poem-card {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        border-radius: 10px;
+    }
+
+    .poem-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .poem-thumbnail {
+        height: 100%;
+        min-height: 120px;
+        border-radius: 10px 0 0 10px;
+    }
+
     .poem-content {
-        padding: 1.25rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .poem-date {
+        font-size: 0.65rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .poem-title {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.25;
+    }
+
+    .poem-excerpt {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .poem-read-more-inline {
+        font-size: 0.85rem;
+    }
+
+    .poetry-cta {
+        margin-top: 2rem;
+    }
+
+    .poetry-link-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Small mobile - 480px and below */
+@media (max-width: 480px) {
+    .poetry {
+        padding: 3rem 0.75rem;
+    }
+
+    .poetry-header {
+        margin-bottom: 2rem;
+        padding: 0 0.5rem;
+    }
+
+    .poetry-eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+    }
+
+    .poetry-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .poetry-grid {
+        gap: 0.75rem;
+    }
+
+    .poem-card {
+        grid-template-columns: 85px 1fr;
+        border-radius: 8px;
+    }
+
+    .poem-thumbnail {
+        min-height: 100px;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .poem-content {
+        padding: 0.75rem;
+    }
+
+    .poem-date {
+        font-size: 0.6rem;
+    }
+
+    .poem-title {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .poem-excerpt {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 2;
+    }
+
+    .poem-read-more-inline {
+        font-size: 0.8rem;
+    }
+
+    .poetry-cta {
+        margin-top: 1.5rem;
+    }
+
+    .poetry-link-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.875rem 1.5rem;
     }
 }
 
@@ -543,6 +659,40 @@
     margin-top: 2rem;
 }
 
+.poem-modal-footer-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.poem-modal-footer-nav {
+    display: none; /* Hidden on desktop, shown on mobile */
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: var(--color-blue);
+    font-size: 1.5rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.poem-modal-footer-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.poem-modal-footer-nav:not(:disabled):active {
+    background: rgba(59, 130, 246, 0.3);
+    transform: scale(0.95);
+}
+
 .poem-modal-counter {
     font-size: 0.9rem;
     color: var(--text-muted);
@@ -694,102 +844,239 @@
     }
 }
 
-/* Modal Responsive */
+/* ============================================================================ */
+/* MODAL - MOBILE RESPONSIVE REDESIGN */
+/* ============================================================================ */
+
 @media (max-width: 768px) {
     .poem-modal-overlay {
-        padding: 0.75rem;
+        padding: 0;
+        align-items: flex-end;
     }
 
     .poem-modal {
-        max-height: 92vh;
-        border-radius: 12px;
+        max-height: 95vh;
+        height: 95vh;
+        border-radius: 20px 20px 0 0;
+        max-width: 100%;
+        animation: modalSlideUpMobile 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlideUpMobile {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Drag handle indicator */
+    .poem-modal::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+        z-index: 20;
     }
 
     .poem-modal-content {
-        padding: 2rem 1.5rem;
+        padding: 2.5rem 1.25rem 6rem;
+        max-height: calc(95vh - 60px);
+        padding-bottom: 100px; /* Space for bottom nav */
     }
 
     .poem-modal-figure {
-        width: calc(100% + 3rem);
-        margin: -2rem -1.5rem 0 -1.5rem;
+        width: calc(100% + 2.5rem);
+        margin: -2.5rem -1.25rem 0 -1.25rem;
     }
 
     .poem-modal-image {
         height: 180px;
     }
 
+    .poem-modal-image::after {
+        height: 60px;
+    }
+
     .poem-modal-caption {
-        padding: 0.5rem 1.5rem 1rem;
-        font-size: 0.75rem;
+        padding: 0.5rem 1.25rem 1rem;
+        font-size: 0.7rem;
+        margin-bottom: 1rem;
     }
 
     .poem-modal-close {
         top: 0.75rem;
         right: 0.75rem;
-        width: 32px;
-        height: 32px;
-        font-size: 1.1rem;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .poem-modal-date {
+        font-size: 0.7rem;
+        margin-bottom: 0.75rem;
     }
 
     .poem-modal-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .poem-modal-title::after {
+        font-size: 1.2rem;
+        margin-top: 0.75rem;
+    }
+
+    .poem-modal-text {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .poem-stanza {
+        margin-bottom: 1.5rem;
+        padding: 0.25rem 0;
     }
 
     .poem-line {
-        font-size: 1.1rem;
-        line-height: 1.9;
+        font-size: 1rem;
+        line-height: 1.8;
     }
 
-    .poem-thumbnail {
-        height: 180px;
-    }
-
+    /* Hide floating nav buttons on mobile */
     .poem-modal-nav {
-        width: 44px;
-        height: 44px;
-        font-size: 1.4rem;
+        display: none;
     }
 
-    .poem-modal-prev {
-        left: 0.5rem;
-    }
-
-    .poem-modal-next {
-        right: 0.5rem;
-    }
-
+    /* Bottom navigation bar for mobile */
     .poem-modal-footer {
-        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+        margin-top: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(to top, rgba(13, 13, 13, 0.98) 0%, rgba(13, 13, 13, 0.95) 100%);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 100;
+        gap: 0.5rem;
+    }
+
+    .poem-modal-footer-center {
+        flex-direction: row;
         gap: 1rem;
+    }
+
+    .poem-modal-footer-nav {
+        display: flex;
+    }
+
+    .poem-modal-counter {
+        font-size: 0.8rem;
         text-align: center;
+    }
+
+    .poem-modal-link {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
     }
 }
 
+/* Small mobile - 480px and below */
 @media (max-width: 480px) {
+    .poem-modal {
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .poem-modal::before {
+        display: none;
+    }
+
     .poem-modal-content {
-        padding: 1.5rem;
-        padding-top: 3.5rem;
+        padding: 2rem 1rem 5.5rem;
+        max-height: calc(100vh - 56px);
+        padding-bottom: 90px;
     }
 
     .poem-modal-figure {
-        width: calc(100% + 3rem);
-        margin: -3.5rem -1.5rem 0 -1.5rem;
+        width: calc(100% + 2rem);
+        margin: -2rem -1rem 0 -1rem;
     }
 
     .poem-modal-image {
-        height: 160px;
+        height: 150px;
     }
 
     .poem-modal-caption {
-        padding: 0.5rem 1.5rem 1rem;
-        font-size: 0.7rem;
+        padding: 0.5rem 1rem 0.75rem;
+        font-size: 0.65rem;
+    }
+
+    .poem-modal-close {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
     }
 
     .poem-modal-title {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
     }
 
-    .poem-thumbnail {
-        height: 160px;
+    .poem-modal-title::after {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .poem-stanza {
+        margin-bottom: 1.25rem;
+    }
+
+    .poem-line {
+        font-size: 0.95rem;
+        line-height: 1.75;
+    }
+
+    .poem-modal-footer {
+        padding: 0.5rem 0.75rem;
+        padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+        gap: 0.25rem;
+    }
+
+    .poem-modal-footer-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .poem-modal-footer-center {
+        gap: 0.75rem;
+    }
+
+    .poem-modal-counter {
+        font-size: 0.7rem;
+    }
+
+    .poem-modal-link {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.5rem;
     }
 }

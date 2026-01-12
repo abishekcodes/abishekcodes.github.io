@@ -466,15 +466,33 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
             })()}
           </div>
           <div className="poem-modal-footer">
-            <span className="poem-modal-counter">{currentIndex + 1} / {totalCount}</span>
-            <a
-              href={displayPoem.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="poem-modal-link"
+            <button
+              className="poem-modal-footer-nav"
+              onClick={onPrev}
+              disabled={!onPrev}
+              aria-label="Previous poem"
             >
-              View on Medium
-            </a>
+              &#8249;
+            </button>
+            <div className="poem-modal-footer-center">
+              <span className="poem-modal-counter">{currentIndex + 1} / {totalCount}</span>
+              <a
+                href={displayPoem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="poem-modal-link"
+              >
+                View on Medium
+              </a>
+            </div>
+            <button
+              className="poem-modal-footer-nav"
+              onClick={onNext}
+              disabled={!onNext}
+              aria-label="Next poem"
+            >
+              &#8250;
+            </button>
           </div>
         </div>
       </div>
