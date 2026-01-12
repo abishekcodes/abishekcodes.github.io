@@ -48,8 +48,8 @@ const PersonalHero = () => {
           </h1>
 
           <p className="personal-tagline">
+            Where code meets creativity and thoughts become poetry
             <FontAwesomeIcon icon={faFeather} className="inline-icon" />
-            Where code meets creativity and thoughts become poetry.
           </p>
         </div>
       </div>

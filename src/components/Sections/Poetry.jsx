@@ -317,6 +317,10 @@ const PoemCard = ({ poem, index, onReadMore }) => {
     <article
       ref={cardRef}
       className={`poem-card ${isVisible ? 'poem-card-visible' : ''}`}
+      onClick={onReadMore}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onReadMore()}
     >
       {poem.thumbnail && (
         <div className="poem-thumbnail">
@@ -328,7 +332,7 @@ const PoemCard = ({ poem, index, onReadMore }) => {
         <h3 className="poem-title">{poem.title}</h3>
         <p className="poem-excerpt">
           {poem.preview}
-          <button onClick={onReadMore} className="poem-read-more-inline">... Read more</button>
+          <span className="poem-read-more-inline">... Read more</span>
         </p>
       </div>
     </article>
@@ -338,10 +342,13 @@ const PoemCard = ({ poem, index, onReadMore }) => {
 const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) => {
   const modalContentRef = useRef(null);
   const [displayPoem, setDisplayPoem] = useState(poem);
+  const [swipeDirection, setSwipeDirection] = useState(null); // 'left' or 'right'
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Touch swipe support
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
+  const prevIndex = useRef(currentIndex);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -378,9 +385,11 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
       if (deltaX > 0 && onPrev) {
         // Swiped right -> go to previous
+        setSwipeDirection('right');
         onPrev();
       } else if (deltaX < 0 && onNext) {
         // Swiped left -> go to next
+        setSwipeDirection('left');
         onNext();
       }
     }
@@ -388,6 +397,26 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
     touchStartX.current = null;
     touchStartY.current = null;
   };
+
+  // Detect navigation direction and trigger animation
+  useEffect(() => {
+    if (currentIndex !== prevIndex.current) {
+      const direction = currentIndex > prevIndex.current ? 'left' : 'right';
+      if (!swipeDirection) {
+        setSwipeDirection(direction);
+      }
+      setIsAnimating(true);
+      prevIndex.current = currentIndex;
+
+      // Reset animation state after animation completes
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+        setSwipeDirection(null);
+      }, 300);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, swipeDirection]);
 
   // Update displayed poem and scroll to top
   useEffect(() => {
@@ -421,10 +450,25 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <button className="poem-modal-close" onClick={onClose} aria-label="Close">
+        {/* Desktop close button */}
+        <button className="poem-modal-close poem-modal-close-desktop" onClick={onClose} aria-label="Close">
           <span>&times;</span>
         </button>
-        <div className="poem-modal-content" ref={modalContentRef}>
+        {/* Mobile header with Medium link */}
+        <div className="poem-modal-header-mobile">
+          <a
+            href={displayPoem.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="poem-modal-link-mobile"
+          >
+            View on Medium
+          </a>
+        </div>
+        <div
+          className={`poem-modal-content ${isAnimating ? `swipe-${swipeDirection}` : ''}`}
+          ref={modalContentRef}
+        >
           {displayPoem.thumbnail && (
             <figure className="poem-modal-figure">
               <div className="poem-modal-image">
@@ -475,12 +519,22 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
               &#8249;
             </button>
             <div className="poem-modal-footer-center">
-              <span className="poem-modal-counter">{currentIndex + 1} / {totalCount}</span>
+              {/* Mobile: counter links to Medium, Desktop: plain counter */}
               <a
                 href={displayPoem.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="poem-modal-link"
+                className="poem-modal-counter poem-modal-counter-mobile"
+              >
+                {currentIndex + 1} / {totalCount}
+              </a>
+              <span className="poem-modal-counter poem-modal-counter-desktop">{currentIndex + 1} / {totalCount}</span>
+              {/* Desktop only: Medium link in footer */}
+              <a
+                href={displayPoem.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="poem-modal-link poem-modal-link-desktop"
               >
                 View on Medium
               </a>
@@ -492,6 +546,14 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
               aria-label="Next poem"
             >
               &#8250;
+            </button>
+            {/* Mobile only: Close button in footer */}
+            <button
+              className="poem-modal-footer-close"
+              onClick={onClose}
+              aria-label="Close"
+            >
+              &times;
             </button>
           </div>
         </div>

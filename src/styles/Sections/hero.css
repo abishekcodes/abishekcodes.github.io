@@ -582,246 +582,410 @@
     }
   }
   
-  /* Mobile Landscape - 768px and below */
+  /* ============================================================================ */
+  /* MOBILE-FIRST RESPONSIVE REDESIGN */
+  /* ============================================================================ */
+
+  /* Tablet - 768px and below */
   @media (max-width: 768px) {
     .hero-enhanced {
-      padding: 70px 1rem 1rem 1rem;
+      padding: 90px 1rem 2rem 1rem;
+      min-height: auto;
     }
-    
+
+    /* Use grid to allow reordering across containers */
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    /* Expose hero-main children to parent grid */
+    .hero-main {
+      display: contents;
+    }
+
+    .hero-greeting {
+      order: 1;
+      font-size: 0.9rem;
+      margin-bottom: -0.75rem;
+      justify-content: center;
+      width: 100%;
+      padding-right: 1.5rem; /* Offset for feather icon below */
+    }
+
     .hero-name-large {
-      font-size: clamp(2rem, 10vw, 3rem);
+      order: 2;
+      font-size: clamp(2rem, 10vw, 2.75rem);
+      margin-bottom: -0.75rem;
+      padding-right: 1.5rem; /* Offset for feather icon below */
     }
-    
+
     .hero-role-container {
-      font-size: 1.4rem;
-      height: 2.5rem;
+      order: 3;
+      font-size: 1.2rem;
+      height: 2rem;
+      margin-bottom: 0;
     }
-    
-    .achievement-badge {
+
+    /* Personal tagline after name (for personal hero) */
+    .personal-tagline {
+      order: 3;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Description after role */
+    .hero-description-new {
+      order: 4;
+      margin-bottom: 0;
+    }
+
+    .description-line {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .inline-icon {
+      font-size: 0.85rem;
+      margin-right: 0.5rem;
+    }
+
+    /* Stats section in middle */
+    .hero-stats {
+      order: 5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Stats - 3 columns inline */
+    .stats-container {
+      order: 1;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Buttons at the very bottom, side by side */
+    .cta-buttons-new {
+      order: 10;
+      flex-direction: row;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary-new, .btn-secondary-new {
+      padding: 0.75rem 1rem;
       font-size: 0.8rem;
-      padding: 0.6rem 0.8rem;
+      max-width: none;
+      flex: 1;
+    }
+
+    .stat-card {
+      padding: 0.875rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .stat-number {
+      font-size: 1.25rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .stat-label {
+      font-size: 0.6rem;
+      line-height: 1.2;
+    }
+
+    /* Tech preview - move up */
+    .tech-preview {
+      order: 2;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .tech-preview-title {
+      font-size: 0.7rem;
       margin-bottom: 0.6rem;
     }
-  
-    .achievement-badges {
-      grid-template-columns: 1fr;
-    }
-    
-    .description-line {
-      font-size: 1rem;
-    }
-    
-    .floating-icon {
-      font-size: 1.2rem;
-      opacity: 0.05;
-    }
-  
-    .hero-greeting {
-      font-size: 1rem;
-    }
-  
+
     .tech-icons-grid {
       grid-template-columns: repeat(4, 1fr);
       gap: 0.5rem;
     }
-  
+
     .tech-icon-item {
-      padding: 0.5rem;
+      padding: 0.5rem 0.25rem;
+      border-radius: 6px;
     }
-  
+
+    .tech-icon-item svg {
+      font-size: 1.1rem;
+    }
+
     .tech-icon-item span {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
     }
-  
+
+    /* Achievement badges - single column list */
+    .achievement-badges {
+      order: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 0;
+    }
+
+    .achievement-badge {
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0;
+      border-radius: 6px;
+      gap: 0.5rem;
+    }
+
+    .achievement-badge svg {
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .floating-icon {
+      font-size: 1.2rem;
+      opacity: 0.04;
+    }
+
     .scroll-indicator {
-      bottom: 1rem;
+      display: none;
     }
   }
-  
-  /* Mobile Portrait - 480px and below */
+
+  /* Small Mobile - 480px and below */
   @media (max-width: 480px) {
-    .hero-container {
-      gap: 2rem;
+    .hero-enhanced {
+      padding: 80px 0.75rem 1.5rem 0.75rem;
     }
-    
+
+    .hero-container {
+      gap: 1rem;
+    }
+
+    .hero-greeting {
+      font-size: 0.85rem;
+      margin-bottom: -0.6rem;
+      justify-content: center;
+      padding-right: 1.25rem;
+    }
+
     .hero-name-large {
-      font-size: clamp(1.8rem, 12vw, 2.5rem);
+      font-size: clamp(1.75rem, 11vw, 2.25rem);
+      margin-bottom: -0.6rem;
+      text-align: center;
+      padding-right: 1.25rem;
+    }
+
+    .hero-role-container {
+      font-size: 1.05rem;
+      height: 1.75rem;
+    }
+
+    /* Personal tagline (for personal hero) */
+    .personal-tagline {
+      font-size: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .hero-description-new {
+      margin-bottom: 0;
+    }
+
+    .description-line {
+      font-size: 0.8rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .inline-icon {
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
+      min-width: 12px;
+    }
+
+    /* Buttons at bottom, side by side */
+    .cta-buttons-new {
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .btn-primary-new, .btn-secondary-new {
+      padding: 0.65rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    /* Stats - 3 columns, tighter */
+    .stats-container {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
       margin-bottom: 1rem;
     }
-    
-    .hero-role-container {
-      font-size: 1.2rem;
-      height: 2rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .hero-greeting {
-      font-size: 0.9rem;
-      margin-bottom: 0.8rem;
-    }
-  
-    .hero-description-new {
-      margin-bottom: 2rem;
-    }
-  
-    .description-line {
-      font-size: 0.9rem;
-      margin-bottom: 0.8rem;
-    }
-  
-    .inline-icon {
-      font-size: 1rem;
-      margin-right: 0.8rem;
-    }
-    
+
     .stat-card {
-      padding: 1rem;
+      padding: 0.6rem 0.35rem;
+      border-radius: 8px;
     }
-    
+
     .stat-number {
-      font-size: 1.5rem;
+      font-size: 1.05rem;
     }
-  
+
     .stat-label {
-      font-size: 0.8rem;
+      font-size: 0.55rem;
     }
-    
+
+    /* Tech preview */
+    .tech-preview {
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .tech-preview-title {
+      font-size: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
     .tech-icons-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.8rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.35rem;
     }
-    
+
     .tech-icon-item {
-      padding: 0.8rem;
+      padding: 0.35rem 0.15rem;
+      gap: 0.2rem;
     }
-  
+
     .tech-icon-item svg {
-      font-size: 1.2rem;
-    }
-  
-    .tech-icon-item span {
-      font-size: 0.7rem;
-    }
-    
-    .achievement-badges {
-      margin-bottom: 1.5rem;
-    }
-  
-    .achievement-badge {
-      padding: 0.5rem 0.8rem;
-      font-size: 0.75rem;
-      gap: 0.6rem;
-    }
-    
-    .btn-primary-new, .btn-secondary-new {
-      padding: 0.8rem 1.5rem;
       font-size: 0.9rem;
     }
-  
+
+    .tech-icon-item span {
+      font-size: 0.5rem;
+    }
+
+    /* Achievement badges - single column, compact */
+    .achievement-badges {
+      gap: 0.3rem;
+    }
+
+    .achievement-badge {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.7rem;
+      gap: 0.4rem;
+      border-radius: 5px;
+    }
+
+    .achievement-badge svg {
+      font-size: 0.65rem;
+    }
+
     .floating-icon {
       font-size: 1rem;
       opacity: 0.03;
     }
-  
-    .tech-preview-title {
-      font-size: 0.8rem;
-    }
-  
-    .scroll-indicator {
-      bottom: 1rem;
-      gap: 0.3rem;
-    }
-  
-    .scroll-line {
-      height: 20px;
-    }
-  
-    .scroll-text {
-      font-size: 0.7rem;
-    }
   }
-  
+
   /* Extra Small Devices - 320px and below */
   @media (max-width: 320px) {
     .hero-enhanced {
-      padding: 70px 0.75rem 1rem 0.75rem;
+      padding: 75px 0.5rem 1rem 0.5rem;
     }
-  
+
     .hero-container {
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
-    
+
     .hero-name-large {
-      font-size: clamp(1.5rem, 15vw, 2rem);
+      font-size: clamp(1.5rem, 14vw, 1.9rem);
     }
-    
+
     .hero-role-container {
-      font-size: 1rem;
+      font-size: 0.95rem;
+      height: 1.5rem;
     }
-  
+
+    .personal-tagline {
+      font-size: 0.9rem;
+    }
+
     .hero-greeting {
       font-size: 0.8rem;
+      justify-content: center;
+      padding-right: 1rem;
     }
-  
+
+    .hero-name-large {
+      text-align: center;
+      padding-right: 1rem;
+    }
+
     .description-line {
       font-size: 0.8rem;
     }
-  
+
     .inline-icon {
-      font-size: 0.9rem;
-      margin-right: 0.6rem;
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
     }
-    
+
+    .btn-primary-new, .btn-secondary-new {
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      max-width: 200px;
+    }
+
     .stats-container {
-      gap: 0.6rem;
+      gap: 0.4rem;
     }
-    
+
     .stat-card {
-      padding: 0.8rem;
+      padding: 0.6rem 0.4rem;
     }
-    
+
     .stat-number {
-      font-size: 1.3rem;
-    }
-  
-    .stat-label {
-      font-size: 0.75rem;
-    }
-  
-    .achievement-badge {
-      padding: 0.4rem 0.6rem;
-      font-size: 0.7rem;
-      gap: 0.5rem;
-    }
-  
-    .tech-icon-item {
-      padding: 0.6rem;
-    }
-  
-    .tech-icon-item svg {
       font-size: 1rem;
     }
-  
-    .tech-icon-item span {
+
+    .stat-label {
+      font-size: 0.6rem;
+    }
+
+    .achievement-badge {
+      padding: 0.35rem 0.5rem;
       font-size: 0.65rem;
+      gap: 0.35rem;
     }
-  
-    .btn-primary-new, .btn-secondary-new {
-      padding: 0.7rem 1.2rem;
-      font-size: 0.8rem;
+
+    .tech-icon-item {
+      padding: 0.35rem 0.15rem;
     }
-  
+
+    .tech-icon-item svg {
+      font-size: 0.9rem;
+    }
+
+    .tech-icon-item span {
+      font-size: 0.5rem;
+    }
+
     .floating-icon {
       display: none;
     }
-  
+
     .tech-preview {
-      padding: 1rem;
+      padding: 0.75rem;
     }
-  
+
     .tech-preview-title {
-      font-size: 0.75rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.6rem;
     }
   }
   
@@ -852,13 +1016,17 @@
   }
 
   .personal-tagline {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     color: var(--text-secondary);
     margin-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.02em;
   }
 
   .personal-tagline .inline-icon {

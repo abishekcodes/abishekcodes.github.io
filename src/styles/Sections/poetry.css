@@ -111,6 +111,11 @@
     transform: translateY(30px);
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Poem Card Thumbnail */
@@ -264,25 +269,29 @@
 /* Tablet - 768px and below */
 @media (max-width: 768px) {
     .poetry {
-        padding: 4rem 1rem;
+        padding: 5rem 1rem 4rem;
     }
 
     .poetry-header {
         margin-bottom: 2.5rem;
+        text-align: center;
     }
 
     .poetry-eyebrow {
-        font-size: 0.8rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
     }
 
     .poetry-title {
+        font-size: clamp(2rem, 10vw, 2.5rem);
         margin-bottom: 1rem;
     }
 
     .poetry-subtitle {
         font-size: 1rem;
         line-height: 1.5;
+        max-width: 90%;
+        margin: 0 auto;
     }
 
     .poetry-grid {
@@ -351,21 +360,31 @@
 /* Small mobile - 480px and below */
 @media (max-width: 480px) {
     .poetry {
-        padding: 3rem 0.75rem;
+        padding: 4rem 0.75rem 3rem;
     }
 
     .poetry-header {
         margin-bottom: 2rem;
         padding: 0 0.5rem;
+        text-align: center;
     }
 
     .poetry-eyebrow {
         font-size: 0.75rem;
         letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+    }
+
+    .poetry-title {
+        font-size: clamp(1.75rem, 9vw, 2rem);
+        margin-bottom: 0.75rem;
     }
 
     .poetry-subtitle {
         font-size: 0.9rem;
+        line-height: 1.5;
+        max-width: 95%;
+        margin: 0 auto;
     }
 
     .poetry-grid {
@@ -494,6 +513,21 @@
     background: rgba(255, 255, 255, 0.12);
     color: var(--text-primary);
     transform: rotate(90deg);
+}
+
+/* Mobile header - hidden on desktop */
+.poem-modal-header-mobile {
+    display: none;
+}
+
+/* Mobile footer close button - hidden on desktop */
+.poem-modal-footer-close {
+    display: none;
+}
+
+/* Mobile counter link - hidden on desktop */
+.poem-modal-counter-mobile {
+    display: none;
 }
 
 .poem-modal-content {
@@ -888,14 +922,45 @@
     }
 
     .poem-modal-content {
-        padding: 2.5rem 1.25rem 6rem;
-        max-height: calc(95vh - 60px);
-        padding-bottom: 100px; /* Space for bottom nav */
+        padding: 0 1.25rem 100px;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    /* Swipe animations */
+    .poem-modal-content.swipe-left {
+        animation: swipeInFromRight 0.3s ease-out;
+    }
+
+    .poem-modal-content.swipe-right {
+        animation: swipeInFromLeft 0.3s ease-out;
+    }
+
+    @keyframes swipeInFromRight {
+        0% {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes swipeInFromLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     .poem-modal-figure {
         width: calc(100% + 2.5rem);
-        margin: -2.5rem -1.25rem 0 -1.25rem;
+        margin: 0 -1.25rem 0 -1.25rem;
     }
 
     .poem-modal-image {
@@ -912,13 +977,38 @@
         margin-bottom: 1rem;
     }
 
-    .poem-modal-close {
-        top: 0.75rem;
-        right: 0.75rem;
-        width: 36px;
-        height: 36px;
-        font-size: 1.2rem;
-        background: rgba(0, 0, 0, 0.5);
+    /* Hide desktop close button on mobile */
+    .poem-modal-close-desktop {
+        display: none;
+    }
+
+    /* Mobile header with Medium link */
+    .poem-modal-header-mobile {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 1rem 0.5rem;
+        position: relative;
+        z-index: 20;
+    }
+
+    .poem-modal-link-mobile {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--color-blue);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-family: 'Lato', sans-serif;
+        padding: 0.4rem 0.75rem;
+        border-radius: 50px;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        background: rgba(59, 130, 246, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .poem-modal-link-mobile:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: rgba(59, 130, 246, 0.5);
     }
 
     .poem-modal-date {
@@ -978,7 +1068,14 @@
 
     .poem-modal-footer-center {
         flex-direction: row;
-        gap: 1rem;
+        gap: 0.75rem;
+        flex: 0;
+        justify-content: flex-start;
+    }
+
+    /* Hide desktop Medium link in footer on mobile */
+    .poem-modal-link-desktop {
+        display: none;
     }
 
     .poem-modal-footer-nav {
@@ -986,8 +1083,52 @@
     }
 
     .poem-modal-counter {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         text-align: center;
+        font-weight: 500;
+        min-width: 55px;
+    }
+
+    /* Hide desktop counter on mobile */
+    .poem-modal-counter-desktop {
+        display: none;
+    }
+
+    /* Mobile counter is a link */
+    .poem-modal-counter-mobile {
+        display: inline;
+        color: var(--color-blue);
+        text-decoration: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+    }
+
+    .poem-modal-counter-mobile:active {
+        background: rgba(59, 130, 246, 0.2);
+    }
+
+    /* Mobile footer close button */
+    .poem-modal-footer-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        font-weight: 300;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-left: auto;
+    }
+
+    .poem-modal-footer-close:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.95);
     }
 
     .poem-modal-link {
@@ -1009,14 +1150,14 @@
     }
 
     .poem-modal-content {
-        padding: 2rem 1rem 5.5rem;
-        max-height: calc(100vh - 56px);
-        padding-bottom: 90px;
+        padding: 0 1rem 90px;
+        max-height: 100vh;
+        overflow-y: auto;
     }
 
     .poem-modal-figure {
         width: calc(100% + 2rem);
-        margin: -2rem -1rem 0 -1rem;
+        margin: 0 -1rem 0 -1rem;
     }
 
     .poem-modal-image {
@@ -1028,12 +1169,19 @@
         font-size: 0.65rem;
     }
 
-    .poem-modal-close {
-        top: 0.5rem;
-        right: 0.5rem;
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
+    .poem-modal-header-mobile {
+        padding: 0.75rem 1rem 0.5rem;
+    }
+
+    .poem-modal-link-mobile {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.6rem;
+    }
+
+    .poem-modal-footer-close {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
     }
 
     .poem-modal-title {
@@ -1058,7 +1206,11 @@
     .poem-modal-footer {
         padding: 0.5rem 0.75rem;
         padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
-        gap: 0.25rem;
+        gap: 0.5rem;
+    }
+
+    .poem-modal-footer-center {
+        gap: 0.5rem;
     }
 
     .poem-modal-footer-nav {

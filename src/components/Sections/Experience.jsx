@@ -13,11 +13,15 @@ const ExperienceCard = ({ experience, index }) => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => setIsVisible(true), index * 150);
+                    // Small delay for staggered effect
+                    setTimeout(() => setIsVisible(true), 100);
                     observer.unobserve(element);
                 }
             },
-            { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
+            {
+                threshold: 0.15,
+                rootMargin: '0px 0px -150px 0px' // Trigger when card is 150px from bottom
+            }
         );
 
         observer.observe(element);
