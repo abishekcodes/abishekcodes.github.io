@@ -3,6 +3,7 @@ import '../../styles/Sections/poetry.css';
 
 const Poetry = () => {
   const [poems, setPoems] = useState([]);
+  const [poemsMap, setPoemsMap] = useState(new Map()); // slug -> index
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedPoemIndex, setSelectedPoemIndex] = useState(null);
@@ -37,26 +38,16 @@ const Poetry = () => {
     window.history.replaceState({}, '', url);
   };
 
-  // Find poem index by slug
-  const findPoemBySlug = (slug, poemsList) => {
-    if (!slug || !poemsList.length) return null;
-    const index = poemsList.findIndex(poem => generateSlug(poem.link) === slug);
-    return index >= 0 ? index : null;
-  };
-
-  // Check URL for poem param on load
+  // Check URL for poem param on load (uses poemsMap for O(1) lookup)
   useEffect(() => {
-    if (poems.length > 0) {
+    if (poemsMap.size > 0) {
       const urlParams = new URLSearchParams(window.location.search);
       const poemSlug = urlParams.get('poem');
-      if (poemSlug) {
-        const index = findPoemBySlug(poemSlug, poems);
-        if (index !== null) {
-          setSelectedPoemIndex(index);
-        }
+      if (poemSlug && poemsMap.has(poemSlug)) {
+        setSelectedPoemIndex(poemsMap.get(poemSlug));
       }
     }
-  }, [poems]);
+  }, [poemsMap]);
 
   useEffect(() => {
     const fetchPoetry = async () => {
@@ -83,6 +74,13 @@ const Poetry = () => {
             };
           });
           setPoems(formattedPoems);
+
+          // Build slug -> index map for O(1) lookups
+          const slugMap = new Map();
+          formattedPoems.forEach((poem, index) => {
+            slugMap.set(generateSlug(poem.link), index);
+          });
+          setPoemsMap(slugMap);
         } else {
           setError('Failed to load poems');
         }
