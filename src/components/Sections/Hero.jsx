@@ -41,6 +41,32 @@ const Hero = () => {
     { icon: faDharmachakra, color: "#326CE5", name: "Kubernetes" }
   ];
 
+  // Floating background icons covering all skillsets
+  const floatingIcons = [
+    // Agentic AI
+    { icon: faRobot, color: "#7C4DFF", name: "AI" },
+    { icon: faDiagramProject, color: "#FF6F00", name: "LangGraph" },
+    // AWS & Cloud
+    { icon: faAws, color: "#FF9900", name: "AWS" },
+    { icon: faCloud, color: "#4FC3F7", name: "Cloud" },
+    // Python & Development
+    { icon: faPython, color: "#3776AB", name: "Python" },
+    { icon: faCode, color: "#00BCD4", name: "Code" },
+    { icon: faTerminal, color: "#4CAF50", name: "Terminal" },
+    // DevOps
+    { icon: faDocker, color: "#2496ED", name: "Docker" },
+    { icon: faDharmachakra, color: "#326CE5", name: "Kubernetes" },
+    { icon: faGitAlt, color: "#F05032", name: "Git" },
+    // Database & Data
+    { icon: faDatabase, color: "#00ACC1", name: "Database" },
+    { icon: faChartLine, color: "#9C27B0", name: "Analytics" },
+    // Leadership & API
+    { icon: faUsers, color: "#E91E63", name: "Leadership" },
+    { icon: faBolt, color: "#009688", name: "FastAPI" },
+    { icon: faCogs, color: "#607D8B", name: "DevOps" },
+    { icon: faRocket, color: "#FF5722", name: "Deploy" }
+  ];
+
   const achievements = [
     { icon: faRocket, text: "99.995% API uptime achieved", color: "#FF6B6B" },
     { icon: faChartLine, text: "50% cost reduction in AWS Budget", color: "#4ECDC4" },
@@ -63,12 +89,12 @@ const Hero = () => {
   return (
     <section id="home" className="hero-enhanced">
       <div className="floating-icons">
-        {techIcons.map((tech, index) => (
-          <div 
-            key={tech.name}
+        {floatingIcons.map((tech, index) => (
+          <div
+            key={`${tech.name}-${index}`}
             className="floating-icon"
             style={{
-              animationDelay: `${index * 0.5}s`,
+              animationDelay: `${index * 0.3}s`,
               '--icon-color': tech.color
             }}
           >

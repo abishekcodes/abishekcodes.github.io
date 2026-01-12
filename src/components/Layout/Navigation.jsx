@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePageMode } from '../../context/PageModeContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBriefcase, faFeatherPointed } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/favicon.svg';
 
 const Navigation = ({ activeSection }) => {
@@ -56,7 +58,15 @@ const Navigation = ({ activeSection }) => {
         </ul>
 
         <div className="mode-toggle">
-          <span className={`mode-label ${mode === 'professional' ? 'active' : ''}`}>Pro</span>
+          <button
+            className={`mode-icon-btn ${mode === 'professional' ? 'active' : ''}`}
+            onClick={() => mode !== 'professional' && toggleMode()}
+            title="Professional"
+            aria-label="Switch to professional mode"
+          >
+            <FontAwesomeIcon icon={faBriefcase} />
+            <span className="mode-tooltip">Professional</span>
+          </button>
           <button
             className="toggle-switch"
             onClick={toggleMode}
@@ -64,7 +74,15 @@ const Navigation = ({ activeSection }) => {
           >
             <span className={`toggle-slider ${mode === 'personal' ? 'personal' : ''}`} />
           </button>
-          <span className={`mode-label ${mode === 'personal' ? 'active' : ''}`}>Poetry</span>
+          <button
+            className={`mode-icon-btn ${mode === 'personal' ? 'active' : ''}`}
+            onClick={() => mode !== 'personal' && toggleMode()}
+            title="Poetry"
+            aria-label="Switch to poetry mode"
+          >
+            <FontAwesomeIcon icon={faFeatherPointed} />
+            <span className="mode-tooltip">Poetry</span>
+          </button>
         </div>
       </div>
     </nav>
