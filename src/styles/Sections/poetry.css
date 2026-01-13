@@ -263,11 +263,11 @@
 }
 
 /* ============================================================================ */
-/* MOBILE-FIRST RESPONSIVE REDESIGN */
+/* MOBILE-ONLY RESPONSIVE REDESIGN */
 /* ============================================================================ */
 
-/* Tablet - 768px and below */
-@media (max-width: 768px) {
+/* Mobile phones only - 600px and below */
+@media (max-width: 600px) {
     .poetry {
         padding: 5rem 1rem 4rem;
     }
@@ -357,8 +357,8 @@
     }
 }
 
-/* Small mobile - 480px and below */
-@media (max-width: 480px) {
+/* Small mobile - 400px and below */
+@media (max-width: 400px) {
     .poetry {
         padding: 4rem 0.75rem 3rem;
     }
@@ -467,7 +467,7 @@
 .poem-modal {
     background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
     border-radius: 16px;
-    max-width: 650px;
+    max-width: 520px;
     width: 100%;
     max-height: 85vh;
     overflow: hidden;
@@ -553,6 +553,37 @@
 
 .poem-modal-content::-webkit-scrollbar-thumb:hover {
     background: rgba(59, 130, 246, 0.5);
+}
+
+/* Swipe animations for poem navigation - works on all screen sizes */
+.poem-modal-content.swipe-left {
+    animation: swipeInFromRight 0.3s ease-out;
+}
+
+.poem-modal-content.swipe-right {
+    animation: swipeInFromLeft 0.3s ease-out;
+}
+
+@keyframes swipeInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes swipeInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .poem-modal-figure {
@@ -833,7 +864,7 @@
 }
 
 .poem-modal-prev {
-    left: calc(50% - 395px);
+    left: calc(50% - 330px);
 }
 
 .poem-modal-prev:hover .nav-icon {
@@ -851,7 +882,7 @@
 }
 
 .poem-modal-next {
-    right: calc(50% - 395px);
+    right: calc(50% - 330px);
 }
 
 .poem-modal-next:hover .nav-icon {
@@ -879,10 +910,10 @@
 }
 
 /* ============================================================================ */
-/* MODAL - MOBILE RESPONSIVE REDESIGN */
+/* MODAL - MOBILE PHONE ONLY REDESIGN */
 /* ============================================================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .poem-modal-overlay {
         padding: 0;
         align-items: flex-end;
@@ -925,37 +956,6 @@
         padding: 0 1.25rem 100px;
         max-height: 95vh;
         overflow-y: auto;
-    }
-
-    /* Swipe animations */
-    .poem-modal-content.swipe-left {
-        animation: swipeInFromRight 0.3s ease-out;
-    }
-
-    .poem-modal-content.swipe-right {
-        animation: swipeInFromLeft 0.3s ease-out;
-    }
-
-    @keyframes swipeInFromRight {
-        0% {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes swipeInFromLeft {
-        0% {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
     }
 
     .poem-modal-figure {
@@ -1137,8 +1137,8 @@
     }
 }
 
-/* Small mobile - 480px and below */
-@media (max-width: 480px) {
+/* Small mobile - 400px and below */
+@media (max-width: 400px) {
     .poem-modal {
         height: 100vh;
         max-height: 100vh;

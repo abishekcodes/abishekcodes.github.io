@@ -43,28 +43,39 @@ const Hero = () => {
 
   // Floating background icons covering all skillsets
   const floatingIcons = [
-    // Agentic AI
+    // Row 1 - Agentic AI
     { icon: faRobot, color: "#7C4DFF", name: "AI" },
     { icon: faDiagramProject, color: "#FF6F00", name: "LangGraph" },
-    // AWS & Cloud
+    { icon: faRobot, color: "#9C27B0", name: "AI2" },
+    // Row 2 - AWS & Cloud
     { icon: faAws, color: "#FF9900", name: "AWS" },
     { icon: faCloud, color: "#4FC3F7", name: "Cloud" },
-    // Python & Development
+    { icon: faAws, color: "#FF9900", name: "AWS2" },
+    { icon: faCloud, color: "#00BCD4", name: "Cloud2" },
+    // Row 3 - Python & Development
     { icon: faPython, color: "#3776AB", name: "Python" },
     { icon: faCode, color: "#00BCD4", name: "Code" },
     { icon: faTerminal, color: "#4CAF50", name: "Terminal" },
-    // DevOps
+    { icon: faPython, color: "#3776AB", name: "Python2" },
+    // Row 4 - DevOps
     { icon: faDocker, color: "#2496ED", name: "Docker" },
     { icon: faDharmachakra, color: "#326CE5", name: "Kubernetes" },
     { icon: faGitAlt, color: "#F05032", name: "Git" },
-    // Database & Data
+    { icon: faDocker, color: "#2496ED", name: "Docker2" },
+    // Row 5 - Database & Data
     { icon: faDatabase, color: "#00ACC1", name: "Database" },
     { icon: faChartLine, color: "#9C27B0", name: "Analytics" },
-    // Leadership & API
+    { icon: faDatabase, color: "#4CAF50", name: "Database2" },
+    // Row 6 - Leadership & API
     { icon: faUsers, color: "#E91E63", name: "Leadership" },
     { icon: faBolt, color: "#009688", name: "FastAPI" },
     { icon: faCogs, color: "#607D8B", name: "DevOps" },
-    { icon: faRocket, color: "#FF5722", name: "Deploy" }
+    { icon: faRocket, color: "#FF5722", name: "Deploy" },
+    // Additional scattered icons
+    { icon: faCode, color: "#4CAF50", name: "Code2" },
+    { icon: faTerminal, color: "#FF9800", name: "Terminal2" },
+    { icon: faCogs, color: "#795548", name: "DevOps2" },
+    { icon: faRocket, color: "#E91E63", name: "Deploy2" }
   ];
 
   const achievements = [
