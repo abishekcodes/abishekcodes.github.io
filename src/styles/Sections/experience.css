@@ -505,7 +505,7 @@
     transition: all 0.3s ease;
 }
 
-/* FontAwesome icons (Linux, JavaScript) */
+/* FontAwesome icons (JavaScript) */
 .tech-icon-fa {
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.85);
@@ -513,12 +513,12 @@
 }
 
 .tech-badge:hover .tech-icon-fa {
-    color: #F7DF1E; /* Default to JS yellow */
+    color: #F7DF1E; /* JS yellow */
 }
 
-/* Linux specific - show penguin color on hover */
-.tech-badge-fa:has(.tech-icon-fa):hover .tech-icon-fa {
-    color: #FCC624;
+/* Linux Tux - keep colors, no filter */
+.tech-icon-linux {
+    filter: none !important;
 }
 
 .tech-name {

@@ -304,7 +304,7 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 15px var(--glow-green);
   }
-  
+
   /* Stats Section - Mobile */
   .hero-stats {
     order: 2;

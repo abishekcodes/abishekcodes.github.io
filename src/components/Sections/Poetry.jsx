@@ -268,7 +268,7 @@ const Poetry = () => {
 
       {selectedPoemIndex !== null && (
         <PoemModal
-          poem={poems[selectedPoemIndex]}
+          poem={selectedPoemIndex < poems.length ? poems[selectedPoemIndex] : null}
           onClose={() => {
             setSelectedPoemIndex(null);
             updatePoemUrl(null);
@@ -278,13 +278,18 @@ const Poetry = () => {
             setSelectedPoemIndex(newIndex);
             updatePoemUrl(newIndex);
           } : null}
-          onNext={selectedPoemIndex < poems.length - 1 ? () => {
+          onNext={selectedPoemIndex < poems.length ? () => {
             const newIndex = selectedPoemIndex + 1;
             setSelectedPoemIndex(newIndex);
-            updatePoemUrl(newIndex);
+            if (newIndex < poems.length) {
+              updatePoemUrl(newIndex);
+            } else {
+              updatePoemUrl(null); // CTA slide has no poem URL
+            }
           } : null}
           currentIndex={selectedPoemIndex}
           totalCount={poems.length}
+          isCtaSlide={selectedPoemIndex === poems.length}
         />
       )}
     </section>
@@ -339,7 +344,7 @@ const PoemCard = ({ poem, index, onReadMore }) => {
   );
 };
 
-const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) => {
+const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, isCtaSlide }) => {
   const modalContentRef = useRef(null);
   const [displayPoem, setDisplayPoem] = useState(poem);
   const [swipeDirection, setSwipeDirection] = useState(null); // 'left' or 'right'
@@ -454,62 +459,85 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
         <button className="poem-modal-close poem-modal-close-desktop" onClick={onClose} aria-label="Close">
           <span>&times;</span>
         </button>
-        {/* Mobile header with Medium link */}
-        <div className="poem-modal-header-mobile">
-          <a
-            href={displayPoem.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="poem-modal-link-mobile"
-          >
-            View on Medium
-          </a>
-        </div>
+
+        {/* Mobile header with Medium link - only for poem slides */}
+        {!isCtaSlide && (
+          <div className="poem-modal-header-mobile">
+            <a
+              href={displayPoem?.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="poem-modal-link-mobile"
+            >
+              View on Medium
+            </a>
+          </div>
+        )}
         <div
-          className={`poem-modal-content ${isAnimating ? `swipe-${swipeDirection}` : ''}`}
+          className={`poem-modal-content ${isCtaSlide ? 'poem-modal-cta-slide' : ''} ${isAnimating ? `swipe-${swipeDirection}` : ''}`}
           ref={modalContentRef}
         >
-          {displayPoem.thumbnail && (
-            <figure className="poem-modal-figure">
-              <div className="poem-modal-image">
-                <img src={displayPoem.thumbnail} alt={displayPoem.title} />
-              </div>
-              {displayPoem.imageCaption && (
-                <figcaption className="poem-modal-caption">{displayPoem.imageCaption}</figcaption>
-              )}
-            </figure>
-          )}
-          <time className="poem-modal-date">{displayPoem.pubDate}</time>
-          <h2 className="poem-modal-title">{displayPoem.title}</h2>
-          <div className="poem-modal-text">
-            {(() => {
-              const isPainfulFarewell = displayPoem.title.toLowerCase().includes('painful farewell');
-
-              if (isPainfulFarewell) {
-                const allLines = displayPoem.fullContent.split('\n').filter(line => line.trim());
-                const stanzas = [];
-                for (let i = 0; i < allLines.length; i += 4) {
-                  stanzas.push(allLines.slice(i, i + 4));
-                }
-                return stanzas.map((stanza, stanzaIdx) => (
-                  <div key={stanzaIdx} className="poem-stanza">
-                    {stanza.map((line, lineIdx) => (
-                      <span key={lineIdx} className="poem-line">{line}</span>
-                    ))}
+          {isCtaSlide ? (
+            /* CTA Slide */
+            <div className="poem-modal-cta-content">
+              <h2 className="poem-modal-cta-title">Liked what you read?</h2>
+              <p className="poem-modal-cta-subtitle">There's more where that came from</p>
+              <a
+                href="https://medium.com/@RiversOfThought"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="poem-modal-cta-button"
+              >
+                Read more on Medium
+              </a>
+            </div>
+          ) : (
+            /* Poem Content */
+            <>
+              {displayPoem?.thumbnail && (
+                <figure className="poem-modal-figure">
+                  <div className="poem-modal-image">
+                    <img src={displayPoem.thumbnail} alt={displayPoem.title} />
                   </div>
-                ));
-              }
+                  {displayPoem.imageCaption && (
+                    <figcaption className="poem-modal-caption">{displayPoem.imageCaption}</figcaption>
+                  )}
+                </figure>
+              )}
+              <time className="poem-modal-date">{displayPoem?.pubDate}</time>
+              <h2 className="poem-modal-title">{displayPoem?.title}</h2>
+              <div className="poem-modal-text">
+                {(() => {
+                  if (!displayPoem) return null;
+                  const isPainfulFarewell = displayPoem.title.toLowerCase().includes('painful farewell');
 
-              return displayPoem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
-                <div key={stanzaIdx} className="poem-stanza">
-                  {stanza.split('\n').map((line, lineIdx) => (
-                    <span key={lineIdx} className="poem-line">{line}</span>
-                  ))}
-                </div>
-              ));
-            })()}
-          </div>
-          <div className="poem-modal-footer">
+                  if (isPainfulFarewell) {
+                    const allLines = displayPoem.fullContent.split('\n').filter(line => line.trim());
+                    const stanzas = [];
+                    for (let i = 0; i < allLines.length; i += 4) {
+                      stanzas.push(allLines.slice(i, i + 4));
+                    }
+                    return stanzas.map((stanza, stanzaIdx) => (
+                      <div key={stanzaIdx} className="poem-stanza">
+                        {stanza.map((line, lineIdx) => (
+                          <span key={lineIdx} className="poem-line">{line}</span>
+                        ))}
+                      </div>
+                    ));
+                  }
+
+                  return displayPoem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
+                    <div key={stanzaIdx} className="poem-stanza">
+                      {stanza.split('\n').map((line, lineIdx) => (
+                        <span key={lineIdx} className="poem-line">{line}</span>
+                      ))}
+                    </div>
+                  ));
+                })()}
+              </div>
+            </>
+          )}
+          <div className={`poem-modal-footer ${isCtaSlide ? 'poem-modal-footer-cta' : ''}`}>
             <button
               className="poem-modal-footer-nav"
               onClick={onPrev}
@@ -519,25 +547,31 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount }) 
               &#8249;
             </button>
             <div className="poem-modal-footer-center">
-              {/* Mobile: counter links to Medium, Desktop: plain counter */}
-              <a
-                href={displayPoem.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="poem-modal-counter poem-modal-counter-mobile"
-              >
-                {currentIndex + 1} / {totalCount}
-              </a>
-              <span className="poem-modal-counter poem-modal-counter-desktop">{currentIndex + 1} / {totalCount}</span>
-              {/* Desktop only: Medium link in footer */}
-              <a
-                href={displayPoem.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="poem-modal-link poem-modal-link-desktop"
-              >
-                View on Medium
-              </a>
+              {isCtaSlide ? (
+                <span className="poem-modal-counter">{totalCount + 1} / {totalCount + 1}</span>
+              ) : (
+                <>
+                  {/* Mobile: counter links to Medium, Desktop: plain counter */}
+                  <a
+                    href={displayPoem?.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="poem-modal-counter poem-modal-counter-mobile"
+                  >
+                    {currentIndex + 1} / {totalCount + 1}
+                  </a>
+                  <span className="poem-modal-counter poem-modal-counter-desktop">{currentIndex + 1} / {totalCount + 1}</span>
+                  {/* Desktop only: Medium link in footer */}
+                  <a
+                    href={displayPoem?.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="poem-modal-link poem-modal-link-desktop"
+                  >
+                    View on Medium
+                  </a>
+                </>
+              )}
             </div>
             <button
               className="poem-modal-footer-nav"
