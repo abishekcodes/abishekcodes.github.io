@@ -173,7 +173,7 @@
   }
 
   .hero-role.role-leadership {
-    color: var(--color-red);
+    color: var(--color-gold);
   }
 
   .hero-role.role-cloud {
@@ -200,7 +200,7 @@
   }
 
   .cursor.cursor-leadership {
-    color: var(--color-red);
+    color: var(--color-gold);
   }
 
   .cursor.cursor-cloud {
@@ -333,28 +333,8 @@
   .stat-card:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.08);
-    border-color: var(--color-green);
-    box-shadow: 0 4px 20px var(--glow-green);
-  }
-
-  .stat-card:nth-child(1):hover {
-    border-color: var(--color-red);
-    box-shadow: 0 4px 20px var(--glow-red);
-  }
-
-  .stat-card:nth-child(2):hover {
-    border-color: var(--color-green);
-    box-shadow: 0 4px 20px var(--glow-green);
-  }
-
-  .stat-card:nth-child(3):hover {
     border-color: var(--color-blue);
     box-shadow: 0 4px 20px var(--glow-blue);
-  }
-
-  .stat-card:nth-child(4):hover {
-    border-color: var(--color-red);
-    box-shadow: 0 4px 20px var(--glow-red);
   }
   
   .stat-number {

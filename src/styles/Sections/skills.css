@@ -122,9 +122,9 @@
     background: var(--color-blue);
 }
 
-/* 5. Development Leadership - Leadership (Red) */
+/* 5. Development Leadership - Leadership (Gold) */
 .skill-card:nth-child(5)::before {
-    background: var(--color-red);
+    background: var(--color-gold);
 }
 
 .skill-card:hover::before {
@@ -162,10 +162,10 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px var(--glow-blue);
 }
 
-/* 5. Development Leadership - Leadership (Red) */
+/* 5. Development Leadership - Leadership (Gold) */
 .skill-card:nth-child(5):hover {
-    border-color: rgba(239, 68, 68, 0.3);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px var(--glow-red);
+    border-color: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px var(--glow-gold);
 }
 
 .skill-icon {
@@ -201,9 +201,9 @@
     background: var(--color-blue);
 }
 
-/* 5. Development Leadership - Leadership (Red) */
+/* 5. Development Leadership - Leadership (Gold) */
 .skill-card:nth-child(5) .skill-icon {
-    background: var(--color-red);
+    background: var(--color-gold);
 }
 
 .skill-title {

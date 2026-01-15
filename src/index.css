@@ -4,10 +4,10 @@
 
 /* CSS Variables */
 :root {
-  /* RGB Core Colors */
-  --color-red: #EF4444;
-  --color-red-light: #F87171;
-  --color-red-dark: #DC2626;
+  /* RGB Core Colors - Gold for Leadership */
+  --color-gold: #F59E0B;
+  --color-gold-light: #FBBF24;
+  --color-gold-dark: #D97706;
   --color-green: #22C55E;
   --color-green-light: #4ADE80;
   --color-green-dark: #16A34A;
@@ -20,7 +20,7 @@
   --primary-light: #60A5FA;
   --primary-dark: #2563EB;
   --secondary-color: #22C55E;
-  --accent-color: #EF4444;
+  --accent-color: #F59E0B;
 
   /* Deep black backgrounds */
   --bg-dark: #000000;
@@ -35,13 +35,13 @@
   /* RGB Gradients */
   --gradient-primary: linear-gradient(135deg, #3B82F6 0%, #22C55E 100%);
   --gradient-secondary: linear-gradient(135deg, #22C55E 0%, #3B82F6 100%);
-  --gradient-accent: linear-gradient(135deg, #EF4444 0%, #3B82F6 100%);
-  --gradient-rgb: linear-gradient(135deg, #EF4444 0%, #22C55E 50%, #3B82F6 100%);
-  --gradient-rgb-reverse: linear-gradient(135deg, #3B82F6 0%, #22C55E 50%, #EF4444 100%);
+  --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #3B82F6 100%);
+  --gradient-rgb: linear-gradient(135deg, #F59E0B 0%, #22C55E 50%, #3B82F6 100%);
+  --gradient-rgb-reverse: linear-gradient(135deg, #3B82F6 0%, #22C55E 50%, #F59E0B 100%);
 
   /* Glow effects */
   --glow-color: rgba(59, 130, 246, 0.4);
-  --glow-red: rgba(239, 68, 68, 0.4);
+  --glow-gold: rgba(245, 158, 11, 0.4);
   --glow-green: rgba(34, 197, 94, 0.4);
   --glow-blue: rgba(59, 130, 246, 0.4);
 }

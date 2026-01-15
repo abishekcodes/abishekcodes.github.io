@@ -536,6 +536,11 @@
     max-height: 85vh;
     scrollbar-width: thin;
     scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .poem-modal-content::-webkit-scrollbar {
@@ -613,6 +618,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 0%;
 }
 
 .poem-modal-caption {
@@ -964,7 +970,11 @@
     }
 
     .poem-modal-image {
-        height: 180px;
+        height: 280px;
+    }
+
+    .poem-modal-image img {
+        object-position: center top;
     }
 
     .poem-modal-image::after {
@@ -982,13 +992,9 @@
         display: none;
     }
 
-    /* Mobile header with Medium link */
+    /* Mobile header with Medium link - hidden */
     .poem-modal-header-mobile {
-        display: flex;
-        justify-content: center;
-        padding: 1rem 1rem 0.5rem;
-        position: relative;
-        z-index: 20;
+        display: none;
     }
 
     .poem-modal-link-mobile {
@@ -1161,7 +1167,11 @@
     }
 
     .poem-modal-image {
-        height: 150px;
+        height: 240px;
+    }
+
+    .poem-modal-image img {
+        object-position: center top;
     }
 
     .poem-modal-caption {
