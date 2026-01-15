@@ -79,7 +79,7 @@ const Hero = () => {
   ];
 
   const achievements = [
-    { icon: faRocket, text: "99.995% API uptime achieved", color: "#FF6B6B" },
+    { icon: faRocket, text: "Zero-downtime canary deployments", color: "#FF6B6B" },
     { icon: faChartLine, text: "50% cost reduction in AWS Budget", color: "#4ECDC4" },
     { icon: faUsers, text: "Led engineering teams consisting of 5 engineers", color: "#45B7D1" },
     { icon: faCogs, text: "Created Applications that Processed 4 billion requests", color: "#96CEB4" }
@@ -177,10 +177,6 @@ const Hero = () => {
             <div className="stat-card">
               <div className="stat-number">5+</div>
               <div className="stat-label">Projects Delivered</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">99.995%</div>
-              <div className="stat-label">System Uptime</div>
             </div>
           </div>
 
