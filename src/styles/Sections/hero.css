@@ -728,12 +728,15 @@
       flex-direction: column;
     }
 
-    /* Stats - 3 columns inline */
+    /* Stats - 2 columns centered */
     .stats-container {
       order: 1;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.5rem;
       margin-bottom: 1rem;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Buttons at the very bottom, side by side */
@@ -890,11 +893,12 @@
       font-size: 0.75rem;
     }
 
-    /* Stats - 3 columns, tighter */
+    /* Stats - 2 columns centered, tighter */
     .stats-container {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.4rem;
       margin-bottom: 1rem;
+      max-width: 240px;
     }
 
     .stat-card {

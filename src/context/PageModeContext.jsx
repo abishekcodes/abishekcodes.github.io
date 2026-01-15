@@ -33,7 +33,7 @@ export const PageModeProvider = ({ children }) => {
 
   const toggleMode = () => {
     setMode(prev => prev === 'professional' ? 'personal' : 'professional');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
