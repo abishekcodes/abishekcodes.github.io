@@ -2,6 +2,8 @@
 node_modules
 
 # Build output
+.next
+out
 build
 dist
 
@@ -24,8 +26,11 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Vite
-*.local
+# Next.js
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
 
 # Media files
 *.webm
