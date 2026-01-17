@@ -1204,7 +1204,11 @@
 
     /* CTA Slide mobile */
     .poem-modal-content.poem-modal-cta-slide {
-        min-height: auto;
+        min-height: calc(95vh - 100px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .poem-modal-cta-content {
