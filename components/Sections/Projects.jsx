@@ -1,8 +1,21 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import ProjectCard from '@/components/UI/ProjectCard';
+import ProjectModal from '@/components/UI/ProjectModal';
 import projectsData from '@/data/projects';
 
 const Projects = () => {
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    const handleCardClick = (project) => {
+        setSelectedProject(project);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedProject(null);
+    };
+
     return (
         <section id="projects" className="projects">
             <div className="projects-container">
@@ -15,10 +28,21 @@ const Projects = () => {
                 </div>
                 <div className="projects-grid">
                     {projectsData.map((project, index) => (
-                        <ProjectCard key={project.id} project={project} index={index} />
+                        <ProjectCard
+                            key={project.id}
+                            project={project}
+                            index={index}
+                            onCardClick={handleCardClick}
+                        />
                     ))}
                 </div>
             </div>
+
+            <ProjectModal
+                project={selectedProject}
+                isOpen={selectedProject !== null}
+                onClose={handleCloseModal}
+            />
         </section>
     );
 };

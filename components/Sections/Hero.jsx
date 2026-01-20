@@ -24,6 +24,10 @@ import {
   faDharmachakra
 } from '@fortawesome/free-solid-svg-icons';
 
+// Calculate years of experience at build time (starting November 29, 2016)
+const START_DATE = new Date(2016, 10, 29);
+const YEARS_OF_EXPERIENCE = Math.floor((new Date() - START_DATE) / (1000 * 60 * 60 * 24 * 365.25));
+
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -82,9 +86,9 @@ const Hero = () => {
 
   const achievements = [
     { icon: faRocket, text: "Zero-downtime canary deployments", color: "#FF6B6B" },
-    { icon: faChartLine, text: "50% cost reduction in AWS Budget", color: "#4ECDC4" },
-    { icon: faUsers, text: "Led engineering teams consisting of 5 engineers", color: "#45B7D1" },
-    { icon: faCogs, text: "Created Applications that Processed 4 billion requests", color: "#96CEB4" }
+    { icon: faChartLine, text: "50% AWS cost reduction ($18K to $9K)", color: "#4ECDC4" },
+    { icon: faUsers, text: "Led 5-engineer cross-functional teams", color: "#45B7D1" },
+    { icon: faCogs, text: "4B+ API requests processed (2019-2025)", color: "#96CEB4" }
   ];
 
   useEffect(() => {
@@ -173,7 +177,7 @@ const Hero = () => {
         <div className="hero-stats">
           <div className="stats-container">
             <div className="stat-card">
-              <div className="stat-number">7+</div>
+              <div className="stat-number">{YEARS_OF_EXPERIENCE}</div>
               <div className="stat-label">Years Experience</div>
             </div>
             <div className="stat-card">
