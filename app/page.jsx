@@ -8,6 +8,8 @@ import PersonalHero from '@/components/Sections/PersonalHero';
 import Skills from '@/components/Sections/Skills';
 import Experience from '@/components/Sections/Experience';
 import Projects from '@/components/Sections/Projects';
+import About from '@/components/Sections/About';
+import Articles from '@/components/Sections/Articles';
 import Poetry from '@/components/Sections/Poetry';
 import Footer from '@/components/Layout/Footer';
 import useScrollSpy from '@/hooks/useScrollSpy';
@@ -15,7 +17,7 @@ import useScrollSpy from '@/hooks/useScrollSpy';
 const AppContent = () => {
   const { mode } = usePageMode();
 
-  const professionalSections = ['home', 'skills', 'experience', 'projects', 'contact'];
+  const professionalSections = ['home', 'skills', 'experience', 'projects', 'articles', 'about', 'contact'];
   const personalSections = ['home', 'poetry', 'contact'];
 
   const sections = mode === 'professional' ? professionalSections : personalSections;
@@ -32,6 +34,8 @@ const AppContent = () => {
             <Skills />
             <Experience />
             <Projects />
+            <Articles />
+            <About />
           </>
         ) : (
           <>

@@ -1,0 +1,305 @@
+/* ============================================================================ */
+/* ABOUT SECTION - IMPROVED DESIGN */
+/* ============================================================================ */
+
+.about {
+    min-height: 100vh;
+    padding: 8rem 2rem;
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.about-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.about-eyebrow {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.about-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* ============================================================================ */
+/* STORY CARDS */
+/* ============================================================================ */
+
+.about-story {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.about-story-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.story-card {
+    position: relative;
+    padding: 1.75rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.3s ease;
+}
+
+.story-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.story-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--primary-color), #8B5CF6);
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.story-card:hover::before {
+    opacity: 1;
+}
+
+.story-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.company-name {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ============================================================================ */
+/* HIGHLIGHT CARDS */
+/* ============================================================================ */
+
+.about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease 0.2s;
+}
+
+.about-highlights-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.highlight-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s ease;
+    transition-delay: var(--delay);
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.about-highlights-visible .highlight-card {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.highlight-card:hover {
+    background: rgba(59, 130, 246, 0.06);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateX(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.highlight-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, var(--primary-color), #8B5CF6);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.highlight-card:hover .highlight-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.highlight-content {
+    flex: 1;
+}
+
+.highlight-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+.highlight-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================================================ */
+/* MOBILE RESPONSIVE */
+/* ============================================================================ */
+
+@media (max-width: 968px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .about-highlights {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .highlight-card {
+        flex: 1 1 calc(50% - 0.625rem);
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 4rem 1rem;
+    }
+
+    .about-header {
+        margin-bottom: 3rem;
+    }
+
+    .about-story {
+        gap: 1.25rem;
+    }
+
+    .story-card {
+        padding: 1.5rem;
+    }
+
+    .story-card p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .highlight-card {
+        flex: 1 1 100%;
+        padding: 1.25rem;
+    }
+
+    .highlight-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 1.1rem;
+    }
+
+    .highlight-content h3 {
+        font-size: 1rem;
+    }
+
+    .highlight-content p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        padding: 3rem 0.75rem;
+    }
+
+    .story-card {
+        padding: 1.25rem;
+    }
+
+    .story-chapter {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.6rem;
+    }
+
+    .story-card p {
+        font-size: 0.95rem;
+    }
+
+    .highlight-card {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .highlight-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+        border-radius: 12px;
+    }
+
+    .highlight-content h3 {
+        font-size: 0.95rem;
+    }
+
+    .highlight-content p {
+        font-size: 0.8rem;
+    }
+}
