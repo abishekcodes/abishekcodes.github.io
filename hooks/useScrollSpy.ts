@@ -1,10 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useScrollSpy = (sections = [], options = {}) => {
+interface ScrollSpyOptions {
+  navbarHeight?: number;
+  sectionOffset?: number;
+}
+
+interface ScrollSpyResult {
+  activeSection: string;
+}
+
+const useScrollSpy = (sections: string[] = [], options: ScrollSpyOptions = {}): ScrollSpyResult => {
   const { navbarHeight = 80, sectionOffset = 100 } = options;
   const [activeSection, setActiveSection] = useState('home');
 
-  const getActiveSection = useCallback((scrollY) => {
+  const getActiveSection = useCallback((scrollY: number): string => {
     const adjustedScrollPosition = scrollY + navbarHeight + sectionOffset;
 
     for (const section of sections) {

@@ -1,11 +1,26 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faExternalLinkAlt, faCloud, faDatabase, faMemory, faArrowRight, faClock, faFire } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
-const articlesData = [
+interface ArticleData {
+  id: number;
+  title: string;
+  hook: string;
+  description: string;
+  icon: IconDefinition;
+  color: string;
+  gradient: string;
+  url: string;
+  tags: string[];
+  readTime: string;
+  featured?: boolean;
+}
+
+const articlesData: ArticleData[] = [
   {
     id: 1,
     title: 'AWS API Infrastructure That Prevents 3AM Wake-Up Calls',
@@ -45,9 +60,13 @@ const articlesData = [
   }
 ];
 
-const FeaturedArticle = ({ article }) => {
+interface ArticleProps {
+  article: ArticleData;
+}
+
+const FeaturedArticle: React.FC<ArticleProps> = ({ article }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -74,7 +93,7 @@ const FeaturedArticle = ({ article }) => {
       target="_blank"
       rel="noopener noreferrer"
       className={`featured-article ${isVisible ? 'article-card-visible' : ''}`}
-      style={{ '--article-gradient': article.gradient, '--article-color': article.color }}
+      style={{ '--article-gradient': article.gradient, '--article-color': article.color } as CSSProperties}
     >
       <div className="featured-badge">
         <FontAwesomeIcon icon={faFire} />
@@ -112,9 +131,14 @@ const FeaturedArticle = ({ article }) => {
   );
 };
 
-const ArticleCard = ({ article, index }) => {
+interface ArticleCardProps {
+  article: ArticleData;
+  index: number;
+}
+
+const ArticleCard: React.FC<ArticleCardProps> = ({ article, index }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -141,7 +165,7 @@ const ArticleCard = ({ article, index }) => {
       target="_blank"
       rel="noopener noreferrer"
       className={`article-card ${isVisible ? 'article-card-visible' : ''}`}
-      style={{ '--article-gradient': article.gradient, '--article-color': article.color }}
+      style={{ '--article-gradient': article.gradient, '--article-color': article.color } as CSSProperties}
     >
       <div className="article-icon-wrapper">
         <FontAwesomeIcon icon={article.icon} className="article-main-icon" />

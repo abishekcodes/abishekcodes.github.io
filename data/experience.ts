@@ -1,4 +1,6 @@
-const experienceData = [
+import { Experience } from '@/types';
+
+const experienceData: Experience[] = [
   {
     id: 1,
     company: 'THOUGHTWORKS',

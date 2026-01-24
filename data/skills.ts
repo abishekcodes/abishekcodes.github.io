@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPython,
   faAws
@@ -8,8 +7,9 @@ import {
   faUsers,
   faRobot
 } from '@fortawesome/free-solid-svg-icons';
+import { Skill } from '@/types';
 
-const skillsData = [
+const skillsData: Skill[] = [
   {
     id: 1,
     icon: faRobot,

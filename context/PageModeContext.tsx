@@ -1,13 +1,24 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { PageMode } from '@/types';
 
-const PageModeContext = createContext();
+interface PageModeContextType {
+  mode: PageMode;
+  setMode: React.Dispatch<React.SetStateAction<PageMode>>;
+  toggleMode: () => void;
+}
+
+interface PageModeProviderProps {
+  children: ReactNode;
+}
+
+const PageModeContext = createContext<PageModeContextType | null>(null);
 
 const STORAGE_KEY = 'pageMode';
 
-export const PageModeProvider = ({ children }) => {
-  const [mode, setMode] = useState('professional');
+export const PageModeProvider: React.FC<PageModeProviderProps> = ({ children }) => {
+  const [mode, setMode] = useState<PageMode>('professional');
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize from URL params and localStorage on client
@@ -15,7 +26,7 @@ export const PageModeProvider = ({ children }) => {
     const urlParams = new URLSearchParams(window.location.search);
     const kindParam = urlParams.get('kind');
 
-    let initialMode = 'professional';
+    let initialMode: PageMode = 'professional';
 
     if (kindParam === 'poetry' || kindParam === 'personal') {
       initialMode = 'personal';
@@ -39,7 +50,7 @@ export const PageModeProvider = ({ children }) => {
     localStorage.setItem(STORAGE_KEY, mode);
 
     // Update URL query param
-    const url = new URL(window.location);
+    const url = new URL(window.location.href);
     url.searchParams.set('kind', mode === 'personal' ? 'poetry' : 'pro');
     window.history.replaceState({}, '', url);
   }, [mode, isInitialized]);
@@ -63,7 +74,7 @@ export const PageModeProvider = ({ children }) => {
   );
 };
 
-export const usePageMode = () => {
+export const usePageMode = (): PageModeContextType => {
   const context = useContext(PageModeContext);
   if (!context) {
     throw new Error('usePageMode must be used within a PageModeProvider');

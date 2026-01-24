@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb, faCode, faRocket, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 
-const About = () => {
+const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,7 +68,7 @@ const About = () => {
           </div>
 
           <div className={`about-highlights ${isVisible ? 'about-highlights-visible' : ''}`}>
-            <div className="highlight-card" style={{ '--delay': '0s' }}>
+            <div className="highlight-card" style={{ '--delay': '0s' } as CSSProperties}>
               <div className="highlight-icon">
                 <FontAwesomeIcon icon={faLightbulb} />
               </div>
@@ -77,7 +77,7 @@ const About = () => {
                 <p>Always exploring new technologies and approaches to solve problems more elegantly.</p>
               </div>
             </div>
-            <div className="highlight-card" style={{ '--delay': '0.1s' }}>
+            <div className="highlight-card" style={{ '--delay': '0.1s' } as CSSProperties}>
               <div className="highlight-icon">
                 <FontAwesomeIcon icon={faCode} />
               </div>
@@ -86,7 +86,7 @@ const About = () => {
                 <p>I believe in writing clean, maintainable code that stands the test of time.</p>
               </div>
             </div>
-            <div className="highlight-card" style={{ '--delay': '0.2s' }}>
+            <div className="highlight-card" style={{ '--delay': '0.2s' } as CSSProperties}>
               <div className="highlight-icon">
                 <FontAwesomeIcon icon={faRocket} />
               </div>

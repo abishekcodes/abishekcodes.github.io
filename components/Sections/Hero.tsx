@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faAws, 
@@ -26,7 +26,7 @@ import {
 
 // Calculate years of experience at build time (starting November 29, 2016)
 const START_DATE = new Date(2016, 10, 29);
-const YEARS_OF_EXPERIENCE = Math.floor((new Date() - START_DATE) / (1000 * 60 * 60 * 24 * 365.25));
+const YEARS_OF_EXPERIENCE = Math.floor((new Date().getTime() - START_DATE.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -113,7 +113,7 @@ const Hero = () => {
             style={{
               animationDelay: `${index * 0.3}s`,
               '--icon-color': tech.color
-            }}
+            } as CSSProperties}
           >
             <FontAwesomeIcon icon={tech.icon} />
           </div>
@@ -194,7 +194,7 @@ const Hero = () => {
                 style={{
                   animationDelay: `${index * 0.2}s`,
                   '--badge-color': achievement.color
-                }}
+                } as CSSProperties}
               >
                 <FontAwesomeIcon icon={achievement.icon} />
                 <span>{achievement.text}</span>
@@ -209,7 +209,7 @@ const Hero = () => {
                 <div 
                   key={tech.name}
                   className="tech-icon-item"
-                  style={{ '--tech-color': tech.color }}
+                  style={{ '--tech-color': tech.color } as CSSProperties}
                 >
                   <FontAwesomeIcon icon={tech.icon} />
                   <span>{tech.name}</span>

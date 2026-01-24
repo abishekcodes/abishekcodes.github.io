@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, MouseEvent, TouchEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTimes,
@@ -17,14 +17,25 @@ import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import type { Project } from '@/types';
 
-const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, totalCount }) => {
-  const touchStartX = useRef(null);
-  const touchStartY = useRef(null);
-  const modalBodyRef = useRef(null);
+interface ProjectModalProps {
+  project: Project | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onPrev: (() => void) | null;
+  onNext: (() => void) | null;
+  currentIndex: number;
+  totalCount: number;
+}
+
+const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, totalCount }: ProjectModalProps) => {
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const modalBodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft' && onPrev) onPrev();
       if (e.key === 'ArrowRight' && onNext) onNext();
@@ -62,18 +73,18 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
 
   if (!isOpen || !project) return null;
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
 
   // Touch handlers for swipe
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
 
-  const handleTouchEnd = (e) => {
-    if (touchStartX.current === null) return;
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
 
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
@@ -259,7 +270,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
           <div className="modal-footer">
             <button
               className="modal-footer-nav"
-              onClick={onPrev}
+              onClick={onPrev || undefined}
               disabled={!onPrev}
               aria-label="Previous project"
             >
@@ -270,7 +281,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
             </span>
             <button
               className="modal-footer-nav"
-              onClick={onNext}
+              onClick={onNext || undefined}
               disabled={!onNext}
               aria-label="Next project"
             >
