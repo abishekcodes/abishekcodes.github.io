@@ -369,6 +369,18 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft' && onPrev) onPrev();
       if (e.key === 'ArrowRight' && onNext) onNext();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (modalContentRef.current) {
+          modalContentRef.current.scrollBy({ top: 100, behavior: 'smooth' });
+        }
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (modalContentRef.current) {
+          modalContentRef.current.scrollBy({ top: -100, behavior: 'smooth' });
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
 

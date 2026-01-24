@@ -1,19 +1,35 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const ProjectCard = ({ project, index, onCardClick }) => {
     const [isVisible, setIsVisible] = useState(false);
+    const cardRef = useRef(null);
 
     useEffect(() => {
-      const timer = setTimeout(() => setIsVisible(true), index * 300);
-      return () => clearTimeout(timer);
+      const element = cardRef.current;
+      if (!element) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            // Staggered delay based on index
+            setTimeout(() => setIsVisible(true), index * 150);
+            observer.unobserve(element);
+          }
+        },
+        { threshold: 0.15 }
+      );
+
+      observer.observe(element);
+      return () => observer.disconnect();
     }, [index]);
 
     return (
       <div
+        ref={cardRef}
         className={`project-card ${isVisible ? 'project-card-visible' : ''}`}
         onClick={() => onCardClick(project)}
         role="button"

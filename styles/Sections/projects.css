@@ -1127,3 +1127,124 @@
         font-size: 0.9rem;
     }
 }
+
+/* ============================================================================ */
+/* PROJECT MODAL NAVIGATION */
+/* ============================================================================ */
+
+.project-modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.project-modal-nav:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.project-modal-prev {
+    left: 1rem;
+}
+
+.project-modal-next {
+    right: 1rem;
+}
+
+/* Modal Footer Navigation */
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.modal-footer-nav {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-secondary);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.modal-footer-nav:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: var(--primary-color);
+}
+
+.modal-footer-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.modal-counter {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Hide side arrows on mobile, show footer nav */
+@media (max-width: 768px) {
+    .project-modal-nav {
+        display: none;
+    }
+
+    .modal-footer {
+        padding: 0.85rem 1.25rem;
+    }
+
+    .modal-footer-nav {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+
+    .modal-counter {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-footer {
+        padding: 0.75rem 1rem;
+        gap: 1rem;
+    }
+
+    .modal-footer-nav {
+        width: 30px;
+        height: 30px;
+    }
+
+    .modal-counter {
+        font-size: 0.8rem;
+    }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTimes,
@@ -13,25 +13,52 @@ import {
   faLightbulb,
   faQuestionCircle,
   faWrench,
-  faChartBar
+  faChartBar,
+  faChevronLeft,
+  faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 
-const ProjectModal = ({ project, isOpen, onClose }) => {
+const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, totalCount }) => {
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const modalBodyRef = useRef(null);
+
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft' && onPrev) onPrev();
+      if (e.key === 'ArrowRight' && onNext) onNext();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (modalBodyRef.current) {
+          modalBodyRef.current.scrollBy({ top: 100, behavior: 'smooth' });
+        }
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (modalBodyRef.current) {
+          modalBodyRef.current.scrollBy({ top: -100, behavior: 'smooth' });
+        }
+      }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, onPrev, onNext]);
+
+  // Scroll to top when project changes
+  useEffect(() => {
+    if (modalBodyRef.current) {
+      modalBodyRef.current.scrollTop = 0;
+    }
+  }, [project]);
 
   if (!isOpen || !project) return null;
 
@@ -39,9 +66,51 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
     if (e.target === e.currentTarget) onClose();
   };
 
+  // Touch handlers for swipe
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX.current;
+    const deltaY = touchEndY - touchStartY.current;
+
+    // Only trigger if horizontal swipe is greater than vertical and > 50px
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0 && onPrev) {
+        onPrev();
+      } else if (deltaX < 0 && onNext) {
+        onNext();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   return (
     <div className="project-modal-backdrop" onClick={handleBackdropClick}>
-      <div className="project-modal">
+      {/* Navigation arrows */}
+      {onPrev && (
+        <button
+          className="project-modal-nav project-modal-prev"
+          onClick={onPrev}
+          aria-label="Previous project"
+        >
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </button>
+      )}
+
+      <div
+        className="project-modal"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Sticky Header */}
         <div className="modal-header">
           <div className="modal-icon">
@@ -65,7 +134,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         </div>
 
         {/* Scrollable Body */}
-        <div className="modal-body">
+        <div className="modal-body" ref={modalBodyRef}>
           {/* Role Section */}
           <div className="modal-role-section">
             <div className="role-header">
@@ -185,8 +254,41 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
               )}
             </div>
           )}
+
+          {/* Navigation footer */}
+          <div className="modal-footer">
+            <button
+              className="modal-footer-nav"
+              onClick={onPrev}
+              disabled={!onPrev}
+              aria-label="Previous project"
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+            <span className="modal-counter">
+              {currentIndex + 1} / {totalCount}
+            </span>
+            <button
+              className="modal-footer-nav"
+              onClick={onNext}
+              disabled={!onNext}
+              aria-label="Next project"
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
         </div>
       </div>
+
+      {onNext && (
+        <button
+          className="project-modal-nav project-modal-next"
+          onClick={onNext}
+          aria-label="Next project"
+        >
+          <FontAwesomeIcon icon={faChevronRight} />
+        </button>
+      )}
     </div>
   );
 };

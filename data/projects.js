@@ -7,7 +7,7 @@ import {
 
 const projectsData = [
   {
-    id: 1,
+    id: 'api-billing-system',
     icon: faCreditCard,
     title: 'API Billing System',
     description: 'Usage-based billing system for sports data APIs with Stripe and Razorpay payment gateway integrations.',
@@ -32,7 +32,7 @@ const projectsData = [
     learnings: 'Learned payment processing, idempotency in financial systems, and building reliable metering at scale.'
   },
   {
-    id: 2,
+    id: 'realtime-sports-editor',
     icon: faChartLine,
     title: 'Real-time Sports Editor',
     description: 'Real-time data editing platform for live sports coverage with sub-second latency.',
@@ -57,7 +57,7 @@ const projectsData = [
     learnings: 'Developed skills in mentoring engineers, business considerations for migrations, and event-driven architecture.'
   },
   {
-    id: 4,
+    id: 'cicd-pipeline',
     icon: faCogs,
     title: 'CI/CD Pipeline',
     description: 'CI/CD pipeline for deploying frontend, backend, and Lambda functions with canary deployments.',
@@ -81,7 +81,7 @@ const projectsData = [
     learnings: 'Mastered AWS deployment services, container orchestration, and infrastructure as code.'
   },
   {
-    id: 6,
+    id: 'internal-framework',
     icon: faCubes,
     title: 'Internal Framework Enhancements',
     description: 'Enhanced internal application framework with search integration and serverless orchestration.',
