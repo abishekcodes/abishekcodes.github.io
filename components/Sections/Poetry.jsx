@@ -64,8 +64,9 @@ const Poetry = () => {
           const formattedPoems = data.items.map((item, index) => {
             const content = item.content || item.description;
             const cleanLink = item.link.split('?')[0];
+            const slug = generateSlug(cleanLink);
             return {
-              id: index + 1,
+              id: slug,
               title: item.title,
               preview: extractPreview(content),
               fullContent: extractFullContent(content),
@@ -195,8 +196,12 @@ const Poetry = () => {
 
   const extractPreview = (html) => {
     const fullText = extractFullContent(html);
-    const firstLine = fullText.split('\n')[0];
-    return firstLine || '';
+    const lines = fullText.split('\n').filter(line => line.trim());
+    // Skip "A poem" if it's the first line
+    if (lines.length > 0 && lines[0].toLowerCase() === 'a poem') {
+      return lines[1] || '';
+    }
+    return lines[0] || '';
   };
 
   const formatDate = (dateString) => {
@@ -511,10 +516,23 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
               <div className="poem-modal-text">
                 {(() => {
                   if (!displayPoem) return null;
-                  const isPainfulFarewell = displayPoem.title.toLowerCase().includes('painful farewell');
 
-                  if (isPainfulFarewell) {
-                    const allLines = displayPoem.fullContent.split('\n').filter(line => line.trim());
+                  // Remove "A poem" if it's the first line (common for all poems)
+                  let content = displayPoem.fullContent;
+                  const firstLine = content.split('\n').find(line => line.trim());
+                  if (firstLine && firstLine.trim().toLowerCase() === 'a poem') {
+                    content = content.replace(/^\s*a poem\s*\n/i, '');
+                  }
+
+                  // Poems that need 4-line stanza breaks (matched by exact ID)
+                  const fourLineStanzaPoems = [
+                    'literally-literary__painful-farewell-595711fbcf36',
+                    'literally-literary__kashmir-be613d9df0d8'
+                  ];
+                  const needsFourLineBreaks = fourLineStanzaPoems.includes(displayPoem.id);
+
+                  if (needsFourLineBreaks) {
+                    const allLines = content.split('\n').filter(line => line.trim());
                     const stanzas = [];
                     for (let i = 0; i < allLines.length; i += 4) {
                       stanzas.push(allLines.slice(i, i + 4));
@@ -528,7 +546,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
                     ));
                   }
 
-                  return displayPoem.fullContent.split('\n\n').map((stanza, stanzaIdx) => (
+                  return content.split('\n\n').map((stanza, stanzaIdx) => (
                     <div key={stanzaIdx} className="poem-stanza">
                       {stanza.split('\n').map((line, lineIdx) => (
                         <span key={lineIdx} className="poem-line">{line}</span>
