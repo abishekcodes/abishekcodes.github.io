@@ -13,7 +13,7 @@ const TechBadge = ({ tech, index }) => {
             return null;
         }
         const variant = tech.variant || 'original';
-        return `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.icon}/${tech.icon}-${variant}.svg`;
+        return `/icons/devicons/${tech.icon}-${variant}.svg`;
     };
 
     const CustomIcon = ({ name }) => {

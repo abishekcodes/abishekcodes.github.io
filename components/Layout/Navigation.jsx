@@ -22,6 +22,7 @@ const Navigation = ({ activeSection }) => {
     { href: '#skills', label: 'Skills' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
+    { href: '#about', label: 'About Me' },
     { href: '#contact', label: 'Contact' }
   ];
 
