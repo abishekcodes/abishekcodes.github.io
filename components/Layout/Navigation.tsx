@@ -5,7 +5,11 @@ import { usePageMode } from '@/context/PageModeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faFeatherPointed } from '@fortawesome/free-solid-svg-icons';
 
-const Navigation = ({ activeSection }) => {
+interface NavigationProps {
+  activeSection: string;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { mode, toggleMode } = usePageMode();
 
@@ -34,7 +38,7 @@ const Navigation = ({ activeSection }) => {
 
   const navItems = mode === 'professional' ? professionalNavItems : personalNavItems;
 
-  const scrollToSection = (href) => {
+  const scrollToSection = (href: string): void => {
     const element = document.querySelector(href);
     element?.scrollIntoView({ behavior: 'smooth' });
   };

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFeather,
@@ -65,7 +65,7 @@ const PersonalHero = () => {
             style={{
               animationDelay: `${index * 0.5}s`,
               '--icon-color': item.color
-            }}
+            } as CSSProperties}
           >
             <FontAwesomeIcon icon={item.icon} />
           </div>

@@ -3,10 +3,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import type { Project } from '@/types';
 
-const ProjectCard = ({ project, index, onCardClick }) => {
+interface ProjectCardProps {
+    project: Project;
+    index: number;
+    onCardClick: (project: Project) => void;
+}
+
+const ProjectCard = ({ project, index, onCardClick }: ProjectCardProps) => {
     const [isVisible, setIsVisible] = useState(false);
-    const cardRef = useRef(null);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       const element = cardRef.current;

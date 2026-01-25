@@ -2,17 +2,27 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import '@/styles/Sections/poetry.css';
+import type { Poem } from '@/types';
 
-const Poetry = () => {
-  const [poems, setPoems] = useState([]);
-  const [poemsMap, setPoemsMap] = useState(new Map()); // slug -> index
+interface RSSItem {
+  title: string;
+  content?: string;
+  description?: string;
+  link: string;
+  pubDate: string;
+  thumbnail?: string;
+}
+
+const Poetry: React.FC = () => {
+  const [poems, setPoems] = useState<Poem[]>([]);
+  const [poemsMap, setPoemsMap] = useState<Map<string, number>>(new Map());
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedPoemIndex, setSelectedPoemIndex] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedPoemIndex, setSelectedPoemIndex] = useState<number | null>(null);
 
   // Generate URL-friendly slug from Medium URL
   // Takes the path after medium.com and replaces / with __
-  const generateSlug = (link) => {
+  const generateSlug = (link: string): string => {
     try {
       const url = new URL(link);
       // Get pathname and remove leading slash, then replace remaining slashes with __
@@ -29,8 +39,8 @@ const Poetry = () => {
   };
 
   // Update URL with poem parameter
-  const updatePoemUrl = (index, poemsList = poems) => {
-    const url = new URL(window.location);
+  const updatePoemUrl = (index: number | null, poemsList: Poem[] = poems): void => {
+    const url = new URL(window.location.href);
     if (index !== null && poemsList[index]) {
       const slug = generateSlug(poemsList[index].link);
       url.searchParams.set('poem', slug);
@@ -46,7 +56,10 @@ const Poetry = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const poemSlug = urlParams.get('poem');
       if (poemSlug && poemsMap.has(poemSlug)) {
-        setSelectedPoemIndex(poemsMap.get(poemSlug));
+        const index = poemsMap.get(poemSlug);
+        if (index !== undefined) {
+          setSelectedPoemIndex(index);
+        }
       }
     }
   }, [poemsMap]);
@@ -61,8 +74,8 @@ const Poetry = () => {
         const data = await response.json();
 
         if (data.status === 'ok' && data.items) {
-          const formattedPoems = data.items.map((item, index) => {
-            const content = item.content || item.description;
+          const formattedPoems = data.items.map((item: RSSItem) => {
+            const content = item.content || item.description || '';
             const cleanLink = item.link.split('?')[0];
             const slug = generateSlug(cleanLink);
             return {
@@ -79,8 +92,8 @@ const Poetry = () => {
           setPoems(formattedPoems);
 
           // Build slug -> index map for O(1) lookups
-          const slugMap = new Map();
-          formattedPoems.forEach((poem, index) => {
+          const slugMap = new Map<string, number>();
+          formattedPoems.forEach((poem: Poem, index: number) => {
             slugMap.set(generateSlug(poem.link), index);
           });
           setPoemsMap(slugMap);
@@ -98,7 +111,7 @@ const Poetry = () => {
     fetchPoetry();
   }, []);
 
-  const extractImage = (html) => {
+  const extractImage = (html: string): string | null => {
     const figureMatch = html.match(/<figure[^>]*>[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
     if (figureMatch && figureMatch[1]) {
       return figureMatch[1];
@@ -112,7 +125,7 @@ const Poetry = () => {
     return null;
   };
 
-  const extractFigcaption = (html) => {
+  const extractFigcaption = (html: string): string | null => {
     const figcaptionMatch = html.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
     if (figcaptionMatch && figcaptionMatch[1]) {
       // Clean up the caption - remove HTML tags and decode entities
@@ -123,7 +136,7 @@ const Poetry = () => {
     return null;
   };
 
-  const cleanContent = (html) => {
+  const cleanContent = (html: string): string => {
     const temp = document.createElement('div');
     temp.innerHTML = html;
 
@@ -148,7 +161,7 @@ const Poetry = () => {
     return text;
   };
 
-  const extractFullContent = (html) => {
+  const extractFullContent = (html: string): string => {
     let mainContent = html.split(/<hr/i)[0];
 
     mainContent = mainContent
@@ -156,7 +169,7 @@ const Poetry = () => {
       .replace(/<img[^>]*>/gi, '')
       .replace(/<figure[^>]*>.*?<\/figure>/gi, '');
 
-    const decodeEntities = (text) => {
+    const decodeEntities = (text: string): string => {
       const textarea = document.createElement('textarea');
       textarea.innerHTML = text;
       return textarea.value;
@@ -167,7 +180,7 @@ const Poetry = () => {
 
     temp.querySelectorAll('img, figure, figcaption').forEach(el => el.remove());
 
-    const stanzas = [];
+    const stanzas: string[] = [];
     temp.querySelectorAll('p, blockquote').forEach(el => {
       const elHtml = el.innerHTML
         .replace(/<br\s*\/?>/gi, '\n')
@@ -194,7 +207,7 @@ const Poetry = () => {
     return text;
   };
 
-  const extractPreview = (html) => {
+  const extractPreview = (html: string): string => {
     const fullText = extractFullContent(html);
     const lines = fullText.split('\n').filter(line => line.trim());
     // Skip "A poem" if it's the first line
@@ -204,7 +217,7 @@ const Poetry = () => {
     return lines[0] || '';
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -273,9 +286,9 @@ const Poetry = () => {
         </div>
       </div>
 
-      {selectedPoemIndex !== null && (
+      {selectedPoemIndex !== null && selectedPoemIndex < poems.length && poems[selectedPoemIndex] && (
         <PoemModal
-          poem={selectedPoemIndex < poems.length ? poems[selectedPoemIndex] : null}
+          poem={poems[selectedPoemIndex]}
           onClose={() => {
             setSelectedPoemIndex(null);
             updatePoemUrl(null);
@@ -303,9 +316,15 @@ const Poetry = () => {
   );
 };
 
-const PoemCard = ({ poem, index, onReadMore }) => {
+interface PoemCardProps {
+  poem: Poem;
+  index: number;
+  onReadMore: () => void;
+}
+
+const PoemCard: React.FC<PoemCardProps> = ({ poem, index, onReadMore }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -351,21 +370,31 @@ const PoemCard = ({ poem, index, onReadMore }) => {
   );
 };
 
-const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, isCtaSlide }) => {
-  const modalContentRef = useRef(null);
-  const [displayPoem, setDisplayPoem] = useState(poem);
-  const [swipeDirection, setSwipeDirection] = useState(null); // 'left' or 'right'
+interface PoemModalProps {
+  poem: Poem;
+  onClose: () => void;
+  onPrev: (() => void) | null;
+  onNext: (() => void) | null;
+  currentIndex: number;
+  totalCount: number;
+  isCtaSlide: boolean;
+}
+
+const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, isCtaSlide }) => {
+  const modalContentRef = useRef<HTMLDivElement>(null);
+  const [displayPoem, setDisplayPoem] = useState<Poem>(poem);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Touch swipe support
-  const touchStartX = useRef(null);
-  const touchStartY = useRef(null);
-  const prevIndex = useRef(currentIndex);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const prevIndex = useRef<number>(currentIndex);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft' && onPrev) onPrev();
       if (e.key === 'ArrowRight' && onNext) onNext();
@@ -391,13 +420,13 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
   }, [onClose, onPrev, onNext]);
 
   // Touch handlers for swipe
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent): void => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
 
-  const handleTouchEnd = (e) => {
-    if (touchStartX.current === null) return;
+  const handleTouchEnd = (e: React.TouchEvent): void => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
 
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
@@ -452,7 +481,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
     }
   }, [poem, displayPoem]);
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) onClose();
   };
 
@@ -545,7 +574,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
 
                   if (needsFourLineBreaks) {
                     const allLines = content.split('\n').filter(line => line.trim());
-                    const stanzas = [];
+                    const stanzas: string[][] = [];
                     for (let i = 0; i < allLines.length; i += 4) {
                       stanzas.push(allLines.slice(i, i + 4));
                     }
@@ -572,7 +601,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
           <div className={`poem-modal-footer ${isCtaSlide ? 'poem-modal-footer-cta' : ''}`}>
             <button
               className="poem-modal-footer-nav"
-              onClick={onPrev}
+              onClick={onPrev || undefined}
               disabled={!onPrev}
               aria-label="Previous poem"
             >
@@ -607,7 +636,7 @@ const PoemModal = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, is
             </div>
             <button
               className="poem-modal-footer-nav"
-              onClick={onNext}
+              onClick={onNext || undefined}
               disabled={!onNext}
               aria-label="Next poem"
             >

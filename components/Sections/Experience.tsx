@@ -5,9 +5,15 @@ import experienceData from '@/data/experience';
 import TimelineItem from '@/components/UI/TimelineItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faJs } from '@fortawesome/free-brands-svg-icons';
+import type { TechStack, Experience as ExperienceType } from '@/types';
 
-const TechBadge = ({ tech, index }) => {
-    const getIconUrl = (tech) => {
+interface TechBadgeProps {
+    tech: TechStack;
+    index: number;
+}
+
+const TechBadge: React.FC<TechBadgeProps> = ({ tech, index }) => {
+    const getIconUrl = (tech: TechStack): string | null => {
         if (tech.custom) {
             // Custom SVG icons for techs not in devicon
             return null;
@@ -16,7 +22,7 @@ const TechBadge = ({ tech, index }) => {
         return `/icons/devicons/${tech.icon}-${variant}.svg`;
     };
 
-    const CustomIcon = ({ name }) => {
+    const CustomIcon: React.FC<{ name: string }> = ({ name }) => {
         // LangGraph - graph/network nodes icon
         if (name === 'LangGraph') {
             return (
@@ -115,7 +121,7 @@ const TechBadge = ({ tech, index }) => {
         return null;
     };
 
-    const getFontAwesomeIcon = (name) => {
+    const getFontAwesomeIcon = (name: string) => {
         if (name === 'JavaScript') return faJs;
         return null;
     };
@@ -145,9 +151,14 @@ const TechBadge = ({ tech, index }) => {
     );
 };
 
-const ExperienceCard = ({ experience, index }) => {
+interface ExperienceCardProps {
+    experience: ExperienceType;
+    index: number;
+}
+
+const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, index }) => {
     const [isVisible, setIsVisible] = useState(false);
-    const cardRef = useRef(null);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const element = cardRef.current;
@@ -171,7 +182,7 @@ const ExperienceCard = ({ experience, index }) => {
         return () => observer.disconnect();
     }, [index]);
 
-    const getExperienceYear = (exp) => {
+    const getExperienceYear = (exp: ExperienceType): number => {
         const parts = exp.duration.split(' - ');
         const startPart = parts[0].trim();
         if (startPart.includes(' ')) {

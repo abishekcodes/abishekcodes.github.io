@@ -4,8 +4,9 @@ import {
   faCogs,
   faCubes
 } from '@fortawesome/free-solid-svg-icons';
+import { Project } from '@/types';
 
-const projectsData = [
+const projectsData: Project[] = [
   {
     id: 'api-billing-system',
     icon: faCreditCard,
