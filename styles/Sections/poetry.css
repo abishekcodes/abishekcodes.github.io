@@ -1181,17 +1181,29 @@
         display: none;
     }
 
-    /* Sticky header adjustments for mobile */
+    /* Fixed header for mobile - positioned at top of modal (5vh from viewport top) */
     .poem-modal-sticky-header {
-        top: -1.5rem;
+        position: fixed;
+        top: 5vh;
+        left: 0;
+        right: 0;
+        margin: 0;
         padding: 1.25rem 1rem 0.75rem;
-        margin: -1.5rem -1.25rem 0 -1.25rem;
-        width: calc(100% + 2.5rem);
+        width: 100%;
+        z-index: 200;
         background: linear-gradient(to bottom,
             rgba(13, 13, 13, 0.98) 0%,
             rgba(13, 13, 13, 0.95) 70%,
             rgba(13, 13, 13, 0) 100%
         );
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px 20px 0 0;
+    }
+
+    /* Add top padding to body to account for fixed header */
+    .modal-component-body--poem {
+        padding-top: 4rem !important;
     }
 
     .poem-modal-sticky-title {
@@ -1440,10 +1452,13 @@
     }
 
     .poem-modal-sticky-header {
-        top: -1.25rem;
+        top: 0;
         padding: 1rem 0.75rem 0.6rem;
-        margin: -1.25rem -1rem 0 -1rem;
-        width: calc(100% + 2rem);
+        border-radius: 0;
+    }
+
+    .modal-component-body--poem {
+        padding-top: 3.5rem !important;
     }
 
     .poem-modal-sticky-title {
