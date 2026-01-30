@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import ModalComponent from '@/components/UI/ModalComponent';
 import '@/styles/Sections/poetry.css';
 import type { Poem } from '@/types';
 
@@ -286,9 +287,9 @@ const Poetry: React.FC = () => {
         </div>
       </div>
 
-      {selectedPoemIndex !== null && selectedPoemIndex < poems.length && poems[selectedPoemIndex] && (
+      {selectedPoemIndex !== null && selectedPoemIndex <= poems.length && (selectedPoemIndex === poems.length || poems[selectedPoemIndex]) && (
         <PoemModal
-          poem={poems[selectedPoemIndex]}
+          poem={selectedPoemIndex < poems.length ? poems[selectedPoemIndex] : poems[poems.length - 1]}
           onClose={() => {
             setSelectedPoemIndex(null);
             updatePoemUrl(null);
@@ -381,75 +382,10 @@ interface PoemModalProps {
 }
 
 const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, currentIndex, totalCount, isCtaSlide }) => {
-  const modalContentRef = useRef<HTMLDivElement>(null);
   const [displayPoem, setDisplayPoem] = useState<Poem>(poem);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
-
-  // Touch swipe support
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
   const prevIndex = useRef<number>(currentIndex);
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-
-    const handleKeyDown = (e: KeyboardEvent): void => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft' && onPrev) onPrev();
-      if (e.key === 'ArrowRight' && onNext) onNext();
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (modalContentRef.current) {
-          modalContentRef.current.scrollBy({ top: 100, behavior: 'smooth' });
-        }
-      }
-      if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (modalContentRef.current) {
-          modalContentRef.current.scrollBy({ top: -100, behavior: 'smooth' });
-        }
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onClose, onPrev, onNext]);
-
-  // Touch handlers for swipe
-  const handleTouchStart = (e: React.TouchEvent): void => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent): void => {
-    if (touchStartX.current === null || touchStartY.current === null) return;
-
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-    const deltaX = touchEndX - touchStartX.current;
-    const deltaY = touchEndY - touchStartY.current;
-
-    // Only trigger if horizontal swipe is greater than vertical (not scrolling)
-    // and swipe distance is significant (> 50px)
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-      if (deltaX > 0 && onPrev) {
-        // Swiped right -> go to previous
-        setSwipeDirection('right');
-        onPrev();
-      } else if (deltaX < 0 && onNext) {
-        // Swiped left -> go to next
-        setSwipeDirection('left');
-        onNext();
-      }
-    }
-
-    touchStartX.current = null;
-    touchStartY.current = null;
-  };
 
   // Detect navigation direction and trigger animation
   useEffect(() => {
@@ -471,200 +407,206 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
     }
   }, [currentIndex, swipeDirection]);
 
-  // Update displayed poem and scroll to top
+  // Update displayed poem
   useEffect(() => {
     if (poem !== displayPoem) {
       setDisplayPoem(poem);
-      if (modalContentRef.current) {
-        modalContentRef.current.scrollTop = 0;
-      }
     }
   }, [poem, displayPoem]);
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
-    if (e.target === e.currentTarget) onClose();
+  const handleSwipeDirectionChange = (direction: 'left' | 'right' | null) => {
+    setSwipeDirection(direction);
   };
 
+  // Footer center content with counter and Medium link
+  const footerCenterContent = (
+    <>
+      {isCtaSlide ? (
+        <span className="poem-modal-counter">{totalCount + 1} / {totalCount + 1}</span>
+      ) : (
+        <>
+          {/* Mobile: counter links to Medium, Desktop: plain counter */}
+          <a
+            href={displayPoem?.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="poem-modal-counter poem-modal-counter-mobile"
+          >
+            {currentIndex + 1} / {totalCount + 1}
+          </a>
+          <span className="poem-modal-counter poem-modal-counter-desktop">{currentIndex + 1} / {totalCount + 1}</span>
+          {/* Desktop only: Medium link in footer */}
+          <a
+            href={displayPoem?.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="poem-modal-link poem-modal-link-desktop"
+          >
+            View on Medium
+          </a>
+        </>
+      )}
+    </>
+  );
+
+  // Mobile close button in footer
+  const footerExtraContent = (
+    <button
+      className="poem-modal-footer-close"
+      onClick={onClose}
+      aria-label="Close"
+    >
+      &times;
+    </button>
+  );
+
+  // On CTA slide, replace next button with "Read more on Medium" link
+  const nextButtonOverride = isCtaSlide ? (
+    <a
+      href="https://medium.com/@RiversOfThought"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="poem-modal-footer-cta-btn"
+    >
+      Read more on Medium
+    </a>
+  ) : undefined;
+
   return (
-    <div className="poem-modal-overlay" onClick={handleBackdropClick}>
-      {onPrev && (
-        <button
-          className="poem-modal-nav poem-modal-prev"
-          onClick={onPrev}
-          aria-label="Previous poem"
-        >
-          <span className="nav-icon">&#8249;</span>
-          <span className="nav-pulse"></span>
-        </button>
+    <ModalComponent
+      isOpen={true}
+      onClose={onClose}
+      onPrev={onPrev}
+      onNext={onNext}
+      currentIndex={currentIndex}
+      totalCount={totalCount + 1}
+      config={{
+        maxWidth: 'sm',
+        variant: 'poem',
+        showHeader: false,
+        showSideNav: true,
+        showNavPulse: true,
+        showFooter: true,
+        decorativeNav: true,
+      }}
+      footerCenterContent={footerCenterContent}
+      footerExtraContent={footerExtraContent}
+      nextButtonOverride={nextButtonOverride}
+      onSwipeDirectionChange={handleSwipeDirectionChange}
+      contentClassName={`${isCtaSlide ? 'poem-modal-cta-slide' : ''} ${isAnimating ? `swipe-${swipeDirection}` : ''}`}
+    >
+      {/* Mobile header with Medium link - only for poem slides */}
+      {!isCtaSlide && (
+        <div className="poem-modal-header-mobile">
+          <a
+            href={displayPoem?.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="poem-modal-link-mobile"
+          >
+            View on Medium
+          </a>
+        </div>
       )}
 
+      {/* Sticky header with title and close button */}
       <div
-        className="poem-modal"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        className={`poem-modal-sticky-header ${isCtaSlide ? 'poem-modal-sticky-header--cta' : ''}`}
+        style={!isCtaSlide && displayPoem?.thumbnail ? { '--header-bg-image': `url(${displayPoem.thumbnail})` } as React.CSSProperties : undefined}
       >
-        {/* Desktop close button */}
-        <button className="poem-modal-close poem-modal-close-desktop" onClick={onClose} aria-label="Close">
-          <span>&times;</span>
-        </button>
-
-        {/* Mobile header with Medium link - only for poem slides */}
         {!isCtaSlide && (
-          <div className="poem-modal-header-mobile">
-            <a
-              href={displayPoem?.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="poem-modal-link-mobile"
-            >
-              View on Medium
-            </a>
-          </div>
+          <>
+            <div className="poem-modal-header-date" title={displayPoem?.pubDate}>
+              <svg className="poem-modal-calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span className="poem-modal-header-date-text">
+                {displayPoem?.pubDate ? new Date(displayPoem.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : ''}
+              </span>
+            </div>
+            <h3 className="poem-modal-sticky-title">{displayPoem?.title}</h3>
+          </>
         )}
-        <div
-          className={`poem-modal-content ${isCtaSlide ? 'poem-modal-cta-slide' : ''} ${isAnimating ? `swipe-${swipeDirection}` : ''}`}
-          ref={modalContentRef}
+        {isCtaSlide && <span></span>}
+        <button
+          className="poem-modal-sticky-close"
+          onClick={onClose}
+          aria-label="Close"
         >
-          {isCtaSlide ? (
-            /* CTA Slide */
-            <div className="poem-modal-cta-content">
-              <h2 className="poem-modal-cta-title">Liked what you read?</h2>
-              <p className="poem-modal-cta-subtitle">There's more where that came from</p>
-              <a
-                href="https://medium.com/@RiversOfThought"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="poem-modal-cta-button"
-              >
-                Read more on Medium
-              </a>
-            </div>
-          ) : (
-            /* Poem Content */
-            <>
-              {displayPoem?.thumbnail && (
-                <figure className="poem-modal-figure">
-                  <div className="poem-modal-image">
-                    <img src={displayPoem.thumbnail} alt={displayPoem.title} />
-                  </div>
-                  {displayPoem.imageCaption && (
-                    <figcaption className="poem-modal-caption">{displayPoem.imageCaption}</figcaption>
-                  )}
-                </figure>
-              )}
-              <time className="poem-modal-date">{displayPoem?.pubDate}</time>
-              <h2 className="poem-modal-title">{displayPoem?.title}</h2>
-              <div className="poem-modal-text">
-                {(() => {
-                  if (!displayPoem) return null;
-
-                  // Remove "A poem" if it's the first line (common for all poems)
-                  let content = displayPoem.fullContent;
-                  const firstLine = content.split('\n').find(line => line.trim());
-                  if (firstLine && firstLine.trim().toLowerCase() === 'a poem') {
-                    content = content.replace(/^\s*a poem\s*\n/i, '');
-                  }
-
-                  // Poems that need 4-line stanza breaks (matched by exact ID)
-                  const fourLineStanzaPoems = [
-                    'literally-literary__painful-farewell-595711fbcf36',
-                    'literally-literary__kashmir-be613d9df0d8'
-                  ];
-                  const needsFourLineBreaks = fourLineStanzaPoems.includes(displayPoem.id);
-
-                  if (needsFourLineBreaks) {
-                    const allLines = content.split('\n').filter(line => line.trim());
-                    const stanzas: string[][] = [];
-                    for (let i = 0; i < allLines.length; i += 4) {
-                      stanzas.push(allLines.slice(i, i + 4));
-                    }
-                    return stanzas.map((stanza, stanzaIdx) => (
-                      <div key={stanzaIdx} className="poem-stanza">
-                        {stanza.map((line, lineIdx) => (
-                          <span key={lineIdx} className="poem-line">{line}</span>
-                        ))}
-                      </div>
-                    ));
-                  }
-
-                  return content.split('\n\n').map((stanza, stanzaIdx) => (
-                    <div key={stanzaIdx} className="poem-stanza">
-                      {stanza.split('\n').map((line, lineIdx) => (
-                        <span key={lineIdx} className="poem-line">{line}</span>
-                      ))}
-                    </div>
-                  ));
-                })()}
-              </div>
-            </>
-          )}
-          <div className={`poem-modal-footer ${isCtaSlide ? 'poem-modal-footer-cta' : ''}`}>
-            <button
-              className="poem-modal-footer-nav"
-              onClick={onPrev || undefined}
-              disabled={!onPrev}
-              aria-label="Previous poem"
-            >
-              &#8249;
-            </button>
-            <div className="poem-modal-footer-center">
-              {isCtaSlide ? (
-                <span className="poem-modal-counter">{totalCount + 1} / {totalCount + 1}</span>
-              ) : (
-                <>
-                  {/* Mobile: counter links to Medium, Desktop: plain counter */}
-                  <a
-                    href={displayPoem?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="poem-modal-counter poem-modal-counter-mobile"
-                  >
-                    {currentIndex + 1} / {totalCount + 1}
-                  </a>
-                  <span className="poem-modal-counter poem-modal-counter-desktop">{currentIndex + 1} / {totalCount + 1}</span>
-                  {/* Desktop only: Medium link in footer */}
-                  <a
-                    href={displayPoem?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="poem-modal-link poem-modal-link-desktop"
-                  >
-                    View on Medium
-                  </a>
-                </>
-              )}
-            </div>
-            <button
-              className="poem-modal-footer-nav"
-              onClick={onNext || undefined}
-              disabled={!onNext}
-              aria-label="Next poem"
-            >
-              &#8250;
-            </button>
-            {/* Mobile only: Close button in footer */}
-            <button
-              className="poem-modal-footer-close"
-              onClick={onClose}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-          </div>
-        </div>
+          &times;
+        </button>
       </div>
 
-      {onNext && (
-        <button
-          className="poem-modal-nav poem-modal-next"
-          onClick={onNext}
-          aria-label="Next poem"
-        >
-          <span className="nav-icon">&#8250;</span>
-          <span className="nav-pulse"></span>
-        </button>
+      {isCtaSlide ? (
+        /* CTA Slide */
+        <div className="poem-modal-cta-content">
+          <h2 className="poem-modal-cta-title">Thank you for reading</h2>
+          <p className="poem-modal-cta-subtitle">
+            I've written more poems from the heart — each one a piece of my soul poured onto the page. I'd love for you to explore them on Medium.
+          </p>
+          <span className="poem-modal-signature">~ Abishek</span>
+        </div>
+      ) : (
+        /* Poem Content */
+        <>
+          {displayPoem?.thumbnail && (
+            <figure className="poem-modal-figure">
+              <div className="poem-modal-image">
+                <img src={displayPoem.thumbnail} alt={displayPoem.title} />
+              </div>
+              {displayPoem.imageCaption && (
+                <figcaption className="poem-modal-caption">{displayPoem.imageCaption}</figcaption>
+              )}
+            </figure>
+          )}
+          <div className="poem-modal-text">
+            {(() => {
+              if (!displayPoem) return null;
+
+              // Remove "A poem" if it's the first line (common for all poems)
+              let content = displayPoem.fullContent;
+              const firstLine = content.split('\n').find(line => line.trim());
+              if (firstLine && firstLine.trim().toLowerCase() === 'a poem') {
+                content = content.replace(/^\s*a poem\s*\n/i, '');
+              }
+
+              // Poems that need 4-line stanza breaks (matched by exact ID)
+              const fourLineStanzaPoems = [
+                'literally-literary__painful-farewell-595711fbcf36',
+                'literally-literary__kashmir-be613d9df0d8'
+              ];
+              const needsFourLineBreaks = fourLineStanzaPoems.includes(displayPoem.id);
+
+              if (needsFourLineBreaks) {
+                const allLines = content.split('\n').filter(line => line.trim());
+                const stanzas: string[][] = [];
+                for (let i = 0; i < allLines.length; i += 4) {
+                  stanzas.push(allLines.slice(i, i + 4));
+                }
+                return stanzas.map((stanza, stanzaIdx) => (
+                  <div key={stanzaIdx} className="poem-stanza">
+                    {stanza.map((line, lineIdx) => (
+                      <span key={lineIdx} className="poem-line">{line}</span>
+                    ))}
+                  </div>
+                ));
+              }
+
+              return content.split('\n\n').map((stanza, stanzaIdx) => (
+                <div key={stanzaIdx} className="poem-stanza">
+                  {stanza.split('\n').map((line, lineIdx) => (
+                    <span key={lineIdx} className="poem-line">{line}</span>
+                  ))}
+                </div>
+              ));
+            })()}
+          </div>
+        </>
       )}
-    </div>
+    </ModalComponent>
   );
 };
 

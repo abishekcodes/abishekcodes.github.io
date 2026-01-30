@@ -905,8 +905,10 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    padding-top: 1.5rem;
+    padding: 1.5rem 0;
+    margin-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
+    justify-content: center;
 }
 
 .modal-link {
@@ -998,10 +1000,7 @@
     }
 
     .modal-links {
-        flex-direction: column;
-    }
-
-    .modal-link {
+        flex-direction: row;
         justify-content: center;
     }
 
@@ -1246,5 +1245,71 @@
 
     .modal-counter {
         font-size: 0.8rem;
+    }
+}
+
+/* Project Modal - Next Section Button (replaces next button on last project) */
+/* Desktop: circular button like nav arrows */
+.project-modal-next-section-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 50%;
+    color: var(--primary-color);
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-direction: column;
+    gap: 0.1rem;
+    line-height: 1;
+}
+
+.project-modal-next-section-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.6);
+    transform: scale(1.1);
+}
+
+.project-modal-next-section-btn svg {
+    font-size: 0.65rem;
+    transition: transform 0.3s ease;
+}
+
+.project-modal-next-section-btn:hover svg {
+    transform: translateX(2px);
+}
+
+/* Mobile: pill-shaped button in footer */
+@media (max-width: 768px) {
+    .project-modal-next-section-btn {
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        gap: 0.4rem;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.75rem;
+        border-radius: 20px;
+        background: var(--color-blue);
+        color: white;
+        border: none;
+    }
+
+    .project-modal-next-section-btn:hover {
+        transform: translateY(-1px);
+    }
+}
+
+@media (max-width: 480px) {
+    .project-modal-next-section-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.7rem;
     }
 }

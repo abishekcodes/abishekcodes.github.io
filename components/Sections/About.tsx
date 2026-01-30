@@ -49,9 +49,10 @@ const About: React.FC = () => {
               <p>
                 So I joined <span className="company-name">Roanuz</span>, where a small team was building something ambitious. Over six years,
                 I grew from writing production Python code to leading a team of five engineers,
-                architecting systems that would eventually handle 4 billion API requests. Those years
-                taught me everything - from debugging 3 AM production issues to designing billing
-                systems that process real money.
+                architecting systems that would eventually handle 4 billion API requests. I also worked
+                extensively on AWS - building and managing the infrastructure that powered our APIs.
+                Those years taught me everything - from debugging 3 AM production issues to designing
+                billing systems that process real money.
               </p>
             </div>
 
@@ -59,10 +60,12 @@ const About: React.FC = () => {
               <p>
                 Today, I'm a Senior Consultant at <span className="company-name">Thoughtworks</span>, and I keep seeking
                 new frontiers. After years of API development, I've dived into the world of LLMs,
-                building AI agents with LangGraph and CrewAI. What drives me hasn't changed - a deep
+                building AI agents with LangGraph and CrewAI. I'm also deeply interested in understanding
+                the complete lifecycle of a project - from code to infrastructure, including the DevOps
+                challenges that come with running systems at scale. What drives me hasn't changed - a deep
                 curiosity and admiration for people who find innovative ways to solve problems.
-                Whether it's a database query or an AI agent, I find joy in building elegant solutions
-                to complex challenges.
+                Whether it's a database query, a CI/CD pipeline, or an AI agent, I find joy in building
+                elegant solutions to complex challenges.
               </p>
             </div>
           </div>

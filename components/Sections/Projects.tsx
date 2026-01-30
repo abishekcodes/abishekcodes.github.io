@@ -54,6 +54,15 @@ const Projects = () => {
         updateProjectUrl(null);
     };
 
+    const handleNavigateToNextSection = () => {
+        handleCloseModal();
+        // Scroll to articles section
+        const articlesSection = document.getElementById('articles');
+        if (articlesSection) {
+            articlesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     const handlePrev = () => {
         if (selectedProjectIndex !== null && selectedProjectIndex > 0) {
             const newIndex = selectedProjectIndex - 1;
@@ -102,6 +111,7 @@ const Projects = () => {
                 onNext={selectedProjectIndex !== null && selectedProjectIndex < projectsData.length - 1 ? handleNext : null}
                 currentIndex={selectedProjectIndex ?? 0}
                 totalCount={projectsData.length}
+                onNavigateToNextSection={handleNavigateToNextSection}
             />
         </section>
     );
