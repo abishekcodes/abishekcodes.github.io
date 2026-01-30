@@ -1,0 +1,235 @@
+/* ============================================================================ */
+/* MOBILE NAVIGATION - FLOATING PILL WITH EXPANDABLE MENU */
+/* ============================================================================ */
+
+/* Only show on mobile */
+@media (min-width: 769px) {
+    .mobile-nav,
+    .mobile-nav-backdrop {
+        display: none !important;
+    }
+}
+
+.mobile-nav-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 998;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.mobile-nav {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Floating Pill Button */
+.mobile-nav-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.25rem;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.mobile-nav-pill:active {
+    transform: scale(0.97);
+}
+
+.mobile-nav.expanded .mobile-nav-pill {
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+    padding: 0.8rem;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+}
+
+.pill-icon {
+    font-size: 0.9rem;
+    color: var(--color-blue);
+    transition: all 0.3s ease;
+}
+
+.mobile-nav.expanded .pill-icon {
+    color: white;
+    font-size: 1rem;
+}
+
+.pill-label {
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.pill-dots {
+    display: flex;
+    gap: 4px;
+    margin-left: 0.25rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.pill-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.pill-dot.passed {
+    background: rgba(59, 130, 246, 0.4);
+}
+
+.pill-dot.active {
+    background: var(--color-blue);
+    box-shadow: 0 0 6px var(--color-blue);
+}
+
+.pill-chevron {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-left: 0.25rem;
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav.expanded .pill-chevron {
+    display: none;
+}
+
+/* Expanded Menu */
+.mobile-nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, rgba(25, 25, 25, 0.98) 0%, rgba(15, 15, 15, 0.99) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    min-width: 180px;
+}
+
+.mobile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    animation: slideUp 0.3s ease forwards;
+    opacity: 0;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-nav-item:active {
+    transform: scale(0.98);
+}
+
+.mobile-nav-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.mobile-nav-item.active {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--color-blue);
+}
+
+.mobile-nav-item.active svg {
+    color: var(--color-blue);
+}
+
+.mobile-nav-item svg {
+    font-size: 0.85rem;
+    width: 20px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.mobile-nav-item:hover svg {
+    color: var(--text-secondary);
+}
+
+/* Safe area padding for devices with home indicator */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .mobile-nav {
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+    }
+}
+
+/* Very small screens */
+@media (max-width: 380px) {
+    .mobile-nav-pill {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .pill-icon {
+        font-size: 0.85rem;
+    }
+
+    .pill-dot {
+        width: 4px;
+        height: 4px;
+    }
+
+    .mobile-nav-menu {
+        min-width: 160px;
+    }
+
+    .mobile-nav-item {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.85rem;
+    }
+}

@@ -3,6 +3,7 @@
 import { PageModeProvider, usePageMode } from '@/context/PageModeContext';
 import BackgroundAnimation from '@/components/Layout/BackgroundAnimation';
 import Navigation from '@/components/Layout/Navigation';
+import MobileNav from '@/components/Layout/MobileNav';
 import Hero from '@/components/Sections/Hero';
 import PersonalHero from '@/components/Sections/PersonalHero';
 import Skills from '@/components/Sections/Skills';
@@ -27,6 +28,7 @@ const AppContent = () => {
     <div className="App">
       <BackgroundAnimation />
       <Navigation activeSection={activeSection} />
+      <MobileNav activeSection={activeSection} />
       <main>
         {mode === 'professional' ? (
           <>
