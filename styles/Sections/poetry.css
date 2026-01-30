@@ -1183,9 +1183,9 @@
 
     /* Sticky header adjustments for mobile */
     .poem-modal-sticky-header {
-        top: 0;
-        padding: 0.75rem 1rem;
-        margin: 0 -1.25rem;
+        top: -1.5rem;
+        padding: 1.25rem 1rem 0.75rem;
+        margin: -1.5rem -1.25rem 0 -1.25rem;
         width: calc(100% + 2.5rem);
         background: linear-gradient(to bottom,
             rgba(13, 13, 13, 0.98) 0%,
@@ -1440,8 +1440,9 @@
     }
 
     .poem-modal-sticky-header {
-        padding: 0.6rem 0.75rem;
-        margin: 0 -1rem;
+        top: -1.25rem;
+        padding: 1rem 0.75rem 0.6rem;
+        margin: -1.25rem -1rem 0 -1rem;
         width: calc(100% + 2rem);
     }
 
