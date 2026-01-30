@@ -509,43 +509,47 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
         </div>
       )}
 
-      {/* Sticky header with title and close button */}
-      <div
-        className={`poem-modal-sticky-header ${isCtaSlide ? 'poem-modal-sticky-header--cta' : ''}`}
-        style={!isCtaSlide && displayPoem?.thumbnail ? { '--header-bg-image': `url(${displayPoem.thumbnail})` } as React.CSSProperties : undefined}
-      >
-        {!isCtaSlide && (
-          <>
-            <div className="poem-modal-header-date" title={displayPoem?.pubDate}>
-              <svg className="poem-modal-calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <span className="poem-modal-header-date-text">
-                {displayPoem?.pubDate ? new Date(displayPoem.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : ''}
-              </span>
-            </div>
-            <h3 className="poem-modal-sticky-title">{displayPoem?.title}</h3>
-          </>
-        )}
-        {isCtaSlide && <span></span>}
-        <button
-          className="poem-modal-sticky-close"
-          onClick={onClose}
-          aria-label="Close"
+      {/* Sticky header with title and close button - only for poem slides */}
+      {!isCtaSlide && (
+        <div
+          className="poem-modal-sticky-header"
+          style={displayPoem?.thumbnail ? { '--header-bg-image': `url(${displayPoem.thumbnail})` } as React.CSSProperties : undefined}
         >
-          &times;
-        </button>
-      </div>
+          <div className="poem-modal-header-date" title={displayPoem?.pubDate}>
+            <svg className="poem-modal-calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span className="poem-modal-header-date-text">
+              {displayPoem?.pubDate ? new Date(displayPoem.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : ''}
+            </span>
+          </div>
+          <h3 className="poem-modal-sticky-title">{displayPoem?.title}</h3>
+          <button
+            className="poem-modal-sticky-close"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+      )}
 
       {isCtaSlide ? (
         /* CTA Slide */
         <div className="poem-modal-cta-content">
-          <h2 className="poem-modal-cta-title">Thank you for reading</h2>
+          <button
+            className="poem-modal-cta-close"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+          <h2 className="poem-modal-cta-title">The ink never dries</h2>
           <p className="poem-modal-cta-subtitle">
-            I've written more poems from the heart — each one a piece of my soul poured onto the page. I'd love for you to explore them on Medium.
+            More verses of love, life, and loss await — moments of falling and rising again, captured in words.
           </p>
           <span className="poem-modal-signature">~ Abishek</span>
         </div>

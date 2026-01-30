@@ -294,12 +294,6 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
         </button>
       )}
 
-      {/* Side navigation - Next Button Override (e.g., "Continue to Articles" on last item) */}
-      {showSideNav && !onNext && nextButtonOverride && (
-        <div className={`modal-component-nav-override modal-component-nav-override--next modal-component-nav-override--${variant}`}>
-          {nextButtonOverride}
-        </div>
-      )}
     </div>
   );
 };
