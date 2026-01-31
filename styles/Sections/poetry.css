@@ -836,6 +836,7 @@
 }
 
 .poem-modal-cta-content {
+    position: relative;
     text-align: center;
     padding: 3rem 2rem;
     flex: 1;
