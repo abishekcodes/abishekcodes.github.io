@@ -356,7 +356,7 @@ const PoemCard: React.FC<PoemCardProps> = ({ poem, index, onReadMore }) => {
     >
       {poem.thumbnail && (
         <div className="poem-thumbnail">
-          <img src={poem.thumbnail} alt={poem.title} />
+          <img src={poem.thumbnail} alt={poem.title} width={300} height={200} />
         </div>
       )}
       <div className="poem-content">
@@ -559,7 +559,7 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
           {displayPoem?.thumbnail && (
             <figure className="poem-modal-figure">
               <div className="poem-modal-image">
-                <img src={displayPoem.thumbnail} alt={displayPoem.title} />
+                <img src={displayPoem.thumbnail} alt={displayPoem.title} width={400} height={220} />
               </div>
               {displayPoem.imageCaption && (
                 <figcaption className="poem-modal-caption">{displayPoem.imageCaption}</figcaption>

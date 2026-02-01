@@ -47,7 +47,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
     <nav className={`nav ${isScrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-container">
         <div className="logo" onClick={() => scrollToSection('#home')}>
-          <img src="/favicon.svg" alt="Abishek Mosesraj Logo" className="logo-svg" />
+          <img src="/favicon.svg" alt="Abishek Mosesraj Logo" className="logo-svg" width={40} height={40} />
         </div>
 
         <ul className="nav-links">

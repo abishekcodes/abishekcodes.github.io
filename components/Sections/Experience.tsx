@@ -141,7 +141,7 @@ const TechBadge: React.FC<TechBadgeProps> = ({ tech, index }) => {
                 {isFontAwesome && faIcon ? (
                     <FontAwesomeIcon icon={faIcon} className="tech-icon-fa" />
                 ) : iconUrl ? (
-                    <img src={iconUrl} alt={tech.name} className="tech-icon" />
+                    <img src={iconUrl} alt={tech.name} className="tech-icon" width={28} height={28} />
                 ) : (
                     <CustomIcon name={tech.name} />
                 )}
