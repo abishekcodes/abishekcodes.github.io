@@ -61,9 +61,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${lato.variable} ${pinyonScript.variable}`}>
       <head>
+        {/* Preconnect for Medium CDN (poem thumbnails) */}
+        <link rel="preconnect" href="https://miro.medium.com" crossOrigin="anonymous" />
+
         {/* DNS prefetch for external APIs */}
         <link rel="dns-prefetch" href="//api.rss2json.com" />
-        <link rel="dns-prefetch" href="//linkedin.com" />
         <link rel="dns-prefetch" href="//medium.com" />
 
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />

@@ -1,19 +1,22 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { PageModeProvider, usePageMode } from '@/context/PageModeContext';
 import BackgroundAnimation from '@/components/Layout/BackgroundAnimation';
 import Navigation from '@/components/Layout/Navigation';
 import MobileNav from '@/components/Layout/MobileNav';
 import Hero from '@/components/Sections/Hero';
 import PersonalHero from '@/components/Sections/PersonalHero';
-import Skills from '@/components/Sections/Skills';
-import Experience from '@/components/Sections/Experience';
-import Projects from '@/components/Sections/Projects';
-import About from '@/components/Sections/About';
-import Articles from '@/components/Sections/Articles';
-import Poetry from '@/components/Sections/Poetry';
 import Footer from '@/components/Layout/Footer';
 import useScrollSpy from '@/hooks/useScrollSpy';
+
+// Lazy load below-fold sections to reduce initial bundle size
+const Skills = dynamic(() => import('@/components/Sections/Skills'));
+const Experience = dynamic(() => import('@/components/Sections/Experience'));
+const Projects = dynamic(() => import('@/components/Sections/Projects'));
+const About = dynamic(() => import('@/components/Sections/About'));
+const Articles = dynamic(() => import('@/components/Sections/Articles'));
+const Poetry = dynamic(() => import('@/components/Sections/Poetry'));
 
 const AppContent = () => {
   const { mode } = usePageMode();
