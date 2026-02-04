@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { Briefcase, ArrowRight } from 'lucide-react';
 import type { Project } from '@/types';
 
 interface ProjectCardProps {
@@ -14,6 +13,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, index, onCardClick }: ProjectCardProps) => {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+    const IconComponent = project.icon;
 
     useEffect(() => {
       const element = cardRef.current;
@@ -45,7 +45,7 @@ const ProjectCard = ({ project, index, onCardClick }: ProjectCardProps) => {
       >
         <div className="project-header">
           <span className="project-icon">
-            <FontAwesomeIcon icon={project.icon} />
+            <IconComponent size={48} />
           </span>
           <span className={`project-status ${project.status}`}>
             {project.status === 'production' ? 'Live' : 'POC'}
@@ -56,7 +56,7 @@ const ProjectCard = ({ project, index, onCardClick }: ProjectCardProps) => {
           <p className="project-description">{project.description}</p>
 
           <div className="project-role">
-            <FontAwesomeIcon icon={faBriefcase} className="role-icon" />
+            <Briefcase size={14} className="role-icon" />
             <span className="role-text">{project.role}</span>
           </div>
 
@@ -71,7 +71,7 @@ const ProjectCard = ({ project, index, onCardClick }: ProjectCardProps) => {
 
           <div className="project-cta">
             <span>View Details</span>
-            <FontAwesomeIcon icon={faArrowRight} className="cta-icon" />
+            <ArrowRight size={14} className="cta-icon" />
           </div>
         </div>
       </div>

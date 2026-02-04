@@ -1,20 +1,19 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faExternalLinkAlt,
-  faBookOpen,
-  faCheckCircle,
-  faBriefcase,
-  faBuilding,
-  faExclamationTriangle,
-  faLightbulb,
-  faQuestionCircle,
-  faWrench,
-  faChartBar,
-  faArrowRight
-} from '@fortawesome/free-solid-svg-icons';
+  ExternalLink,
+  BookOpen,
+  CheckCircle,
+  Briefcase,
+  Building,
+  AlertTriangle,
+  Lightbulb,
+  HelpCircle,
+  Wrench,
+  BarChart3,
+  ArrowRight
+} from 'lucide-react';
 import ModalComponent from './ModalComponent';
 import type { Project } from '@/types';
 
@@ -61,6 +60,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
   if (!project) return null;
 
   const isLastProject = !onNext;
+  const IconComponent = project.icon;
 
   // On last project, replace next button with "Continue to Articles"
   const nextButtonOverride = isLastProject && onNavigateToNextSection ? (
@@ -69,14 +69,14 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       onClick={onNavigateToNextSection}
     >
       Articles
-      <FontAwesomeIcon icon={faArrowRight} />
+      <ArrowRight size={16} />
     </button>
   ) : undefined;
 
   const headerContent = (
     <>
       <div className="modal-icon">
-        <FontAwesomeIcon icon={project.icon} />
+        <IconComponent size={28} />
       </div>
       <div className="modal-title-section">
         <h2 className="modal-title">{project.title}</h2>
@@ -85,7 +85,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
             {project.status === 'production' ? 'In Production' : 'Proof of Concept'}
           </span>
           <span className="company-badge">
-            <FontAwesomeIcon icon={faBuilding} />
+            <Building size={14} />
             {project.company}
           </span>
         </div>
@@ -118,7 +118,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {/* Role Section */}
       <div className="modal-role-section">
         <div className="role-header">
-          <FontAwesomeIcon icon={faBriefcase} />
+          <Briefcase size={16} />
           <span>My Role: <strong>{project.role}</strong></span>
         </div>
       </div>
@@ -127,7 +127,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {project.problem && (
         <div className="modal-section problem-section">
           <h3>
-            <FontAwesomeIcon icon={faQuestionCircle} />
+            <HelpCircle size={18} />
             The Challenge
           </h3>
           <p>{project.problem}</p>
@@ -138,7 +138,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {project.solution && (
         <div className="modal-section solution-section">
           <h3>
-            <FontAwesomeIcon icon={faWrench} />
+            <Wrench size={18} />
             The Solution
           </h3>
           <p>{project.solution}</p>
@@ -149,7 +149,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {project.impact && (
         <div className="modal-section impact-section">
           <h3>
-            <FontAwesomeIcon icon={faChartBar} />
+            <BarChart3 size={18} />
             Impact & Results
           </h3>
           <ul className="impact-list">
@@ -163,7 +163,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {/* Tech Stack */}
       <div className="modal-section tech-section">
         <h3>
-          <FontAwesomeIcon icon={faWrench} />
+          <Wrench size={18} />
           Tech Stack
         </h3>
         <div className="tech-tags">
@@ -177,7 +177,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {project.highlights && (
         <div className="modal-section highlights-section">
           <h3>
-            <FontAwesomeIcon icon={faCheckCircle} />
+            <CheckCircle size={18} />
             Key Highlights
           </h3>
           <ul className="highlights-list">
@@ -192,7 +192,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {project.learnings && (
         <div className="modal-section learnings-section">
           <h3>
-            <FontAwesomeIcon icon={faLightbulb} />
+            <Lightbulb size={18} />
             What I Learned
           </h3>
           <p>{project.learnings}</p>
@@ -202,7 +202,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
       {/* Note for POC projects */}
       {project.note && (
         <div className="modal-note">
-          <FontAwesomeIcon icon={faExclamationTriangle} />
+          <AlertTriangle size={18} />
           <p>{project.note}</p>
         </div>
       )}
@@ -217,7 +217,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
               rel="noopener noreferrer"
               className="modal-link live"
             >
-              <FontAwesomeIcon icon={faExternalLinkAlt} />
+              <ExternalLink size={16} />
               View Live
             </a>
           )}
@@ -228,7 +228,7 @@ const ProjectModal = ({ project, isOpen, onClose, onPrev, onNext, currentIndex, 
               rel="noopener noreferrer"
               className="modal-link blog"
             >
-              <FontAwesomeIcon icon={faBookOpen} />
+              <BookOpen size={16} />
               Read Blog Post
             </a>
           )}

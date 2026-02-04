@@ -1,9 +1,9 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { LucideIcon } from 'lucide-react';
 
 // Skills
 export interface Skill {
   id: number;
-  icon: IconDefinition;
+  icon: LucideIcon;
   title: string;
   description: string;
 }
@@ -28,7 +28,7 @@ export interface Experience {
 // Projects
 export interface Project {
   id: string;
-  icon: IconDefinition;
+  icon: LucideIcon;
   title: string;
   description: string;
   techStack: string[];

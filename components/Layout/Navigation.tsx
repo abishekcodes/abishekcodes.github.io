@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePageMode } from '@/context/PageModeContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase, faFeatherPointed } from '@fortawesome/free-solid-svg-icons';
+import { Briefcase, Feather } from 'lucide-react';
 
 interface NavigationProps {
   activeSection: string;
@@ -70,7 +69,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
             title="Professional"
             aria-label="Switch to professional mode"
           >
-            <FontAwesomeIcon icon={faBriefcase} />
+            <Briefcase size={18} />
             <span className="mode-tooltip">Professional</span>
           </button>
           <button
@@ -86,7 +85,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection }) => {
             title="Poetry"
             aria-label="Switch to poetry mode"
           >
-            <FontAwesomeIcon icon={faFeatherPointed} />
+            <Feather size={18} />
             <span className="mode-tooltip">Poetry</span>
           </button>
         </div>

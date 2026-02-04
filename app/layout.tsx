@@ -3,7 +3,7 @@ import './globals.css';
 
 const lato = Lato({
   subsets: ['latin'],
-  weight: ['100', '300', '400', '700', '900'],
+  weight: ['300', '400', '700', '900'],
   style: ['normal', 'italic'],
   variable: '--font-lato',
   display: 'swap',

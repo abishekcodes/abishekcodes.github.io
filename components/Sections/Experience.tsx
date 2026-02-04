@@ -3,8 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import experienceData from '@/data/experience';
 import TimelineItem from '@/components/UI/TimelineItem';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faJs } from '@fortawesome/free-brands-svg-icons';
+import BrandIcon from '@/components/UI/BrandIcon';
 import type { TechStack, Experience as ExperienceType } from '@/types';
 
 interface TechBadgeProps {
@@ -114,32 +113,25 @@ const TechBadge: React.FC<TechBadgeProps> = ({ tech, index }) => {
                 </svg>
             );
         }
-        // JavaScript uses FontAwesome
+        // JavaScript uses BrandIcon
         if (name === 'JavaScript') {
-            return null; // Handled separately with FontAwesome
+            return <BrandIcon name="javascript" size={28} className="tech-icon-brand" />;
         }
         return null;
     };
 
-    const getFontAwesomeIcon = (name: string) => {
-        if (name === 'JavaScript') return faJs;
-        return null;
-    };
-
-    const isFontAwesome = tech.name === 'JavaScript';
+    const isBrandIcon = tech.name === 'JavaScript';
 
     const iconUrl = getIconUrl(tech);
 
-    const faIcon = getFontAwesomeIcon(tech.name);
-
     return (
         <div
-            className={`tech-badge ${isFontAwesome ? 'tech-badge-fa' : ''}`}
+            className={`tech-badge ${isBrandIcon ? 'tech-badge-fa' : ''}`}
             style={{ animationDelay: `${0.5 + index * 0.15}s` }}
         >
             <div className="tech-icon-wrapper">
-                {isFontAwesome && faIcon ? (
-                    <FontAwesomeIcon icon={faIcon} className="tech-icon-fa" />
+                {isBrandIcon ? (
+                    <CustomIcon name={tech.name} />
                 ) : iconUrl ? (
                     <img src={iconUrl} alt={tech.name} className="tech-icon" width={28} height={28} />
                 ) : (

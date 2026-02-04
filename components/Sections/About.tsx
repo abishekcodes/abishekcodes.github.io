@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, CSSProperties } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faCode, faRocket, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
+import { Lightbulb, Code, Rocket } from 'lucide-react';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -73,7 +72,7 @@ const About: React.FC = () => {
           <div className={`about-highlights ${isVisible ? 'about-highlights-visible' : ''}`}>
             <div className="highlight-card" style={{ '--delay': '0s' } as CSSProperties}>
               <div className="highlight-icon">
-                <FontAwesomeIcon icon={faLightbulb} />
+                <Lightbulb size={24} />
               </div>
               <div className="highlight-content">
                 <h3>Curious Mind</h3>
@@ -82,7 +81,7 @@ const About: React.FC = () => {
             </div>
             <div className="highlight-card" style={{ '--delay': '0.1s' } as CSSProperties}>
               <div className="highlight-icon">
-                <FontAwesomeIcon icon={faCode} />
+                <Code size={24} />
               </div>
               <div className="highlight-content">
                 <h3>Craft-Focused</h3>
@@ -91,7 +90,7 @@ const About: React.FC = () => {
             </div>
             <div className="highlight-card" style={{ '--delay': '0.2s' } as CSSProperties}>
               <div className="highlight-icon">
-                <FontAwesomeIcon icon={faRocket} />
+                <Rocket size={24} />
               </div>
               <div className="highlight-content">
                 <h3>Impact-Driven</h3>

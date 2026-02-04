@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedinIn, faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
+import BrandIcon from '@/components/UI/BrandIcon';
 import { usePageMode } from '@/context/PageModeContext';
 
 const Footer = () => {
@@ -23,7 +22,7 @@ const Footer = () => {
                   aria-label="Connect on LinkedIn"
                 >
                   <span className="social-icon-circle linkedin">
-                    <FontAwesomeIcon icon={faLinkedinIn} />
+                    <BrandIcon name="linkedin" size={20} />
                   </span>
                   <span className="social-text">LinkedIn</span>
                 </a>
@@ -35,7 +34,7 @@ const Footer = () => {
                   aria-label="View GitHub profile"
                 >
                   <span className="social-icon-circle github">
-                    <FontAwesomeIcon icon={faGithub} />
+                    <BrandIcon name="github" size={20} />
                   </span>
                   <span className="social-text">GitHub</span>
                 </a>
@@ -48,7 +47,7 @@ const Footer = () => {
                 className="social-connect"
               >
                 <span className="social-icon-circle medium">
-                  <FontAwesomeIcon icon={faMediumM} />
+                  <BrandIcon name="medium" size={20} />
                 </span>
                 <span className="social-text">Connect on Medium</span>
               </a>

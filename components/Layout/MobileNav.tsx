@@ -2,34 +2,34 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePageMode } from '@/context/PageModeContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faHome,
-  faCode,
-  faBriefcase,
-  faRocket,
-  faNewspaper,
-  faUser,
-  faEnvelope,
-  faFeatherPointed,
-  faChevronUp,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons';
+  Home,
+  Code,
+  Briefcase,
+  Rocket,
+  Newspaper,
+  User,
+  Mail,
+  Feather,
+  ChevronUp,
+  X,
+  LucideIcon
+} from 'lucide-react';
 import '@/styles/Layout/mobile-nav.css';
 
 interface MobileNavProps {
   activeSection: string;
 }
 
-const sectionIcons: Record<string, typeof faHome> = {
-  home: faHome,
-  skills: faCode,
-  experience: faBriefcase,
-  projects: faRocket,
-  articles: faNewspaper,
-  about: faUser,
-  contact: faEnvelope,
-  poetry: faFeatherPointed,
+const sectionIcons: Record<string, LucideIcon> = {
+  home: Home,
+  skills: Code,
+  experience: Briefcase,
+  projects: Rocket,
+  articles: Newspaper,
+  about: User,
+  contact: Mail,
+  poetry: Feather,
 };
 
 const MobileNav: React.FC<MobileNavProps> = ({ activeSection }) => {
@@ -81,6 +81,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ activeSection }) => {
 
   if (!isVisible) return null;
 
+  const CurrentIcon = sectionIcons[currentItem.id];
+
   return (
     <>
       {/* Backdrop */}
@@ -95,17 +97,20 @@ const MobileNav: React.FC<MobileNavProps> = ({ activeSection }) => {
         {/* Expanded Menu */}
         {isExpanded && (
           <div className="mobile-nav-menu">
-            {navItems.map((item, index) => (
-              <button
-                key={item.id}
-                className={`mobile-nav-item ${item.id === activeSection ? 'active' : ''}`}
-                onClick={() => scrollToSection(item.id)}
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <FontAwesomeIcon icon={sectionIcons[item.id]} />
-                <span>{item.label}</span>
-              </button>
-            ))}
+            {navItems.map((item, index) => {
+              const Icon = sectionIcons[item.id];
+              return (
+                <button
+                  key={item.id}
+                  className={`mobile-nav-item ${item.id === activeSection ? 'active' : ''}`}
+                  onClick={() => scrollToSection(item.id)}
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <Icon size={18} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
           </div>
         )}
 
@@ -115,10 +120,10 @@ const MobileNav: React.FC<MobileNavProps> = ({ activeSection }) => {
           onClick={() => setIsExpanded(!isExpanded)}
         >
           {isExpanded ? (
-            <FontAwesomeIcon icon={faTimes} className="pill-icon" />
+            <X size={18} className="pill-icon" />
           ) : (
             <>
-              <FontAwesomeIcon icon={sectionIcons[currentItem.id]} className="pill-icon" />
+              <CurrentIcon size={18} className="pill-icon" />
               <span className="pill-label">{currentItem.label}</span>
               <div className="pill-dots">
                 {navItems.map((item, index) => (
@@ -128,7 +133,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ activeSection }) => {
                   />
                 ))}
               </div>
-              <FontAwesomeIcon icon={faChevronUp} className="pill-chevron" />
+              <ChevronUp size={14} className="pill-chevron" />
             </>
           )}
         </button>

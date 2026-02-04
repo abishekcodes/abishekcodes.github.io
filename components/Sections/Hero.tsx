@@ -1,37 +1,46 @@
 'use client';
 
 import React, { useState, useEffect, CSSProperties } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faAws, 
-  faPython, 
-  faDocker, 
-  faGitAlt 
-} from '@fortawesome/free-brands-svg-icons';
 import {
-  faCloud,
-  faDatabase,
-  faCode,
-  faRocket,
-  faTerminal,
-  faCogs,
-  faChartLine,
-  faUsers,
-  faMicrochip,
-  faBolt,
-  faDiagramProject,
-  faRobot,
-  faDharmachakra
-} from '@fortawesome/free-solid-svg-icons';
+  Cloud,
+  Database,
+  Code,
+  Rocket,
+  Terminal,
+  Settings,
+  TrendingUp,
+  Users,
+  Cpu,
+  Zap,
+  GitBranch,
+  Bot,
+  Workflow,
+  LucideIcon
+} from 'lucide-react';
+import BrandIcon from '@/components/UI/BrandIcon';
+import type { BrandIconName } from '@/components/UI/BrandIcon';
 
 // Calculate years of experience at build time (starting November 29, 2016)
 const START_DATE = new Date(2016, 10, 29);
 const YEARS_OF_EXPERIENCE = Math.floor((new Date().getTime() - START_DATE.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 
+interface TechIcon {
+  icon?: LucideIcon;
+  brandIcon?: BrandIconName;
+  color: string;
+  name: string;
+}
+
+interface Achievement {
+  icon: LucideIcon;
+  text: string;
+  color: string;
+}
+
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
-  
+
   const roles = [
     { title: "Tech Lead", category: "leadership" },
     { title: "AWS Cloud Architect", category: "cloud" },
@@ -40,55 +49,55 @@ const Hero = () => {
     { title: "Mentor", category: "leadership" }
   ];
 
-  const techIcons = [
-    { icon: faBolt, color: "#009688", name: "FastAPI" },
-    { icon: faDiagramProject, color: "#FF6F00", name: "LangGraph" },
-    { icon: faRobot, color: "#7C4DFF", name: "CrewAI" },
-    { icon: faDharmachakra, color: "#326CE5", name: "Kubernetes" }
+  const techIcons: TechIcon[] = [
+    { icon: Zap, color: "#009688", name: "FastAPI" },
+    { icon: Workflow, color: "#FF6F00", name: "LangGraph" },
+    { icon: Bot, color: "#7C4DFF", name: "CrewAI" },
+    { icon: GitBranch, color: "#326CE5", name: "Kubernetes" }
   ];
 
   // Floating background icons covering all skillsets
-  const floatingIcons = [
+  const floatingIcons: TechIcon[] = [
     // Row 1 - Agentic AI
-    { icon: faRobot, color: "#7C4DFF", name: "AI" },
-    { icon: faDiagramProject, color: "#FF6F00", name: "LangGraph" },
-    { icon: faRobot, color: "#9C27B0", name: "AI2" },
+    { icon: Bot, color: "#7C4DFF", name: "AI" },
+    { icon: Workflow, color: "#FF6F00", name: "LangGraph" },
+    { icon: Bot, color: "#9C27B0", name: "AI2" },
     // Row 2 - AWS & Cloud
-    { icon: faAws, color: "#FF9900", name: "AWS" },
-    { icon: faCloud, color: "#4FC3F7", name: "Cloud" },
-    { icon: faAws, color: "#FF9900", name: "AWS2" },
-    { icon: faCloud, color: "#00BCD4", name: "Cloud2" },
+    { brandIcon: "aws", color: "#FF9900", name: "AWS" },
+    { icon: Cloud, color: "#4FC3F7", name: "Cloud" },
+    { brandIcon: "aws", color: "#FF9900", name: "AWS2" },
+    { icon: Cloud, color: "#00BCD4", name: "Cloud2" },
     // Row 3 - Python & Development
-    { icon: faPython, color: "#3776AB", name: "Python" },
-    { icon: faCode, color: "#00BCD4", name: "Code" },
-    { icon: faTerminal, color: "#4CAF50", name: "Terminal" },
-    { icon: faPython, color: "#3776AB", name: "Python2" },
+    { brandIcon: "python", color: "#3776AB", name: "Python" },
+    { icon: Code, color: "#00BCD4", name: "Code" },
+    { icon: Terminal, color: "#4CAF50", name: "Terminal" },
+    { brandIcon: "python", color: "#3776AB", name: "Python2" },
     // Row 4 - DevOps
-    { icon: faDocker, color: "#2496ED", name: "Docker" },
-    { icon: faDharmachakra, color: "#326CE5", name: "Kubernetes" },
-    { icon: faGitAlt, color: "#F05032", name: "Git" },
-    { icon: faDocker, color: "#2496ED", name: "Docker2" },
+    { brandIcon: "docker", color: "#2496ED", name: "Docker" },
+    { icon: GitBranch, color: "#326CE5", name: "Kubernetes" },
+    { brandIcon: "git", color: "#F05032", name: "Git" },
+    { brandIcon: "docker", color: "#2496ED", name: "Docker2" },
     // Row 5 - Database & Data
-    { icon: faDatabase, color: "#00ACC1", name: "Database" },
-    { icon: faChartLine, color: "#9C27B0", name: "Analytics" },
-    { icon: faDatabase, color: "#4CAF50", name: "Database2" },
+    { icon: Database, color: "#00ACC1", name: "Database" },
+    { icon: TrendingUp, color: "#9C27B0", name: "Analytics" },
+    { icon: Database, color: "#4CAF50", name: "Database2" },
     // Row 6 - Leadership & API
-    { icon: faUsers, color: "#E91E63", name: "Leadership" },
-    { icon: faBolt, color: "#009688", name: "FastAPI" },
-    { icon: faCogs, color: "#607D8B", name: "DevOps" },
-    { icon: faRocket, color: "#FF5722", name: "Deploy" },
+    { icon: Users, color: "#E91E63", name: "Leadership" },
+    { icon: Zap, color: "#009688", name: "FastAPI" },
+    { icon: Settings, color: "#607D8B", name: "DevOps" },
+    { icon: Rocket, color: "#FF5722", name: "Deploy" },
     // Additional scattered icons
-    { icon: faCode, color: "#4CAF50", name: "Code2" },
-    { icon: faTerminal, color: "#FF9800", name: "Terminal2" },
-    { icon: faCogs, color: "#795548", name: "DevOps2" },
-    { icon: faRocket, color: "#E91E63", name: "Deploy2" }
+    { icon: Code, color: "#4CAF50", name: "Code2" },
+    { icon: Terminal, color: "#FF9800", name: "Terminal2" },
+    { icon: Settings, color: "#795548", name: "DevOps2" },
+    { icon: Rocket, color: "#E91E63", name: "Deploy2" }
   ];
 
-  const achievements = [
-    { icon: faRocket, text: "Zero-downtime canary deployments", color: "#FF6B6B" },
-    { icon: faChartLine, text: "50% AWS cost reduction ($18K to $9K)", color: "#4ECDC4" },
-    { icon: faUsers, text: "Led 5-engineer cross-functional teams", color: "#45B7D1" },
-    { icon: faCogs, text: "4B+ API requests processed (2019-2025)", color: "#96CEB4" }
+  const achievements: Achievement[] = [
+    { icon: Rocket, text: "Zero-downtime canary deployments", color: "#FF6B6B" },
+    { icon: TrendingUp, text: "50% AWS cost reduction ($18K to $9K)", color: "#4ECDC4" },
+    { icon: Users, text: "Led 5-engineer cross-functional teams", color: "#45B7D1" },
+    { icon: Settings, text: "4B+ API requests processed (2019-2025)", color: "#96CEB4" }
   ];
 
   useEffect(() => {
@@ -103,6 +112,17 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const renderIcon = (tech: TechIcon, size: number = 24) => {
+    if (tech.brandIcon) {
+      return <BrandIcon name={tech.brandIcon} size={size} />;
+    }
+    if (tech.icon) {
+      const IconComponent = tech.icon;
+      return <IconComponent size={size} />;
+    }
+    return null;
+  };
+
   return (
     <section id="home" className="hero-enhanced">
       <div className="floating-icons">
@@ -115,7 +135,7 @@ const Hero = () => {
               '--icon-color': tech.color
             } as CSSProperties}
           >
-            <FontAwesomeIcon icon={tech.icon} />
+            {renderIcon(tech)}
           </div>
         ))}
       </div>
@@ -125,12 +145,12 @@ const Hero = () => {
           <div className="hero-greeting">
             <span className="wave">👋</span> Hey there, I'm
           </div>
-          
+
           <h1 className="hero-name-large">
             <span className="first-name">Abishek</span>
             <span className="last-name">Moses Raj</span>
           </h1>
-          
+
           <div className="hero-role-container">
             <span className="role-prefix">I'm a </span>
             <span className={`hero-role ${isTyping ? 'typing' : 'deleting'} role-${roles[currentRole].category}`}>
@@ -141,15 +161,15 @@ const Hero = () => {
 
           <div className="hero-description-new">
             <p className="description-line">
-              <FontAwesomeIcon icon={faCode} className="inline-icon" />
+              <Code size={18} className="inline-icon" />
               Building <strong>scalable cloud architectures</strong> that power millions of API requests
             </p>
             <p className="description-line">
-              <FontAwesomeIcon icon={faUsers} className="inline-icon" />
+              <Users size={18} className="inline-icon" />
               Leading <strong>cross-functional teams</strong> to deliver game-changing solutions
             </p>
             <p className="description-line">
-              <FontAwesomeIcon icon={faMicrochip} className="inline-icon" />
+              <Cpu size={18} className="inline-icon" />
               Continuously adopting <strong>modern tools and frameworks</strong> to maximize development velocity
             </p>
           </div>
@@ -159,7 +179,7 @@ const Hero = () => {
               className="btn-primary-new"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <FontAwesomeIcon icon={faRocket} />
+              <Rocket size={18} />
               Explore My Work
             </button>
             <a
@@ -169,7 +189,7 @@ const Hero = () => {
               className="btn-secondary-new"
             >
               <span>Let's Build Something</span>
-              <FontAwesomeIcon icon={faCode} />
+              <Code size={18} />
             </a>
           </div>
         </div>
@@ -187,31 +207,34 @@ const Hero = () => {
           </div>
 
           <div className="achievement-badges">
-            {achievements.map((achievement, index) => (
-              <div 
-                key={index}
-                className="achievement-badge"
-                style={{
-                  animationDelay: `${index * 0.2}s`,
-                  '--badge-color': achievement.color
-                } as CSSProperties}
-              >
-                <FontAwesomeIcon icon={achievement.icon} />
-                <span>{achievement.text}</span>
-              </div>
-            ))}
+            {achievements.map((achievement, index) => {
+              const IconComponent = achievement.icon;
+              return (
+                <div
+                  key={index}
+                  className="achievement-badge"
+                  style={{
+                    animationDelay: `${index * 0.2}s`,
+                    '--badge-color': achievement.color
+                  } as CSSProperties}
+                >
+                  <IconComponent size={16} />
+                  <span>{achievement.text}</span>
+                </div>
+              );
+            })}
           </div>
 
           <div className="tech-preview">
             <div className="tech-preview-title">Currently Working With</div>
             <div className="tech-icons-grid">
-              {techIcons.map((tech, index) => (
-                <div 
+              {techIcons.map((tech) => (
+                <div
                   key={tech.name}
                   className="tech-icon-item"
                   style={{ '--tech-color': tech.color } as CSSProperties}
                 >
-                  <FontAwesomeIcon icon={tech.icon} />
+                  {renderIcon(tech, 20)}
                   <span>{tech.name}</span>
                 </div>
               ))}

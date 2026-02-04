@@ -243,20 +243,26 @@
 }
 
 /* Side nav override (e.g., "Continue to Articles" button) */
-.modal-component-nav-override {
+.modal-component-nav--override {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
+    background: none;
+    border: none;
+    width: auto;
+    height: auto;
+    border-radius: 0;
 }
 
-.modal-component-nav-override--next {
-    right: 1rem;
+.modal-component-nav--override:hover {
+    background: none;
+    transform: translateY(-50%);
 }
 
 /* Hide on mobile since footer handles it */
 @media (max-width: 768px) {
-    .modal-component-nav-override--project {
+    .modal-component-nav--override {
         display: none;
     }
 }

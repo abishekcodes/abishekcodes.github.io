@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, MouseEvent, TouchEvent, ReactNode } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import '@/styles/UI/modal-component.css';
 
 export interface ModalConfig {
@@ -192,7 +191,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
         </>
       );
     }
-    return <FontAwesomeIcon icon={direction === 'prev' ? faChevronLeft : faChevronRight} />;
+    return direction === 'prev' ? <ChevronLeft size={24} /> : <ChevronRight size={24} />;
   };
 
   return (
@@ -223,7 +222,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
               onClick={onClose}
               aria-label="Close modal"
             >
-              <FontAwesomeIcon icon={faTimes} />
+              <X size={20} />
             </button>
           </div>
         )}
@@ -255,7 +254,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
                 disabled={!onPrev}
                 aria-label="Previous"
               >
-                {decorativeNav ? '‹' : <FontAwesomeIcon icon={faChevronLeft} />}
+                {decorativeNav ? '‹' : <ChevronLeft size={20} />}
               </button>
 
               <div className="modal-component-footer-center">
@@ -273,7 +272,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
                   disabled={!onNext}
                   aria-label="Next"
                 >
-                  {decorativeNav ? '›' : <FontAwesomeIcon icon={faChevronRight} />}
+                  {decorativeNav ? '›' : <ChevronRight size={20} />}
                 </button>
               )}
 
@@ -283,15 +282,21 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
         </div>
       </div>
 
-      {/* Side navigation - Next */}
-      {showSideNav && onNext && (
-        <button
-          className={`modal-component-nav modal-component-nav--next modal-component-nav--${variant} ${decorativeNav ? 'modal-component-nav--decorative' : ''}`}
-          onClick={onNext}
-          aria-label="Next"
-        >
-          {renderNavIcon('next')}
-        </button>
+      {/* Side navigation - Next (or nextButtonOverride on last item) */}
+      {showSideNav && (onNext || nextButtonOverride) && (
+        onNext ? (
+          <button
+            className={`modal-component-nav modal-component-nav--next modal-component-nav--${variant} ${decorativeNav ? 'modal-component-nav--decorative' : ''}`}
+            onClick={onNext}
+            aria-label="Next"
+          >
+            {renderNavIcon('next')}
+          </button>
+        ) : (
+          <div className="modal-component-nav modal-component-nav--next modal-component-nav--override">
+            {nextButtonOverride}
+          </div>
+        )
       )}
 
     </div>

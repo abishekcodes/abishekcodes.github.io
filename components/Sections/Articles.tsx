@@ -1,17 +1,15 @@
 'use client';
 
 import React, { useState, useEffect, useRef, CSSProperties } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faExternalLinkAlt, faCloud, faDatabase, faMemory, faArrowRight, faClock, faFire } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { Cloud, Database, Cpu, ArrowRight, Clock, Flame, ExternalLink, LucideIcon } from 'lucide-react';
+import BrandIcon from '@/components/UI/BrandIcon';
 
 interface ArticleData {
   id: number;
   title: string;
   hook: string;
   description: string;
-  icon: IconDefinition;
+  icon: LucideIcon;
   color: string;
   gradient: string;
   url: string;
@@ -26,7 +24,7 @@ const articlesData: ArticleData[] = [
     title: 'AWS API Infrastructure That Prevents 3AM Wake-Up Calls',
     hook: '"Your API is down" - three words no engineer wants to hear at 3AM.',
     description: 'Building resilient AWS API infrastructure with proper monitoring, auto-scaling, and failover strategies that let you sleep peacefully.',
-    icon: faCloud,
+    icon: Cloud,
     color: '#FF9900',
     gradient: 'linear-gradient(135deg, #FF9900 0%, #FF6B00 100%)',
     url: 'https://www.linkedin.com/pulse/aws-api-infrastructure-prevents-3am-wake-up-calls-part-moses-raj-p3xxc',
@@ -38,7 +36,7 @@ const articlesData: ArticleData[] = [
     title: 'What Memcache and a Concert Have in Common',
     hook: 'Imagine 10,000 fans trying to buy tickets at once...',
     description: 'Understanding caching concepts through real-world analogies - because the best explanations are the ones you remember.',
-    icon: faMemory,
+    icon: Cpu,
     color: '#10B981',
     gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
     url: 'https://www.linkedin.com/pulse/what-memcache-vijay-antony-concert-have-common-abishek-moses-raj-rdxnc',
@@ -50,7 +48,7 @@ const articlesData: ArticleData[] = [
     title: 'Is Your Data Easy to Find?',
     hook: 'Finding data without indexes is like searching for a book in an unsorted library.',
     description: 'A storytelling approach to database optimization - making complex indexing concepts intuitive and memorable.',
-    icon: faDatabase,
+    icon: Database,
     color: '#3B82F6',
     gradient: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
     url: 'https://www.linkedin.com/pulse/great-address-quest-understanding-mongodb-indexes-story-moses-raj-fnlcc',
@@ -67,6 +65,7 @@ interface ArticleProps {
 const FeaturedArticle: React.FC<ArticleProps> = ({ article }) => {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLAnchorElement>(null);
+  const IconComponent = article.icon;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -96,12 +95,12 @@ const FeaturedArticle: React.FC<ArticleProps> = ({ article }) => {
       style={{ '--article-gradient': article.gradient, '--article-color': article.color } as CSSProperties}
     >
       <div className="featured-badge">
-        <FontAwesomeIcon icon={faFire} />
+        <Flame size={14} />
         <span>Featured</span>
       </div>
 
       <div className="featured-icon-side">
-        <FontAwesomeIcon icon={article.icon} className="featured-icon" />
+        <IconComponent size={32} className="featured-icon" />
       </div>
 
       <div className="featured-content">
@@ -117,12 +116,12 @@ const FeaturedArticle: React.FC<ArticleProps> = ({ article }) => {
           </div>
           <div className="featured-meta">
             <span className="read-time">
-              <FontAwesomeIcon icon={faClock} />
+              <Clock size={14} />
               {article.readTime}
             </span>
             <span className="read-more">
               Read Article
-              <FontAwesomeIcon icon={faArrowRight} className="arrow-icon" />
+              <ArrowRight size={14} className="arrow-icon" />
             </span>
           </div>
         </div>
@@ -139,6 +138,7 @@ interface ArticleCardProps {
 const ArticleCard: React.FC<ArticleCardProps> = ({ article, index }) => {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLAnchorElement>(null);
+  const IconComponent = article.icon;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -168,7 +168,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, index }) => {
       style={{ '--article-gradient': article.gradient, '--article-color': article.color } as CSSProperties}
     >
       <div className="article-icon-wrapper">
-        <FontAwesomeIcon icon={article.icon} className="article-main-icon" />
+        <IconComponent size={28} className="article-main-icon" />
       </div>
 
       <div className="article-content">
@@ -184,7 +184,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, index }) => {
           </div>
           <div className="article-meta">
             <span className="read-time">
-              <FontAwesomeIcon icon={faClock} />
+              <Clock size={14} />
               {article.readTime}
             </span>
           </div>
@@ -193,7 +193,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, index }) => {
 
       <div className="article-hover-bar">
         <span>Read Article</span>
-        <FontAwesomeIcon icon={faArrowRight} className="arrow-icon" />
+        <ArrowRight size={14} className="arrow-icon" />
       </div>
     </a>
   );
@@ -231,9 +231,9 @@ const Articles = () => {
             rel="noopener noreferrer"
             className="view-all-link"
           >
-            <FontAwesomeIcon icon={faLinkedin} className="linkedin-icon" />
+            <BrandIcon name="linkedin" size={20} className="linkedin-icon" />
             <span>View All on LinkedIn</span>
-            <FontAwesomeIcon icon={faExternalLinkAlt} className="external-icon" />
+            <ExternalLink size={14} className="external-icon" />
           </a>
         </div>
       </div>

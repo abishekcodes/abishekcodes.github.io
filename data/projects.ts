@@ -1,15 +1,10 @@
-import {
-  faCreditCard,
-  faChartLine,
-  faCogs,
-  faCubes
-} from '@fortawesome/free-solid-svg-icons';
+import { CreditCard, TrendingUp, Settings, Boxes } from 'lucide-react';
 import { Project } from '@/types';
 
 const projectsData: Project[] = [
   {
     id: 'api-billing-system',
-    icon: faCreditCard,
+    icon: CreditCard,
     title: 'API Billing System',
     description: 'Usage-based billing system for sports data APIs with Stripe and Razorpay payment gateway integrations.',
     techStack: ['Python', 'Flask', 'DynamoDB', 'EventBridge', 'Lambda'],
@@ -34,7 +29,7 @@ const projectsData: Project[] = [
   },
   {
     id: 'realtime-sports-editor',
-    icon: faChartLine,
+    icon: TrendingUp,
     title: 'Real-time Sports Editor',
     description: 'Real-time data editing platform for live sports coverage with sub-second latency.',
     techStack: ['Python', 'Kafka', 'RabbitMQ', 'Cassandra', 'DynamoDB'],
@@ -59,7 +54,7 @@ const projectsData: Project[] = [
   },
   {
     id: 'cicd-pipeline',
-    icon: faCogs,
+    icon: Settings,
     title: 'CI/CD Pipeline',
     description: 'CI/CD pipeline for deploying frontend, backend, and Lambda functions with canary deployments.',
     techStack: ['AWS ECR', 'AWS ECS', 'Lambda', 'Docker', 'CDK', 'CodePipeline', 'CodeDeploy'],
@@ -83,7 +78,7 @@ const projectsData: Project[] = [
   },
   {
     id: 'internal-framework',
-    icon: faCubes,
+    icon: Boxes,
     title: 'Internal Framework Enhancements',
     description: 'Enhanced internal application framework with search integration and serverless orchestration.',
     techStack: ['AWS CDK', 'Elasticsearch', 'Python', 'Fargate', 'CodeArtifact'],
