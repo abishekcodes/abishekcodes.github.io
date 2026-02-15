@@ -159,16 +159,31 @@
 }
 
 .highlight-card:hover {
-    background: rgba(59, 130, 246, 0.06);
-    border-color: rgba(59, 130, 246, 0.2);
     transform: translateX(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Curious Mind — amber/gold */
+.highlight-card:nth-child(1):hover {
+    background: rgba(245, 158, 11, 0.06);
+    border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* Craft-Focused — blue/indigo */
+.highlight-card:nth-child(2):hover {
+    background: rgba(59, 130, 246, 0.06);
+    border-color: rgba(59, 130, 246, 0.25);
+}
+
+/* Impact-Driven — green/emerald */
+.highlight-card:nth-child(3):hover {
+    background: rgba(34, 197, 94, 0.06);
+    border-color: rgba(34, 197, 94, 0.25);
 }
 
 .highlight-icon {
     width: 52px;
     height: 52px;
-    background: linear-gradient(135deg, var(--primary-color), #8B5CF6);
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -176,8 +191,25 @@
     color: white;
     font-size: 1.25rem;
     flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     transition: transform 0.3s ease;
+}
+
+/* Curious Mind — amber/gold */
+.highlight-card:nth-child(1) .highlight-icon {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+}
+
+/* Craft-Focused — blue/indigo */
+.highlight-card:nth-child(2) .highlight-icon {
+    background: linear-gradient(135deg, #3B82F6, #6366F1);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+}
+
+/* Impact-Driven — green/emerald */
+.highlight-card:nth-child(3) .highlight-icon {
+    background: linear-gradient(135deg, #22C55E, #059669);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.35);
 }
 
 .highlight-card:hover .highlight-icon {
@@ -208,18 +240,16 @@
 
 @media (max-width: 968px) {
     .about-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .about-highlights {
-        flex-direction: row;
-        flex-wrap: wrap;
+        gap: 1.75rem;
     }
 
     .highlight-card {
-        flex: 1 1 calc(50% - 0.625rem);
-        min-width: 250px;
+        padding: 1.25rem;
+    }
+
+    .highlight-icon {
+        width: 44px;
+        height: 44px;
     }
 }
 
@@ -248,9 +278,13 @@
         line-height: 1.2;
     }
 
-    /* Hide highlight cards on mobile */
+    /* Hide highlight cards on mobile — collapse to single column */
     .about-highlights {
         display: none;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
     }
 
     .about-story {

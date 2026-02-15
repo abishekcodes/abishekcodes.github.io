@@ -184,6 +184,35 @@
     transform: translateX(22px);
   }
 
+  /* nav-actions: wraps mode toggle + hamburger */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Hamburger — hidden on desktop */
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.35rem;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+    line-height: 0;
+  }
+
+  .nav-hamburger:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Mobile dropdown menu — hidden on desktop */
+  .mobile-menu-dropdown {
+    display: none;
+  }
+
   /* Navigation Responsive */
   @media (max-width: 768px) {
     .nav {
@@ -191,8 +220,7 @@
     }
 
     .nav-links {
-      display: none; /* You'll need to implement mobile menu */
-      gap: 1rem;
+      display: none;
     }
 
     .nav-link {
@@ -227,6 +255,51 @@
 
     .toggle-slider.personal {
       transform: translateX(18px);
+    }
+
+    .nav-hamburger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-menu-dropdown {
+      display: flex;
+      flex-direction: column;
+      padding: 0.25rem 1rem 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      animation: menuSlideDown 0.2s ease forwards;
+    }
+
+    @keyframes menuSlideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .mobile-menu-item {
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.8rem 0.25rem;
+      text-align: left;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .mobile-menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-menu-item:hover,
+    .mobile-menu-item.active {
+      color: var(--primary-color);
+    }
+
+    .mobile-menu-item.active {
+      font-weight: 600;
     }
   }
   
