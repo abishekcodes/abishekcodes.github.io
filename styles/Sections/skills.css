@@ -186,12 +186,10 @@
     background: var(--color-blue);
 }
 
-/* 2. AWS Cloud Architecture - Cloud (Green) */
 .skill-card:nth-child(2) .skill-icon {
-    background: var(--color-green);
+    background: #FF9900;
 }
 
-/* 3. Python Development - Development (Blue) */
 .skill-card:nth-child(3) .skill-icon {
     background: var(--color-blue);
 }

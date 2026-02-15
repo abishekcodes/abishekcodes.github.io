@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import type { Skill } from '@/types';
+import BrandIcon from '@/components/UI/BrandIcon';
 
 interface SkillCardProps {
     skill: Skill;
@@ -19,7 +20,12 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
 
     return (
       <div className={`skill-card ${isVisible ? 'skill-card-visible' : ''}`}>
-        <div className="skill-icon"><IconComponent size={32} /></div>
+        <div className="skill-icon">
+          {skill.brandIcon
+            ? <BrandIcon name={skill.brandIcon} size={32} color="white" />
+            : <IconComponent size={32} />
+          }
+        </div>
         <h3 className="skill-title">{skill.title}</h3>
         <p className="skill-description">{skill.description}</p>
       </div>

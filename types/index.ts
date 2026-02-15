@@ -1,9 +1,11 @@
 import { LucideIcon } from 'lucide-react';
+import { BrandIconName } from '@/components/UI/BrandIcon';
 
 // Skills
 export interface Skill {
   id: number;
   icon: LucideIcon;
+  brandIcon?: BrandIconName;
   title: string;
   description: string;
 }

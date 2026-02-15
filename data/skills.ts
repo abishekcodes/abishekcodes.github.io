@@ -11,12 +11,14 @@ const skillsData: Skill[] = [
   {
     id: 2,
     icon: Cloud,
+    brandIcon: 'aws',
     title: 'AWS Cloud Architecture',
     description: 'Extensive experience designing and implementing scalable infrastructures using EC2, S3, Lambda, ECS, and other AWS services. Achieved 99.995% uptime and 50% cost reduction.'
   },
   {
     id: 3,
     icon: Code,
+    brandIcon: 'python',
     title: 'Python Development',
     description: 'Expert in building high-performance applications, REST APIs, GraphQL APIs and data processing pipelines using Python and frameworks like Flask, Aiohttp and Ariadne. At average load, these systems handle 50,000 requests every hour.'
   },
