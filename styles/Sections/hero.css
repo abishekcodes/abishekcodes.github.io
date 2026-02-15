@@ -233,12 +233,19 @@
   }
   
   .description-line {
+    display: flex;
+    align-items: flex-start;
     margin-bottom: 1rem;
     font-size: 0.95rem;
     color: var(--text-secondary);
     line-height: 1.5;
   }
-  
+
+  .description-line .description-text {
+    flex: 1;
+    min-width: 0;
+  }
+
   .inline-icon {
     margin-right: 0.8rem;
     margin-top: 0.2rem;

@@ -162,15 +162,15 @@ const Hero = () => {
           <div className="hero-description-new">
             <p className="description-line">
               <Code size={18} className="inline-icon" />
-              Building <strong>scalable cloud architectures</strong> that power millions of API requests
+              <span className="description-text">Building <strong>scalable cloud architectures</strong> that power millions of API requests</span>
             </p>
             <p className="description-line">
               <Users size={18} className="inline-icon" />
-              Leading <strong>cross-functional teams</strong> to deliver game-changing solutions
+              <span className="description-text">Leading <strong>cross-functional teams</strong> to deliver game-changing solutions</span>
             </p>
             <p className="description-line">
               <Cpu size={18} className="inline-icon" />
-              Continuously adopting <strong>modern tools and frameworks</strong> to maximize development velocity
+              <span className="description-text">Continuously adopting <strong>modern tools and frameworks</strong> to maximize development velocity</span>
             </p>
           </div>
 
