@@ -616,9 +616,17 @@
     transform: rotate(90deg);
 }
 
-/* CTA slide - no sticky header, reset padding */
+/* CTA slide - reset padding */
 .poem-modal-cta-slide {
     padding-top: 0 !important;
+}
+
+/* Override sticky behaviour for CTA slide header */
+.poem-modal-cta-slide .poem-modal-sticky-header {
+    position: static;
+    margin: 0;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 /* Hide old floating close button when sticky header is present */
@@ -831,14 +839,14 @@
 .poem-modal-content.poem-modal-cta-slide {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
 .poem-modal-cta-content {
     position: relative;
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2rem 2rem;
     flex: 1;
     display: flex;
     flex-direction: column;

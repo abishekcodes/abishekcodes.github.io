@@ -7,8 +7,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node scripts/fetch-poetry.mjs",
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/fetch-poetry.mjs && next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",

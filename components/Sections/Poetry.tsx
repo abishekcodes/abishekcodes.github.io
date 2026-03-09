@@ -65,42 +65,53 @@ const Poetry: React.FC = () => {
     }
   }, [poemsMap]);
 
+  const parseRSSItem = (item: Element): Poem => {
+    const title = item.querySelector('title')?.textContent?.trim() || '';
+    const link = item.querySelector('link')?.nextSibling?.textContent?.trim()
+      || item.querySelector('link')?.textContent?.trim() || '';
+    const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
+    const content = item.getElementsByTagName('content:encoded')[0]?.textContent
+      || item.querySelector('description')?.textContent || '';
+    const thumbnail = item.getElementsByTagName('media:thumbnail')[0]?.getAttribute('url')
+      || item.getElementsByTagName('media:content')[0]?.getAttribute('url') || null;
+
+    const cleanLink = link.split('?')[0];
+    const slug = generateSlug(cleanLink);
+    return {
+      id: slug,
+      title,
+      preview: extractPreview(content),
+      fullContent: extractFullContent(content),
+      pubDate: formatDate(pubDate),
+      link: cleanLink,
+      thumbnail: thumbnail || extractImage(content),
+      imageCaption: extractFigcaption(content)
+    };
+  };
+
+  const buildSlugMap = (poemsList: Poem[]): Map<string, number> => {
+    const slugMap = new Map<string, number>();
+    poemsList.forEach((poem, index) => slugMap.set(generateSlug(poem.link), index));
+    return slugMap;
+  };
+
   useEffect(() => {
     const fetchPoetry = async () => {
       try {
-        const feedUrl = 'https://medium.com/feed/@RiversOfThought';
-        const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+        const response = await fetch('/poetry.xml');
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const items = Array.from(xml.querySelectorAll('item'));
 
-        const response = await fetch(proxyUrl);
-        const data = await response.json();
-
-        if (data.status === 'ok' && data.items) {
-          const formattedPoems = data.items.map((item: RSSItem) => {
-            const content = item.content || item.description || '';
-            const cleanLink = item.link.split('?')[0];
-            const slug = generateSlug(cleanLink);
-            return {
-              id: slug,
-              title: item.title,
-              preview: extractPreview(content),
-              fullContent: extractFullContent(content),
-              pubDate: formatDate(item.pubDate),
-              link: cleanLink,
-              thumbnail: item.thumbnail || extractImage(content),
-              imageCaption: extractFigcaption(content)
-            };
-          });
-          setPoems(formattedPoems);
-
-          // Build slug -> index map for O(1) lookups
-          const slugMap = new Map<string, number>();
-          formattedPoems.forEach((poem: Poem, index: number) => {
-            slugMap.set(generateSlug(poem.link), index);
-          });
-          setPoemsMap(slugMap);
-        } else {
+        if (items.length === 0) {
           setError('Failed to load poems');
+          return;
         }
+
+        const formattedPoems = items.map(parseRSSItem);
+        setPoems(formattedPoems);
+        setPoemsMap(buildSlugMap(formattedPoems));
       } catch (err) {
         console.error('Error fetching poetry:', err);
         setError('Unable to load poems at this time');
@@ -305,7 +316,7 @@ const Poetry: React.FC = () => {
             if (newIndex < poems.length) {
               updatePoemUrl(newIndex);
             } else {
-              updatePoemUrl(null); // CTA slide has no poem URL
+              updatePoemUrl(null);
             }
           } : null}
           currentIndex={selectedPoemIndex}
@@ -422,7 +433,14 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
   const footerCenterContent = (
     <>
       {isCtaSlide ? (
-        <span className="poem-modal-counter">{totalCount + 1} / {totalCount + 1}</span>
+        <a
+          href="https://medium.com/@RiversOfThought"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="poem-modal-footer-cta-btn"
+        >
+          Read more on Medium
+        </a>
       ) : (
         <>
           {/* Mobile: counter links to Medium, Desktop: plain counter */}
@@ -460,18 +478,6 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
     </button>
   );
 
-  // On CTA slide, replace next button with "Read more on Medium" link
-  const nextButtonOverride = isCtaSlide ? (
-    <a
-      href="https://medium.com/@RiversOfThought"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="poem-modal-footer-cta-btn"
-    >
-      Read more on Medium
-    </a>
-  ) : undefined;
-
   return (
     <ModalComponent
       isOpen={true}
@@ -491,7 +497,7 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
       }}
       footerCenterContent={footerCenterContent}
       footerExtraContent={footerExtraContent}
-      nextButtonOverride={nextButtonOverride}
+
       onSwipeDirectionChange={handleSwipeDirectionChange}
       contentClassName={`${isCtaSlide ? 'poem-modal-cta-slide' : ''} ${isAnimating ? `swipe-${swipeDirection}` : ''}`}
     >
@@ -509,12 +515,12 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
         </div>
       )}
 
-      {/* Sticky header with title and close button - only for poem slides */}
-      {!isCtaSlide && (
-        <div
-          className="poem-modal-sticky-header"
-          style={displayPoem?.thumbnail ? { '--header-bg-image': `url(${displayPoem.thumbnail})` } as React.CSSProperties : undefined}
-        >
+      {/* Sticky header */}
+      <div
+        className="poem-modal-sticky-header"
+        style={!isCtaSlide && displayPoem?.thumbnail ? { '--header-bg-image': `url(${displayPoem.thumbnail})` } as React.CSSProperties : undefined}
+      >
+        {!isCtaSlide && (
           <div className="poem-modal-header-date" title={displayPoem?.pubDate}>
             <svg className="poem-modal-calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -526,27 +532,20 @@ const PoemModal: React.FC<PoemModalProps> = ({ poem, onClose, onPrev, onNext, cu
               {displayPoem?.pubDate ? new Date(displayPoem.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : ''}
             </span>
           </div>
-          <h3 className="poem-modal-sticky-title">{displayPoem?.title}</h3>
-          <button
-            className="poem-modal-sticky-close"
-            onClick={onClose}
-            aria-label="Close"
-          >
-            &times;
-          </button>
-        </div>
-      )}
+        )}
+        {!isCtaSlide && <h3 className="poem-modal-sticky-title">{displayPoem?.title}</h3>}
+        <button
+          className="poem-modal-sticky-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </div>
 
       {isCtaSlide ? (
         /* CTA Slide */
         <div className="poem-modal-cta-content">
-          <button
-            className="poem-modal-cta-close"
-            onClick={onClose}
-            aria-label="Close"
-          >
-            &times;
-          </button>
           <h2 className="poem-modal-cta-title">The ink never dries</h2>
           <p className="poem-modal-cta-subtitle">
             More verses of love, life, and loss await — moments of falling and rising again, captured in words.
