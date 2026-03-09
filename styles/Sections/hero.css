@@ -230,6 +230,17 @@
   .hero-description-new {
     margin-bottom: 2rem;
     text-align: left;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .hero-description-new.desc-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-description-new.desc-hidden {
+    opacity: 0;
+    transform: translateY(4px);
   }
   
   .description-line {

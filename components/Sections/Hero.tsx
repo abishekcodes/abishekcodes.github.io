@@ -37,9 +37,15 @@ interface Achievement {
   color: string;
 }
 
+interface DescriptionLine {
+  icon: LucideIcon;
+  text: React.ReactNode;
+}
+
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [descVisible, setDescVisible] = useState(true);
 
   const roles = [
     { title: "Tech Lead", category: "leadership" },
@@ -47,6 +53,39 @@ const Hero = () => {
     { title: "Python Developer", category: "development" },
     { title: "DevOps Engineer", category: "development" },
     { title: "Mentor", category: "leadership" }
+  ];
+
+  const roleDescriptions: DescriptionLine[][] = [
+    // Tech Lead
+    [
+      { icon: Users,     text: <>Led a <strong>5-engineer team</strong> delivering systems that processed 4B+ API requests</> },
+      { icon: Rocket,    text: <>Shipped <strong>zero-downtime deployments</strong> and billing systems handling real money at scale</> },
+      { icon: TrendingUp,text: <>Drove engineering culture through <strong>code reviews, mentoring</strong> and cross-functional ownership</> },
+    ],
+    // AWS Cloud Architect
+    [
+      { icon: Cloud,     text: <>Designed scalable infra on <strong>EC2, S3, Lambda & ECS</strong> for high-traffic production systems</> },
+      { icon: TrendingUp,text: <>Cut AWS spend by <strong>50% — from $18K to $9K/month</strong> through architectural optimisation</> },
+      { icon: Settings,  text: <>Implemented <strong>canary deployments</strong> and infrastructure automation across environments</> },
+    ],
+    // Python Developer
+    [
+      { icon: Code,      text: <>Built <strong>REST & GraphQL APIs</strong> with Flask, Aiohttp & Ariadne handling 50K req/hour</> },
+      { icon: Database,  text: <>Engineered pipelines on <strong>Cassandra, DynamoDB & Redshift</strong> storing 13 years of cricket data</> },
+      { icon: Cpu,       text: <>Delivered <strong>high-performance Python services</strong> powering CricketAPI's 4B+ lifetime requests</> },
+    ],
+    // DevOps Engineer
+    [
+      { icon: GitBranch, text: <>Automated CI/CD with <strong>zero-downtime canary deployments</strong> on AWS ECS</> },
+      { icon: Settings,  text: <>Managed production infra across <strong>EC2, ECS, Lambda & S3</strong> for multi-tenant services</> },
+      { icon: Rocket,    text: <>Kept production APIs <strong>running reliably</strong> while processing billions of requests since 2019</> },
+    ],
+    // Mentor
+    [
+      { icon: Users,     text: <>Grew a <strong>5-engineer team</strong> from juniors to independent contributors at Roanuz</> },
+      { icon: Code,      text: <>Established <strong>code review culture</strong> and engineering best practices org-wide</> },
+      { icon: TrendingUp,text: <>Guided engineers from <strong>concept to production</strong> on systems used by millions</> },
+    ],
   ];
 
   const techIcons: TechIcon[] = [
@@ -103,11 +142,13 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTyping(false);
+      setDescVisible(false);
       setTimeout(() => {
         setCurrentRole((prev) => (prev + 1) % roles.length);
         setIsTyping(true);
+        setDescVisible(true);
       }, 300);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -159,19 +200,16 @@ const Hero = () => {
             <span className={`cursor cursor-${roles[currentRole].category}`}>|</span>
           </div>
 
-          <div className="hero-description-new">
-            <p className="description-line">
-              <Code size={18} className="inline-icon" />
-              <span className="description-text">Building <strong>scalable cloud architectures</strong> that power millions of API requests</span>
-            </p>
-            <p className="description-line">
-              <Users size={18} className="inline-icon" />
-              <span className="description-text">Leading <strong>cross-functional teams</strong> to deliver game-changing solutions</span>
-            </p>
-            <p className="description-line">
-              <Cpu size={18} className="inline-icon" />
-              <span className="description-text">Continuously adopting <strong>modern tools and frameworks</strong> to maximize development velocity</span>
-            </p>
+          <div className={`hero-description-new ${descVisible ? 'desc-visible' : 'desc-hidden'}`}>
+            {roleDescriptions[currentRole].map((line, i) => {
+              const Icon = line.icon;
+              return (
+                <p key={i} className="description-line">
+                  <Icon size={18} className="inline-icon" />
+                  <span className="description-text">{line.text}</span>
+                </p>
+              );
+            })}
           </div>
 
           <div className="cta-buttons-new">
